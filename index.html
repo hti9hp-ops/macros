@@ -3,173 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مايكرو فصيل شرطة mesa me</title>
+    <title>مايكرو فصيل شرطة mea me</title>
     <style>
         body {
             font-family: Tahoma, sans-serif;
-            background-color: #0e0e0e;
+            background-color: #0b0b0b;
             color: #e0e0e0;
             text-align: center;
             padding: 20px;
             margin: 0;
         }
         h1 {
-            color: #f39c12;
-            margin-bottom: 5px;
+            color: #d4af37;
+            font-size: 26px;
+            margin-bottom: 2px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
-        .gold-title {
+        .rank-subtitle {
             color: #f1c40f;
-            font-size: 16px;
-            margin-top: 5px;
+            font-size: 15px;
             font-weight: bold;
+            margin-top: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 8px rgba(241, 196, 15, 0.3);
         }
-        .subtitle {
-            color: #bdc3c7;
+        p.subtitle {
+            color: #888;
             font-size: 14px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
-        .search-box {
-            background-color: #1a1a1a;
-            border: 2px solid #f39c12;
-            border-radius: 10px;
+        .input-container {
+            background: #141414;
             padding: 15px;
-            max-width: 500px;
-            margin: 0 auto 30px auto;
-        }
-        .search-box input {
-            width: 90%;
-            padding: 10px;
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 16px;
-        }
-        .section-title {
-            color: #f39c12;
-            font-size: 20px;
-            margin: 20px 0;
-            border-bottom: 1px solid #333;
-            padding-bottom: 5px;
+            border-radius: 10px;
+            border: 1px solid #d4af37;
             display: inline-block;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
         }
-        .macro-card {
-            background-color: #161616;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 12px 15px;
-            margin: 10px auto;
-            max-width: 600px;
+        input[type="text"]#playerName {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #1f1f1f;
+            color: #fff;
+            width: 280px;
+            text-align: center;
+            outline: none;
+        }
+        input[type="text"]#playerName:focus {
+            border-color: #d4af37;
+        }
+        h2.category-title {
+            color: #d4af37;
+            font-size: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
+            margin-top: 35px;
+            text-align: right;
+            margin-right: 5%;
+            margin-left: 5%;
+        }
+        .macro-row {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
         }
-        .macro-text {
-            color: #2ecc71;
+        .macro-box {
+            width: 65%;
+            max-width: 550px;
+            background: #161616;
+            color: #00ffcc;
+            padding: 10px;
             font-family: monospace;
-            font-size: 14px;
-            text-align: left;
+            border-radius: 5px;
+            border: 1px solid #333;
+            text-align: right;
             direction: ltr;
         }
-        .copy-btn {
-            background-color: #f1c40f;
+        .macro-row input.macro-box {
+            direction: rtl; /* لجعل النص العربي يظهر بشكل صحيح */
+        }
+        button.copy-btn {
+            padding: 10px 18px;
+            font-size: 14px;
+            background: #d4af37;
             color: #000;
+            font-weight: bold;
             border: none;
-            padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
+            transition: 0.2s;
         }
-        .copy-btn:hover {
-            background-color: #f39c12;
+        button.copy-btn:hover {
+            background: #b2912a;
+        }
+        .footer-founder {
+            margin-top: 50px;
+            padding: 20px;
+            color: #f1c40f;
+            font-size: 16px;
+            font-weight: bold;
+            border-top: 1px solid #222;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <h1>مايكرو فصيل شرطة mesa me</h1>
-    <div class="gold-title">قائد الشرطة اللواء الفيدرالي Ehab Engineer</div>
-    <div class="subtitle">نظام المايكرو الموحد للعمليات الأمنية</div>
-
-    <div class="search-box">
-        <label for="usernameInput" style="display: block; margin-bottom: 10px; font-weight: bold;">اكتب اسمك داخل اللعبة (الضابط):</label>
-        <input type="text" id="usernameInput" placeholder="اكتب اسمك هنا...">
+    <h1>مايكرو فصيل شرطة mea me</h1>
+    <div class="rank-subtitle">قائد الشرطة اللواء الفيدرالي Ehab Engineer</div>
+    <p class="subtitle">نظام الماكرو الموحد للعمليات الأمنية</p>
+    
+    <div class="input-container">
+        <label for="playerName" style="display: block; margin-bottom: 8px; color: #d4af37; font-weight: bold;">اكتب اسمك داخل اللعبة (الضابط):</label>
+        <input type="text" id="playerName" placeholder="اكتب اسمك هنا..." oninput="updateMacros()">
     </div>
 
-    <div class="section-title">التحذيرات الأمنية</div>
+    <!-- التحذيرات -->
+    <h2 class="category-title">التحذيرات الأمنية</h2>
+    
+    <div class="macro-row"><input type="text" id="w1" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w1')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w2" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w2')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w3" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w3')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w4" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w4')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w5" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w5')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w6" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w6')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w7" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w7')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w8" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w8')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w9" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w9')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="w10" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('w10')">نسخ</button></div>
 
-    <div class="macro-card">
-        <span class="macro-text">do/ التحذير الأول : شرطة المدينة هنا! تنويه أخير: ارمي سلاحك فوراً واستسلم!</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
-    </div>
+    <!-- المخالفات الجنائية -->
+    <h2 class="category-title">المخالفات الجنائية</h2>
+    <div class="macro-row"><input type="text" id="c1" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c1')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c2" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c2')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c3" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c3')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c4" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c4')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c5" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c5')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c6" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c6')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c7" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c7')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c8" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c8')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c9" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c9')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="c10" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('c10')">نسخ</button></div>
 
-    <div class="macro-card">
-        <span class="macro-text">do/ !!! التحذير الأخير: ارمي سلاحك أرضاً فوراً وإلا سيتم إطلاق النار عليك!</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
-    </div>
+    <!-- المخالفات المدنية -->
+    <h2 class="category-title">المخالفات المدنية</h2>
+    <div class="macro-row"><input type="text" id="v1" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('v1')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="v2" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('v2')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="v3" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('v3')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="v4" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('v4')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="v5" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('v5')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="v6" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('v6')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="v7" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('v7')">نسخ</button></div>
 
-    <div class="macro-card">
-        <span class="macro-text">do/ !!! تنبيه أمني: أنت داخل منطقة حظر ممنوع الاقتراب منها نهائياً!</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
-    </div>
+    <!-- المخالفات الإدارية -->
+    <h2 class="category-title">المخالفات الإدارية</h2>
+    <div class="macro-row"><input type="text" id="a1" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('a1')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="a2" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('a2')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="a3" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('a3')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="a4" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('a4')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="a5" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('a5')">نسخ</button></div>
+    <div class="macro-row"><input type="text" id="a6" class="macro-box" readonly><button class="copy-btn" onclick="copyLine('a6')">نسخ</button></div>
 
-    <div class="macro-card">
-        <span class="macro-text">do/ تحذير: هذه المنطقة تحت السيطرة الأمنية المشددة، تراجع للخلف فوراً!</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
-    </div>
-
-    <div class="macro-card">
-        <span class="macro-text">do/ تحذير: يُمنع التواجد أو التجمهر داخل هذه المنطقة، سيتم التعامل بحزم!</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
-    </div>
-
-    <div class="macro-card">
-        <span class="macro-text">do/ مرحباً سيدي/سيدتي. معكم الضابط [[اسمك]]. يرجى التعاون معنا.</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
-    </div>
-
-    <div class="macro-card">
-        <span class="macro-text">do/ تم التدقيق. أوراقك سليمة. شكراً لتعاونك معنا، طريقاً آيماً.</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
-    </div>
-
-    <div class="macro-card">
-        <span class="macro-text">do/ سيدي/سيدتي، أنا الضابط [[اسمك]]. أرجو منك إبراز هويتك الشخصية فوراً.</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
-    </div>
-
-    <div class="macro-card">
-        <span class="macro-text">do/ سيدي، أنا الضابط [[اسمك]]. "يتم إيقاف المركبة للتفتيش الروتيني".</span>
-        <button class="copy-btn" onclick="copyMacro(this)">نسخ</button>
+    <!-- التذييل -->
+    <div class="footer-founder">
+        مؤسس المشروع The Warden
     </div>
 
     <script>
-        function copyMacro(button) {
-            const username = document.getElementById('usernameInput').value.trim() || '[اسمك]';
-            const card = button.parentElement;
-            const textSpan = card.querySelector('.macro-text');
-            
-            // استبدال [[اسمك]] بالاسم المدخل
-            let textToCopy = textSpan.getAttribute('data-original') || textSpan.innerText;
-            if (!textSpan.getAttribute('data-original')) {
-                textSpan.setAttribute('data-original', textToCopy);
-            }
-            
-            let finaltext = textToCopy.replace(/\[اسمك\]/g, username);
-            
-            navigator.clipboard.writeText(finaltext).then(() => {
-                let originalText = button.innerText;
-                button.innerText = 'تم النسخ!';
-                button.style.backgroundColor = '#2ecc71';
-                button.style.color = '#fff';
-                setTimeout(() => {
-                    button.innerText = originalText;
-                    button.style.backgroundColor = '#f1c40f';
-                    button.style.color = '#000';
-                }, 1500);
-            });
+        function updateMacros() {
+            let name = document.getElementById("playerName").value || "[اسمك]";
+
+            // التحذيرات
+            document.getElementById("w1").value = `/do التحذير الأول : شرطة المدينة هنا!توقف” فورآ مكانك ولا تقم بأي حركة!!”`;
+            document.getElementById("w2").value = `/do !!! التحذير الأخير: ارمِ سلاحك أرضاً فوراً! وارفع يديك عند رأسك!`;
+            document.getElementById("w3").value = `/do !!! تنبيه أمني: أنت داخل منطقة محظورة! اخرج فوراً وإلا سيتم استخدام الصاعق الكهربائي أو القوة المميتة ضدك!`;
+            document.getElementById("w4").value = `/do تحذير: هذه المنطقة تحت السيطرة الأمنية الكاملة وهي غير آمنة للمدنيين. الابتعاد فوراً ضروري لتجنب الاعتقال والعقوبة!`;
+            document.getElementById("w5").value = `/do تحذير: يُمنع التواجد أو التجمهر داخل حرم المستشفى لأكثر من دقيقة لضمان سير العمل الطبي. المغادرة فوراً إجبارية لتجنب العقوبة القانونية!`;
+            document.getElementById("w6").value = `/do مرحباً سيدي/سيدتي، معكم الضابط (${name}). يرجى إبراز الهوية الشخصية أو جواز السفر للتدقيق الأمني، تعاونك يسرّع الإجراءات`;
+            document.getElementById("w7").value = `/do تم التدقيق، أوراقك سليمة. شكراً لتعاونك مع رجال الأمن وتقديرك لعملنا. رافقتك السلامة، يومك سعيد!`;
+            document.getElementById("w8").value = `/do سيدي/سيدتي، أنا الضابط (${name})، أنت قيد الاعتقال الآن لارتكابك مخالفة قانونية. لديك الحق في التزام الصمت، ولديكم الحق في توكيل محامٍ. أي شيء تقوله قد يُستخدم ضدك في المحكمة`;
+            document.getElementById("w9").value = `/do سيدي،أنا الضابط (${name})، ”يتم إيقافك الآن لوجود انتهاكات قانونية في وثائقك الرسمية، سيتم تحويلك للجهات المختصة ولك الحق في محامٍ وجلسة استماع عادلة”`;
+            document.getElementById("w10").value = `/do سيدي، أنا الضابط (${name})، أنت مطلوب للعدالة بموجب مذكرة توقيف رسمية صادرة بحقك. سيتم اقتيادك للمركز الآن، ولك كافة الحقوق القانونية لطلب محامٍ والدفاع عن نفسك`;
+
+            // المخالفات الجنائية
+            document.getElementById("c1").value = `/me 1.1 الاستيلاء على مؤسسات الدولة [+20 دقيقة]`;
+            document.getElementById("c2").value = `/me 1.2 الاستيلاء على السلطة بالقوة؛  [+20 دقيقة]`;
+            document.getElementById("c3").value = `/me 1.3 أخذ الرهائن أو الاختطاف [+20 دقيقة]`;
+            document.getElementById("c4").value = `/me 1.4 الاصطدام المميت بالمشاة [+20 دقيقة]`;
+            document.getElementById("c5").value = `/me 1.5 محاولة السرقة [+20 دقيقة]`;
+            document.getElementById("c6").value = `/me 1.6 سرقة ضابط شرطة [+20 دقيقة]`;
+            document.getElementById("c7").value = `/me 1.7 الدخول غير المنسق إلى الأراضي المحمية بالقانون [+20 دقيقة]`;
+            document.getElementById("c8").value = `/me 1.8 الاصطدام بالمشاة [+20 دقيقة]`;
+            document.getElementById("c9").value = `/me 1.9إشهار سلاح في مكان عام[+20 دقيقة]`;
+            document.getElementById("c10").value = `/me 1.10 رشوة ضابط شرطة [+20 دقيقة]`;
+
+            // المخالفات المدنية
+            document.getElementById("v1").value = `/me 2.1 إتلاف ممتلكات الدولة [+10 دقائق]`;
+            document.getElementById("v2").value = `/me 2.2 الإضرار أو التلف بالممتلكات الخاصة  [+10 دقائق]`;
+            document.getElementById("v3").value = `/me 2.3 مكالمات كاذبة للشرطة و/أو خدمات الطوارئ [+10 دقائق]`;
+            document.getElementById("v4").value = `/me 2.4 الفجور (تشغيل الموسيقى بعد أن يُطلب منك إيقاف تشغيلها/البصق في وجه شخص ما، إلخ) [+10 دقائق]`;
+            document.getElementById("v5").value = `/me 2.5 التهديد بالقتل [+10 دقائق]`;
+            document.getElementById("v6").value = `/me 2.6 إهانة موظف حكومي [+10 دقائق]`;
+            document.getElementById("v7").value = `/me 2.7 الابتزاز [+10 دقائق]`;
+
+            // المخالفات الإدارية
+            document.getElementById("a1").value = `/me 3.1 مقاومة الاعتقال [+5 دقائق]`;
+            document.getElementById("a2").value = `/me 3.2 عصيان ضابط الشرطة [+5 دقائق]`;
+            document.getElementById("a3").value = `/me 3.3 المساعدة في مقاومة الاعتقال [+5 دقائق]`;
+            document.getElementById("a4").value = `/me 3.4 انتهاك قواعد المرور: القيادة في المسار المعاكس، الاصطدام بالأعمدة، تجاوز الإشارات الحمراء [+5 دقائق]`;
+            document.getElementById("a5").value = `/me 3.5 الاعتداء على مدني (ضرب) [+5 دقائق]`;
+            document.getElementById("a6").value = `/me 3.6 رفض تقديم المستندات المطلوبة: بطاقة الهوية، ومستندات السيارة، ورخص الأسلحة[+5 دقائق]`;
+        }
+
+        // تشغيل الدالة أول ما يفتح الموقع
+        updateMacros();
+
+        function copyLine(id) {
+            let copyText = document.getElementById(id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            alert("تم نسخ الماكرو بنجاح!");
         }
     </script>
+
 </body>
 </html>
