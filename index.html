@@ -99,9 +99,15 @@
             border: 1px solid #333;
             text-align: right;
             direction: ltr;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
         .macro-row input.macro-box {
             direction: rtl;
+        }
+        /* تأثير الومضة الذهبية عند النسخ */
+        .macro-box.copied-flash {
+            border-color: #d4af37 !important;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.7);
         }
         button.copy-btn {
             padding: 10px 18px;
@@ -127,6 +133,33 @@
             letter-spacing: 1px;
             text-shadow: 0 0 10px rgba(241, 196, 15, 0.2);
         }
+
+        /* تصميم التنبيه العصري (Toast Notification) */
+        #toast {
+            visibility: hidden;
+            min-width: 220px;
+            background-color: #141414;
+            color: #d4af37;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px 20px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 15px;
+            font-weight: bold;
+            border: 1px solid #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
     </style>
 </head>
 <body>
@@ -138,7 +171,7 @@
 
     <h1>مايكروز فصيل شرطة MESA ME</h1>
     <div class="rank-subtitle">قائد الشرطة اللواء الفيدرالي Ehab Engineer</div>
-    <p class="subtitle">نظام الماكروز الموحد للعمليات الأمنية</p>
+    <p class="subtitle">نظام الماكرو الموحد للعمليات الأمنية</p>
     
     <div class="input-container">
         <label for="playerName" style="display: block; margin-bottom: 8px; color: #d4af37; font-weight: bold;">اكتب اسمك داخل اللعبة (الضابط):</label>
@@ -195,6 +228,9 @@
         مؤسس المشروع The Warden ( Hasan Iq )
     </div>
 
+    <!-- عنصر التنبيه العصري -->
+    <div id="toast">تم نسخ الماكرو بنجاح!</div>
+
     <script>
         function updateMacros() {
             let name = document.getElementById("playerName").value || "[اسمك]";
@@ -248,7 +284,19 @@
             copyText.select();
             copyText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(copyText.value);
-            alert("تم نسخ الماكرو بنجاح!");
+
+            // تفعيل الومضة الذهبية على الحقل المنسوخ
+            copyText.classList.add("copied-flash");
+            setTimeout(() => {
+                copyText.classList.remove("copied-flash");
+            }, 800);
+
+            // إظهار التنبيه العصري المتحرك في الأسفل
+            let toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(() => {
+                toast.className = toast.className.replace("show", "");
+            }, 2000);
         }
     </script>
 
