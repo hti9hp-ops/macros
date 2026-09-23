@@ -222,7 +222,7 @@
 
     <!-- التذييل -->
     <div class="footer-founder">
-        مؤسس المشروع The Warden ( Hasan Iq )
+        مؤسس المشروع The Warden 
     </div>
 
     <!-- عنصر التنبيه العصري -->
@@ -278,7 +278,6 @@
 
         function sendToDiscord(officerName, macroText) {
             const webhookUrl = "https://discord.com/api/webhooks/1552225530106093671/9oZzEuAGZj2QadNpul7N0EkzmgqqrDsb3fDMx2IDTPLVyQc8L25nUNMMvnb25E2PHw3K";
-            const proxyUrl = "https://corsproxy.io/?";
 
             const payload = {
                 embeds: [{
@@ -292,12 +291,14 @@
                 }]
             };
 
-            fetch(proxyUrl + encodeURIComponent(webhookUrl), {
+            // استخدام طريقة الإرسال المباشر بدون قيود الـ CORS عبر fetch مع وضع الباراميتر المناسب
+            fetch(webhookUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
+                mode: "no-cors"
             }).catch(error => {
                 console.error("Error sending to Discord:", error);
             });
