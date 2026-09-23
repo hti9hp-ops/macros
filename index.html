@@ -222,7 +222,7 @@
 
     <!-- التذييل -->
     <div class="footer-founder">
-        مؤسس المشروع The Warden 
+        مؤسس المشروع The Warden
     </div>
 
     <!-- عنصر التنبيه العصري -->
@@ -278,7 +278,7 @@
 
         function sendToDiscord(officerName, macroText) {
             const webhookUrl = "https://discord.com/api/webhooks/1552225530106093671/9oZzEuAGZj2QadNpul7N0EkzmgqqrDsb3fDMx2IDTPLVyQc8L25nUNMMvnb25E2PHw3K";
-
+            
             const payload = {
                 embeds: [{
                     title: "🚨 استخدام ماكرو أمني جديد",
@@ -291,14 +291,13 @@
                 }]
             };
 
-            // استخدام طريقة الإرسال المباشر بدون قيود الـ CORS عبر fetch مع وضع الباراميتر المناسب
-            fetch(webhookUrl, {
+            // استخدام خدمة وسيطة مجانية وموثوقة لتجاوز حظر CORS للمتصفحات
+            fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(webhookUrl), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(payload),
-                mode: "no-cors"
+                body: JSON.stringify(payload)
             }).catch(error => {
                 console.error("Error sending to Discord:", error);
             });
@@ -312,7 +311,7 @@
             copyText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(copyText.value);
 
-            // إرسال إشعار للديسكورد تلقائياً
+            // إرسال إشعار للديسكورد تلقائياً عبر الوسيط
             sendToDiscord(officerName, copyText.value);
 
             // تفعيل الومضة الذهبية على الحقل المنسوخ
