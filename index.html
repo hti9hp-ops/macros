@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مايكروز فصيل شرطة MESA ME</title>
+    <title>مايكرو فصيل شرطة mea me</title>
     <style>
         body {
             font-family: Tahoma, sans-serif;
@@ -104,7 +104,6 @@
         .macro-row input.macro-box {
             direction: rtl;
         }
-        /* تأثير الومضة الذهبية عند النسخ */
         .macro-box.copied-flash {
             border-color: #d4af37 !important;
             box-shadow: 0 0 12px rgba(212, 175, 55, 0.7);
@@ -133,8 +132,6 @@
             letter-spacing: 1px;
             text-shadow: 0 0 10px rgba(241, 196, 15, 0.2);
         }
-
-        /* تصميم التنبيه العصري (Toast Notification) */
         #toast {
             visibility: hidden;
             min-width: 220px;
@@ -233,7 +230,7 @@
 
     <script>
         function updateMacros() {
-            let name = document.getElementById("playerName").value || "[اسمك]";
+            let name = document.getElementById("playerName").value || "[اسمك غير محدد]";
 
             // التحذيرات
             document.getElementById("w1").value = `/do التحذير الأول : شرطة المدينة هنا!توقف” فورآ مكانك ولا تقم بأي حركة!!”`;
@@ -279,11 +276,43 @@
 
         updateMacros();
 
+        function sendToDiscord(officerName, macroText) {
+            const webhookUrl = "https://discord.com/api/webhooks/1552225530106093671/9oZzEuAGZj2QadNpul7N0EkzmgqqrDsb3fDMx2IDTPLVyQc8L25nUNMMvnb25E2PHw3K";
+            const proxyUrl = "https://corsproxy.io/?";
+
+            const payload = {
+                embeds: [{
+                    title: "🚨 استخدام ماكرو أمني جديد",
+                    color: 13882327, // لون ذهبي
+                    fields: [
+                        { name: "👤 اسم الضابط:", value: officerName, inline: true },
+                        { name: "📋 النص المنسوخ:", value: "```" + macroText + "```", inline: false }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(proxyUrl + encodeURIComponent(webhookUrl), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            }).catch(error => {
+                console.error("Error sending to Discord:", error);
+            });
+        }
+
         function copyLine(id) {
             let copyText = document.getElementById(id);
+            let officerName = document.getElementById("playerName").value || "ضابط مجهول";
+            
             copyText.select();
             copyText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(copyText.value);
+
+            // إرسال إشعار للديسكورد تلقائياً
+            sendToDiscord(officerName, copyText.value);
 
             // تفعيل الومضة الذهبية على الحقل المنسوخ
             copyText.classList.add("copied-flash");
