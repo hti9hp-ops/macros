@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#050505">
-<title>♛ نظام تقارير دوريات شرطة MESA ME ♛</title>
+<title>MESA ME | نظام تقارير الدوريات</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Marhey:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,7 +23,9 @@
     --green:#39d98a;
     --red:#ff5c5c;
     --blue:#5aa9ff;
-    --shadow:0 25px 80px rgba(0,0,0,.75);
+    --shadow:
+        0 25px 70px rgba(0,0,0,.7),
+        0 0 50px rgba(212,175,55,.05);
 }
 *{
     box-sizing:border-box;
@@ -39,10 +40,10 @@ body{
     font-family:"Cairo",sans-serif;
     color:var(--text);
     background:
-        radial-gradient(circle at 50% -10%,rgba(212,175,55,.16),transparent 30%),
-        radial-gradient(circle at 10% 90%,rgba(212,175,55,.08),transparent 25%),
-        radial-gradient(circle at 90% 50%,rgba(212,175,55,.05),transparent 30%),
-        #020202;
+        radial-gradient(circle at 50% -10%,rgba(212,175,55,.14),transparent 35%),
+        radial-gradient(circle at 10% 30%,rgba(212,175,55,.06),transparent 25%),
+        radial-gradient(circle at 90% 70%,rgba(212,175,55,.05),transparent 25%),
+        var(--black);
     overflow-x:hidden;
 }
 /* =========================
@@ -53,13 +54,12 @@ body::before{
     position:fixed;
     inset:0;
     pointer-events:none;
-    opacity:.18;
+    opacity:.15;
     background-image:
-        linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);
-    background-size:55px 55px;
+        linear-gradient(rgba(212,175,55,.07) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(212,175,55,.07) 1px,transparent 1px);
+    background-size:50px 50px;
     mask-image:linear-gradient(to bottom,black,transparent 85%);
-    z-index:-4;
 }
 body::after{
     content:"";
@@ -69,48 +69,46 @@ body::after{
     top:-350px;
     left:50%;
     transform:translateX(-50%);
-    background:radial-gradient(circle,rgba(212,175,55,.15),transparent 65%);
-    filter:blur(30px);
+    background:radial-gradient(circle,rgba(212,175,55,.08),transparent 65%);
     pointer-events:none;
-    z-index:-3;
 }
 .royal-frame{
     position:fixed;
-    inset:12px;
-    border:1px solid rgba(212,175,55,.18);
+    inset:10px;
+    border:1px solid rgba(212,175,55,.12);
     pointer-events:none;
     z-index:100;
-    border-radius:20px;
 }
 .royal-frame::before,
 .royal-frame::after{
     content:"";
     position:absolute;
-    width:70px;
-    height:70px;
+    width:55px;
+    height:55px;
     border-color:var(--gold);
-    opacity:.65;
+    opacity:.35;
 }
 .royal-frame::before{
     top:-1px;
     right:-1px;
     border-top:2px solid;
     border-right:2px solid;
-    border-radius:0 20px 0 0;
 }
 .royal-frame::after{
     bottom:-1px;
     left:-1px;
     border-bottom:2px solid;
     border-left:2px solid;
-    border-radius:0 0 0 20px;
 }
+/* =========================
+   PARTICLES
+========================= */
 .particles{
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:-1;
     overflow:hidden;
+    z-index:0;
 }
 .particle{
     position:absolute;
@@ -118,153 +116,200 @@ body::after{
     height:3px;
     border-radius:50%;
     background:var(--gold2);
-    box-shadow:0 0 10px var(--gold);
+    box-shadow:0 0 12px var(--gold);
+    opacity:.5;
     animation:floatParticle linear infinite;
-    opacity:.65;
 }
 @keyframes floatParticle{
-    0%{
-        transform:translateY(110vh) translateX(0) scale(.4);
+    from{
+        transform:translateY(110vh) scale(.5);
         opacity:0;
     }
-    15%{opacity:.7}
-    85%{opacity:.7}
-    100%{
-        transform:translateY(-10vh) translateX(80px) scale(1.2);
+    15%{
+        opacity:.6;
+    }
+    85%{
+        opacity:.5;
+    }
+    to{
+        transform:translateY(-20vh) scale(1);
         opacity:0;
     }
-}
-/* =========================
-   TOP BAR
-========================= */
-.topbar{
-    width:min(1450px,94%);
-    margin:25px auto 0;
-    min-height:68px;
-    padding:12px 20px;
-    border:1px solid var(--line);
-    border-radius:20px;
-    background:rgba(8,8,8,.8);
-    backdrop-filter:blur(18px);
-    box-shadow:0 10px 40px rgba(0,0,0,.5),inset 0 0 30px rgba(212,175,55,.025);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    position:relative;
-    z-index:5;
-}
-.top-status{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-.status-dot{
-    width:11px;
-    height:11px;
-    border-radius:50%;
-    background:var(--green);
-    box-shadow:0 0 12px var(--green);
-    animation:pulse 1.7s infinite;
-}
-@keyframes pulse{
-    50%{opacity:.45;transform:scale(.75)}
-}
-.top-title{
-    color:var(--gold2);
-    font-weight:800;
-    font-size:14px;
-}
-.top-sub{
-    color:var(--muted);
-    font-size:11px;
-}
-.clock-box{
-    text-align:left;
-}
-.clock{
-    font-family:"Marhey",sans-serif;
-    font-size:20px;
-    color:var(--gold2);
-    font-weight:700;
-}
-.today-text{
-    color:var(--muted);
-    font-size:10px;
 }
 /* =========================
    MAIN
 ========================= */
 .container{
-    width:min(1250px,94%);
-    margin:35px auto 80px;
-}
-.hero{
-    text-align:center;
     position:relative;
-    padding:45px 20px 35px;
+    z-index:2;
+    width:min(1250px,94%);
+    margin:auto;
+    padding:30px 0 70px;
 }
-.royal-badge{
-    width:125px;
-    height:125px;
-    margin:0 auto 22px;
-    border-radius:50%;
+/* =========================
+   TOP BAR
+========================= */
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    padding:15px 22px;
+    margin-bottom:25px;
+    border:1px solid var(--line);
+    background:rgba(8,8,8,.8);
+    backdrop-filter:blur(18px);
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.4),
+        inset 0 0 30px rgba(212,175,55,.02);
+    border-radius:18px;
+}
+.brand-mini{
     display:flex;
     align-items:center;
-    justify-content:center;
-    position:relative;
-    background:
-        radial-gradient(circle at 35% 25%,#fff1a0,#d4af37 38%,#72550d 72%,#171000);
-    border:3px solid #f1d96b;
-    box-shadow:
-        0 0 0 7px rgba(212,175,55,.08),
-        0 0 45px rgba(212,175,55,.3),
-        inset 0 0 30px rgba(0,0,0,.5);
-    animation:royalFloat 4s ease-in-out infinite;
+    gap:12px;
 }
-.royal-badge::before,
-.royal-badge::after{
+.brand-mini-icon{
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    border:1px solid var(--gold);
+    color:var(--gold2);
+    border-radius:12px;
+    background:linear-gradient(145deg,#171208,#080808);
+    box-shadow:0 0 20px rgba(212,175,55,.12);
+    font-size:21px;
+}
+.brand-mini-text strong{
+    display:block;
+    color:var(--gold2);
+    font-size:15px;
+    font-weight:900;
+}
+.brand-mini-text span{
+    color:var(--muted);
+    font-size:10px;
+    letter-spacing:1px;
+}
+.system-status{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:#ddd7c5;
+    font-size:12px;
+}
+.status-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 14px var(--green);
+    animation:pulse 1.7s infinite;
+}
+@keyframes pulse{
+    0%,100%{transform:scale(1);opacity:1}
+    50%{transform:scale(.7);opacity:.55}
+}
+.clock{
+    text-align:left;
+}
+.clock-time{
+    font-family:monospace;
+    color:var(--gold2);
+    font-size:16px;
+    font-weight:bold;
+}
+.clock-date{
+    color:var(--muted);
+    font-size:10px;
+}
+/* =========================
+   HERO
+========================= */
+.hero{
+    position:relative;
+    padding:55px 25px 45px;
+    text-align:center;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:28px;
+    background:
+        radial-gradient(circle at 50% 20%,rgba(212,175,55,.12),transparent 40%),
+        linear-gradient(145deg,rgba(18,18,18,.94),rgba(5,5,5,.98));
+    box-shadow:var(--shadow);
+}
+.hero::before{
     content:"";
     position:absolute;
-    inset:-12px;
-    border:1px solid rgba(212,175,55,.3);
+    inset:0;
+    background:
+        linear-gradient(90deg,transparent,rgba(212,175,55,.06),transparent);
+    transform:translateX(-100%);
+    animation:shine 5s infinite;
+}
+@keyframes shine{
+    0%{transform:translateX(-100%)}
+    35%,100%{transform:translateX(100%)}
+}
+.hero-badge{
+    position:relative;
+    width:82px;
+    height:82px;
+    margin:0 auto 20px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    border:1px solid var(--gold);
+    background:
+        radial-gradient(circle,#241c08,#080808 70%);
+    box-shadow:
+        0 0 35px rgba(212,175,55,.15),
+        inset 0 0 20px rgba(212,175,55,.08);
+    font-size:36px;
+    color:var(--gold2);
+}
+.hero-badge::before,
+.hero-badge::after{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border:1px solid rgba(212,175,55,.2);
     border-radius:50%;
 }
-.royal-badge::after{
-    inset:-20px;
-    border-style:dashed;
-    animation:spin 22s linear infinite;
-}
-@keyframes spin{
-    to{transform:rotate(360deg)}
-}
-@keyframes royalFloat{
-    50%{transform:translateY(-7px)}
-}
-.crown{
-    font-size:65px;
-    color:#090909;
-    filter:drop-shadow(0 4px 5px rgba(255,255,255,.25));
+.hero-badge::after{
+    inset:-16px;
+    border-color:rgba(212,175,55,.08);
 }
 .hero h1{
-    font-family:"Marhey",sans-serif;
-    font-size:clamp(28px,5vw,52px);
+    position:relative;
+    font-family:"Marhey","Cairo",sans-serif;
+    font-size:clamp(25px,5vw,46px);
     color:var(--gold2);
-    text-shadow:
-        0 0 15px rgba(212,175,55,.25),
-        0 3px 0 #3c2b05;
-    margin-bottom:8px;
+    text-shadow:0 0 30px rgba(212,175,55,.15);
+    line-height:1.5;
 }
-.hero h2{
-    font-size:16px;
-    color:#eee8d2;
-    font-weight:700;
-    letter-spacing:2px;
+.hero .english{
+    position:relative;
+    margin-top:7px;
+    font-size:11px;
+    color:#8d866f;
+    letter-spacing:4px;
+    direction:ltr;
+}
+.hero-line{
+    width:130px;
+    height:1px;
+    margin:22px auto;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
 .hero p{
-    margin-top:12px;
+    position:relative;
+    max-width:700px;
+    margin:auto;
     color:var(--muted);
     font-size:13px;
+    line-height:2;
 }
 /* =========================
    DASHBOARD
@@ -273,281 +318,251 @@ body::after{
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:14px;
-    margin-bottom:22px;
+    margin:20px 0;
 }
 .stat-card{
-    min-height:105px;
-    padding:18px;
-    border:1px solid var(--line);
-    border-radius:20px;
-    background:linear-gradient(145deg,rgba(24,24,24,.95),rgba(7,7,7,.92));
-    box-shadow:var(--shadow);
     position:relative;
+    padding:19px;
+    border:1px solid rgba(212,175,55,.18);
+    border-radius:18px;
+    background:var(--card);
+    backdrop-filter:blur(15px);
+    box-shadow:var(--shadow);
     overflow:hidden;
-    transition:.3s;
-}
-.stat-card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(212,175,55,.55);
-    box-shadow:0 20px 60px rgba(0,0,0,.75),0 0 25px rgba(212,175,55,.08);
 }
 .stat-card::after{
     content:"";
     position:absolute;
     width:100px;
     height:100px;
-    left:-40px;
-    bottom:-50px;
-    background:radial-gradient(circle,rgba(212,175,55,.18),transparent 70%);
+    top:-60px;
+    left:-60px;
+    border-radius:50%;
+    background:rgba(212,175,55,.07);
+}
+.stat-icon{
+    color:var(--gold);
+    font-size:19px;
+    margin-bottom:8px;
 }
 .stat-label{
     color:var(--muted);
     font-size:11px;
-    margin-bottom:5px;
 }
 .stat-value{
-    color:var(--gold2);
-    font-size:22px;
+    margin-top:4px;
+    font-size:20px;
     font-weight:900;
+    color:#f6e9b4;
 }
-.stat-icon{
-    position:absolute;
-    left:17px;
-    top:15px;
-    font-size:24px;
-    opacity:.65;
+.stat-value small{
+    font-size:10px;
+    color:var(--muted);
+    font-weight:400;
 }
-.completion{
+/* =========================
+   SECTION
+========================= */
+.section{
+    position:relative;
+    margin-top:18px;
+    padding:25px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(15px);
+}
+.section-title{
     display:flex;
     align-items:center;
     gap:12px;
-}
-.completion-ring{
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    background:conic-gradient(var(--gold) 0deg,#222 0deg);
-    position:relative;
-}
-.completion-ring::before{
-    content:"";
-    position:absolute;
-    inset:6px;
-    border-radius:50%;
-    background:#090909;
-}
-.completion-number{
-    position:relative;
-    z-index:2;
-    font-size:12px;
-    font-weight:900;
-    color:var(--gold2);
-}
-/* =========================
-   MAIN CARD
-========================= */
-.main-card{
-    position:relative;
-    background:linear-gradient(145deg,rgba(18,18,18,.94),rgba(5,5,5,.97));
-    border:1px solid var(--line);
-    border-radius:28px;
-    padding:28px;
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.75),
-        inset 0 1px 0 rgba(255,255,255,.025);
-    overflow:hidden;
-}
-.main-card::before{
-    content:"";
-    position:absolute;
-    top:0;
-    right:10%;
-    left:10%;
-    height:1px;
-    background:linear-gradient(90deg,transparent,var(--gold),transparent);
-    box-shadow:0 0 20px var(--gold);
-}
-.section{
-    margin-bottom:28px;
-}
-.section-head{
-    display:flex;
-    align-items:center;
-    gap:13px;
-    margin-bottom:17px;
-    padding-bottom:12px;
-    border-bottom:1px solid rgba(212,175,55,.13);
+    margin-bottom:22px;
 }
 .section-number{
-    min-width:38px;
-    height:38px;
-    border-radius:12px;
+    width:34px;
+    height:34px;
     display:grid;
     place-items:center;
-    color:#0b0b0b;
-    font-weight:900;
-    background:linear-gradient(135deg,#fff0a3,#d4af37,#80610e);
-    box-shadow:0 0 18px rgba(212,175,55,.18);
-}
-.section-title{
-    font-size:16px;
+    border:1px solid var(--gold);
+    border-radius:10px;
     color:var(--gold2);
+    background:#0d0b06;
     font-weight:900;
+    font-size:12px;
+    box-shadow:0 0 15px rgba(212,175,55,.08);
 }
-.section-subtitle{
+.section-title h2{
+    font-size:15px;
+    color:#f2df9b;
+}
+.section-title span{
+    color:#77705f;
     font-size:10px;
-    color:var(--muted);
-    margin-top:2px;
+    margin-right:auto;
 }
-.grid{
+/* =========================
+   FORM
+========================= */
+.form-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:17px;
-}
-.full{
-    grid-column:1/-1;
+    gap:16px;
 }
 .field{
     position:relative;
 }
-label{
-    display:block;
-    color:#ded7c2;
-    font-size:12px;
-    font-weight:700;
-    margin-bottom:8px;
+.field.full{
+    grid-column:1/-1;
 }
-label span{
-    color:var(--gold2);
+.field label{
+    display:block;
+    margin-bottom:8px;
+    color:#d4ccb5;
+    font-size:11px;
+    font-weight:700;
+}
+.field label span{
+    color:var(--red);
 }
 input,
 select,
 textarea{
     width:100%;
-    color:var(--text);
-    background:rgba(0,0,0,.62);
-    border:1px solid rgba(212,175,55,.2);
-    border-radius:14px;
-    padding:14px 15px;
+    border:1px solid rgba(212,175,55,.18);
     outline:none;
+    color:var(--text);
+    background:
+        linear-gradient(145deg,rgba(24,24,24,.95),rgba(8,8,8,.95));
+    border-radius:12px;
+    padding:13px 14px;
     font-family:"Cairo",sans-serif;
-    font-size:13px;
+    font-size:12px;
     transition:.25s;
+}
+input::placeholder,
+textarea::placeholder{
+    color:#666154;
 }
 input:focus,
 select:focus,
 textarea:focus{
-    border-color:var(--gold);
-    box-shadow:0 0 0 3px rgba(212,175,55,.07),0 0 25px rgba(212,175,55,.08);
-    background:rgba(12,12,12,.9);
+    border-color:rgba(212,175,55,.75);
+    box-shadow:
+        0 0 0 3px rgba(212,175,55,.06),
+        0 0 25px rgba(212,175,55,.06);
 }
-input::placeholder,
-textarea::placeholder{
-    color:#625f55;
+select{
+    cursor:pointer;
 }
 select option{
     background:#0b0b0b;
-    color:white;
+    color:#eee;
 }
 textarea{
-    min-height:130px;
+    min-height:125px;
     resize:vertical;
-}
-.char-count{
-    text-align:left;
-    margin-top:5px;
-    font-size:10px;
-    color:var(--muted);
+    line-height:1.9;
 }
 /* =========================
    STATUS
 ========================= */
-.status-grid{
+.status-options{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:12px;
-}
-.status-option{
-    position:relative;
+    gap:10px;
 }
 .status-option input{
     display:none;
 }
 .status-option label{
+    margin:0;
+    min-height:62px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    gap:3px;
+    border:1px solid rgba(212,175,55,.14);
+    border-radius:13px;
+    background:#0a0a0a;
+    color:#aaa;
     cursor:pointer;
-    padding:16px 12px;
-    text-align:center;
-    border:1px solid rgba(212,175,55,.15);
-    border-radius:15px;
-    background:rgba(0,0,0,.35);
     transition:.25s;
-    color:#bbb;
 }
-.status-option label:hover{
-    border-color:rgba(212,175,55,.4);
+.status-option label span{
+    font-size:19px;
 }
 .status-option input:checked + label{
-    color:var(--gold2);
     border-color:var(--gold);
-    background:rgba(212,175,55,.08);
-    box-shadow:0 0 25px rgba(212,175,55,.08);
+    color:var(--gold2);
+    background:
+        radial-gradient(circle at center,rgba(212,175,55,.11),transparent 70%);
+    box-shadow:
+        0 0 20px rgba(212,175,55,.08),
+        inset 0 0 20px rgba(212,175,55,.04);
 }
-.status-dot-mini{
-    display:block;
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    margin:0 auto 7px;
-    background:var(--gold);
+.status-option small{
+    font-size:10px;
 }
 /* =========================
-   DURATION
+   TIME
 ========================= */
-.duration-card{
-    min-height:88px;
-    border:1px solid rgba(212,175,55,.2);
-    border-radius:17px;
-    padding:16px;
-    background:rgba(212,175,55,.025);
+.time-row{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:end;
+    gap:10px;
+}
+.time-arrow{
+    padding-bottom:12px;
+    color:var(--gold);
+    font-size:18px;
+}
+.duration-box{
+    margin-top:12px;
+    padding:12px 15px;
+    border-radius:12px;
+    border:1px solid rgba(212,175,55,.15);
+    background:rgba(212,175,55,.035);
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:15px;
+    align-items:center;
 }
-.duration-big{
-    color:var(--gold2);
-    font-size:28px;
-    font-weight:900;
-    direction:ltr;
-}
-.duration-caption{
+.duration-box span{
     color:var(--muted);
-    font-size:10px;
+    font-size:11px;
+}
+.duration-box strong{
+    color:var(--gold2);
+    font-size:13px;
 }
 /* =========================
    IMAGE UPLOAD
 ========================= */
 .upload-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:17px;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
 }
 .upload-box{
     position:relative;
-    min-height:260px;
+    min-height:170px;
     border:1px dashed rgba(212,175,55,.35);
-    border-radius:20px;
-    overflow:hidden;
+    border-radius:17px;
     background:
-        radial-gradient(circle at 50% 30%,rgba(212,175,55,.08),transparent 45%),
-        rgba(0,0,0,.45);
-    transition:.3s;
+        radial-gradient(circle at center,rgba(212,175,55,.045),transparent 65%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    transition:.25s;
 }
 .upload-box:hover{
     border-color:var(--gold);
-    box-shadow:0 0 30px rgba(212,175,55,.08);
+    background:
+        radial-gradient(circle at center,rgba(212,175,55,.08),transparent 65%);
 }
 .upload-box input{
     position:absolute;
@@ -555,220 +570,255 @@ textarea{
     opacity:0;
     cursor:pointer;
     z-index:5;
-    height:100%;
 }
 .upload-content{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
+    padding:20px;
     pointer-events:none;
 }
 .upload-icon{
-    width:65px;
-    height:65px;
-    border-radius:18px;
-    display:grid;
-    place-items:center;
-    background:rgba(212,175,55,.08);
-    border:1px solid rgba(212,175,55,.22);
-    color:var(--gold2);
-    font-size:28px;
-    margin-bottom:12px;
+    font-size:32px;
+    color:var(--gold);
+    margin-bottom:8px;
 }
 .upload-title{
-    color:#eee6cf;
+    color:#e7dcbd;
+    font-size:12px;
     font-weight:800;
 }
-.upload-hint{
-    color:var(--muted);
-    font-size:10px;
+.upload-sub{
+    color:#716b5c;
+    font-size:9px;
     margin-top:5px;
 }
 .preview{
     position:absolute;
     inset:0;
     display:none;
-    z-index:3;
-    background:#000;
-}
-.preview.show{
-    display:block;
+    background:#050505;
 }
 .preview img{
     width:100%;
     height:100%;
     object-fit:cover;
-    cursor:zoom-in;
 }
 .preview-overlay{
     position:absolute;
-    right:10px;
-    left:10px;
-    bottom:10px;
-    padding:9px 12px;
-    border-radius:12px;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(10px);
-    color:var(--gold2);
-    font-size:11px;
+    inset:0;
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
-    pointer-events:none;
+    background:rgba(0,0,0,.3);
+    opacity:0;
+    transition:.2s;
+}
+.preview:hover .preview-overlay{
+    opacity:1;
+}
+.preview-btn{
+    padding:9px 13px;
+    border:1px solid var(--gold);
+    border-radius:9px;
+    color:var(--gold2);
+    background:rgba(0,0,0,.8);
+    cursor:pointer;
+    font-family:"Cairo";
+    font-size:10px;
+}
+/* =========================
+   COUNTER
+========================= */
+.textarea-wrap{
+    position:relative;
+}
+.char-count{
+    position:absolute;
+    bottom:8px;
+    left:10px;
+    color:#686253;
+    font-size:9px;
 }
 /* =========================
    SUMMARY
 ========================= */
 .summary{
-    border:1px solid rgba(212,175,55,.18);
-    border-radius:20px;
-    padding:18px;
-    background:
-        linear-gradient(135deg,rgba(212,175,55,.05),rgba(0,0,0,.3));
-}
-.summary-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:10px;
 }
 .summary-item{
-    padding:12px;
-    border-radius:13px;
-    background:rgba(0,0,0,.32);
+    padding:14px;
+    border:1px solid rgba(212,175,55,.12);
+    border-radius:12px;
+    background:#0a0a0a;
 }
 .summary-label{
+    color:#77705f;
     font-size:9px;
-    color:var(--muted);
-    margin-bottom:3px;
+    margin-bottom:4px;
 }
 .summary-value{
-    font-size:12px;
-    color:#eee8d5;
+    color:#e9dfc3;
+    font-size:11px;
     font-weight:700;
-    word-break:break-word;
+    overflow-wrap:anywhere;
 }
 /* =========================
-   ACTIONS
+   PROGRESS
 ========================= */
-.actions{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:12px;
-    margin-top:25px;
+.progress-wrap{
+    margin-top:18px;
 }
-.btn{
-    border:0;
-    border-radius:16px;
-    padding:15px 18px;
-    font-family:"Cairo",sans-serif;
-    font-weight:900;
-    cursor:pointer;
-    transition:.25s;
-    font-size:13px;
+.progress-head{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
 }
-.btn:hover{
-    transform:translateY(-3px);
-}
-.btn-primary{
-    color:#080808;
-    background:linear-gradient(135deg,#fff0a0,#d4af37,#a17b16);
-    box-shadow:0 8px 30px rgba(212,175,55,.17);
-    position:relative;
-    overflow:hidden;
-}
-.btn-primary::after{
-    content:"";
-    position:absolute;
-    top:0;
-    bottom:0;
-    width:50px;
-    background:rgba(255,255,255,.35);
-    transform:skewX(-20deg) translateX(-120px);
-    animation:shine 3.2s infinite;
-}
-@keyframes shine{
-    55%,100%{transform:skewX(-20deg) translateX(250px)}
-}
-.btn-secondary{
-    color:var(--gold2);
-    background:#101010;
-    border:1px solid rgba(212,175,55,.22);
-}
-.btn-danger{
-    color:#ffaaaa;
-    background:rgba(255,70,70,.05);
-    border:1px solid rgba(255,80,80,.18);
-}
-.btn:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-    transform:none;
-}
-/* =========================
-   AUTOSAVE
-========================= */
-.autosave{
-    margin-top:13px;
-    text-align:center;
+.progress-head span{
     color:var(--muted);
     font-size:10px;
 }
-.autosave strong{
+.progress-head strong{
     color:var(--gold2);
+    font-size:10px;
+}
+.progress{
+    height:6px;
+    border-radius:10px;
+    background:#171717;
+    overflow:hidden;
+}
+.progress-bar{
+    width:0%;
+    height:100%;
+    border-radius:10px;
+    background:linear-gradient(
+        90deg,
+        var(--goldDark),
+        var(--gold),
+        var(--gold3)
+    );
+    box-shadow:0 0 15px rgba(212,175,55,.35);
+    transition:.35s;
+}
+/* =========================
+   BUTTONS
+========================= */
+.actions{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:12px;
+    margin-top:20px;
+}
+button{
+    border:0;
+    outline:0;
+    font-family:"Cairo",sans-serif;
+    cursor:pointer;
+}
+.btn{
+    min-height:50px;
+    border-radius:13px;
+    padding:0 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    font-weight:800;
+    font-size:12px;
+    transition:.25s;
+}
+.btn:hover{
+    transform:translateY(-2px);
+}
+.btn-primary{
+    color:#161106;
+    background:linear-gradient(
+        135deg,
+        #b58b1e,
+        #f4d76b,
+        #c29a29
+    );
+    box-shadow:
+        0 10px 30px rgba(212,175,55,.14),
+        inset 0 1px rgba(255,255,255,.45);
+}
+.btn-secondary{
+    color:#d9cfb1;
+    border:1px solid rgba(212,175,55,.2);
+    background:#0c0c0c;
+}
+.btn-danger{
+    color:#ffb0b0;
+    border:1px solid rgba(255,92,92,.18);
+    background:#0e0909;
 }
 /* =========================
    HISTORY
 ========================= */
-.history-card{
-    margin-top:22px;
-    padding:22px;
-    border:1px solid var(--line);
-    border-radius:25px;
-    background:rgba(10,10,10,.9);
-}
-.history-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    margin-bottom:15px;
-}
-.history-head h3{
-    color:var(--gold2);
-    font-size:16px;
-}
 .history-list{
-    display:grid;
+    display:flex;
+    flex-direction:column;
     gap:9px;
 }
-.history-item{
-    display:grid;
-    grid-template-columns:1.5fr 1fr 1fr 1fr;
-    gap:10px;
-    align-items:center;
-    padding:13px;
+.history-empty{
+    padding:30px;
+    text-align:center;
+    color:#686253;
+    font-size:11px;
+    border:1px dashed rgba(212,175,55,.15);
     border-radius:14px;
-    background:rgba(255,255,255,.025);
-    border:1px solid rgba(212,175,55,.08);
 }
-.history-item small{
+.history-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:13px 15px;
+    border:1px solid rgba(212,175,55,.1);
+    border-radius:13px;
+    background:#090909;
+}
+.history-icon{
+    width:38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+    border-radius:10px;
+    color:var(--gold);
+    background:#121006;
+    border:1px solid rgba(212,175,55,.16);
+}
+.history-main{
+    flex:1;
+}
+.history-main strong{
     display:block;
-    color:var(--muted);
+    color:#ded4b8;
+    font-size:11px;
+}
+.history-main span{
+    color:#706959;
     font-size:9px;
 }
-.history-item strong{
-    color:#e8e0c9;
-    font-size:11px;
+.history-status{
+    font-size:9px;
+    padding:5px 8px;
+    border-radius:20px;
+    background:rgba(57,217,138,.07);
+    color:var(--green);
+    border:1px solid rgba(57,217,138,.15);
 }
-.empty-history{
+/* =========================
+   FOOTER
+========================= */
+.footer{
+    margin-top:20px;
     text-align:center;
-    padding:25px;
-    color:var(--muted);
-    font-size:11px;
+    color:#625d51;
+    font-size:9px;
+    letter-spacing:.5px;
+}
+.footer b{
+    color:#9b7e27;
 }
 /* =========================
    MODALS
@@ -776,182 +826,180 @@ textarea{
 .modal{
     position:fixed;
     inset:0;
-    z-index:1000;
+    z-index:999;
     display:none;
     align-items:center;
     justify-content:center;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(10px);
     padding:20px;
-    background:rgba(0,0,0,.84);
-    backdrop-filter:blur(14px);
 }
-.modal.show{
+.modal.active{
     display:flex;
 }
-.modal-card{
-    width:min(620px,100%);
-    max-height:90vh;
-    overflow:auto;
-    border:1px solid rgba(212,175,55,.45);
-    border-radius:27px;
-    padding:25px;
+.modal-box{
+    width:min(470px,100%);
+    padding:28px;
+    border:1px solid rgba(212,175,55,.35);
+    border-radius:22px;
     background:
-        radial-gradient(circle at 50% 0,rgba(212,175,55,.09),transparent 45%),
+        radial-gradient(circle at top,rgba(212,175,55,.07),transparent 45%),
         #090909;
-    box-shadow:0 30px 100px #000,0 0 60px rgba(212,175,55,.08);
-    animation:modalIn .25s ease;
-}
-@keyframes modalIn{
-    from{opacity:0;transform:translateY(20px) scale(.97)}
-    to{opacity:1;transform:none}
-}
-.modal-title{
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.8),
+        0 0 50px rgba(212,175,55,.08);
     text-align:center;
-    color:var(--gold2);
-    font-family:"Marhey",sans-serif;
-    font-size:22px;
-    margin-bottom:6px;
 }
-.modal-sub{
-    text-align:center;
-    color:var(--muted);
-    font-size:11px;
-    margin-bottom:20px;
-}
-.confirm-preview{
-    border:1px solid rgba(212,175,55,.14);
-    border-radius:18px;
-    padding:15px;
-    background:rgba(0,0,0,.4);
-}
-.confirm-row{
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-    padding:8px 0;
-    border-bottom:1px solid rgba(255,255,255,.04);
-    font-size:11px;
-}
-.confirm-row:last-child{
-    border-bottom:0;
-}
-.confirm-row span{
-    color:var(--muted);
-}
-.confirm-row strong{
-    color:#eee7d4;
-}
-.confirm-images{
+.modal-icon{
+    width:58px;
+    height:58px;
+    margin:0 auto 15px;
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:12px;
+    place-items:center;
+    border-radius:50%;
+    border:1px solid var(--gold);
+    color:var(--gold2);
+    font-size:23px;
 }
-.confirm-images img{
-    width:100%;
-    height:140px;
-    object-fit:cover;
-    border-radius:13px;
-    border:1px solid rgba(212,175,55,.15);
+.modal-box h3{
+    color:var(--gold2);
+    font-size:17px;
+}
+.modal-box p{
+    margin-top:8px;
+    color:#817a69;
+    font-size:11px;
+    line-height:1.9;
 }
 .modal-actions{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
-    margin-top:17px;
+    margin-top:20px;
 }
-/* =========================
-   LOADING
-========================= */
-.loading-ring{
-    width:75px;
-    height:75px;
-    border-radius:50%;
+.loading-spinner{
+    width:45px;
+    height:45px;
+    margin:0 auto 15px;
     border:3px solid rgba(212,175,55,.15);
     border-top-color:var(--gold2);
-    animation:spin .8s linear infinite;
-    margin:0 auto 20px;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
 }
-.loading-text{
-    text-align:center;
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+/* =========================
+   LIGHTBOX
+========================= */
+.lightbox img{
+    max-width:95vw;
+    max-height:85vh;
+    border-radius:14px;
+    border:1px solid rgba(212,175,55,.35);
+    box-shadow:0 30px 100px #000;
+}
+.lightbox-close{
+    position:absolute;
+    top:20px;
+    right:25px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid rgba(212,175,55,.3);
+    background:#0b0b0b;
     color:var(--gold2);
-    font-weight:900;
-}
-.loading-sub{
-    text-align:center;
-    color:var(--muted);
-    font-size:11px;
-    margin-top:5px;
+    font-size:20px;
+    cursor:pointer;
 }
 /* =========================
    TOAST
 ========================= */
 .toast-container{
     position:fixed;
-    bottom:25px;
-    left:25px;
+    left:20px;
+    bottom:20px;
     z-index:2000;
-    display:grid;
-    gap:10px;
+    display:flex;
+    flex-direction:column;
+    gap:9px;
 }
 .toast{
-    min-width:280px;
-    max-width:380px;
-    padding:15px 18px;
-    border-radius:16px;
+    min-width:260px;
+    max-width:350px;
+    padding:13px 16px;
+    border-radius:12px;
+    background:#0b0b0b;
     border:1px solid rgba(212,175,55,.25);
-    background:rgba(10,10,10,.95);
-    backdrop-filter:blur(15px);
-    box-shadow:0 20px 50px rgba(0,0,0,.65);
+    color:#e5dbc0;
+    box-shadow:0 15px 40px rgba(0,0,0,.6);
+    font-size:11px;
     animation:toastIn .3s ease;
 }
+.toast.success{
+    border-color:rgba(57,217,138,.35);
+}
+.toast.error{
+    border-color:rgba(255,92,92,.35);
+}
 @keyframes toastIn{
-    from{opacity:0;transform:translateX(-20px)}
-    to{opacity:1;transform:none}
-}
-.toast-title{
-    color:var(--gold2);
-    font-weight:900;
-    font-size:12px;
-}
-.toast-message{
-    color:#bbb4a3;
-    font-size:10px;
-    margin-top:3px;
+    from{
+        transform:translateX(-30px);
+        opacity:0;
+    }
+    to{
+        transform:translateX(0);
+        opacity:1;
+    }
 }
 /* =========================
-   LIGHTBOX
+   RESPONSIVE
 ========================= */
-.lightbox{
-    position:fixed;
-    inset:0;
-    z-index:3000;
-    background:rgba(0,0,0,.94);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:30px;
+@media(max-width:900px){
+    .dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
+    .summary{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
-.lightbox.show{
-    display:flex;
-}
-.lightbox img{
-    max-width:95vw;
-    max-height:90vh;
-    border-radius:15px;
-    box-shadow:0 0 80px rgba(212,175,55,.15);
-}
-.lightbox-close{
-    position:absolute;
-    top:20px;
-    right:25px;
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    background:#111;
-    color:var(--gold2);
-    cursor:pointer;
-    font-size:20px;
+@media(max-width:650px){
+    .container{
+        width:92%;
+        padding-top:15px;
+    }
+    .topbar{
+        flex-wrap:wrap;
+    }
+    .clock{
+        width:100%;
+        text-align:center;
+    }
+    .form-grid,
+    .upload-grid{
+        grid-template-columns:1fr;
+    }
+    .status-options{
+        grid-template-columns:1fr;
+    }
+    .time-row{
+        grid-template-columns:1fr;
+    }
+    .time-arrow{
+        display:none;
+    }
+    .summary{
+        grid-template-columns:1fr;
+    }
+    .actions{
+        grid-template-columns:1fr;
+    }
+    .hero{
+        padding:40px 15px;
+    }
+    .section{
+        padding:18px;
+    }
 }
 /* =========================
    PRINT
@@ -967,121 +1015,35 @@ textarea{
     .royal-frame,
     .topbar,
     .actions,
-    .autosave,
-    .history-card,
+    .footer,
+    .modal,
     .toast-container{
         display:none!important;
     }
     .container{
         width:100%;
-        margin:0;
+        padding:0;
     }
-    .main-card{
+    .hero,
+    .section,
+    .stat-card{
         color:#111;
         background:white;
-        border:1px solid #999;
         box-shadow:none;
-    }
-    input,
-    select,
-    textarea{
-        color:#111;
-        background:white;
-        border:1px solid #aaa;
+        border:1px solid #bbb;
     }
     .hero h1,
-    .section-title,
+    .section-title h2,
     .stat-value,
-    .duration-big{
-        color:#222;
+    .summary-value{
+        color:#111;
         text-shadow:none;
     }
-}
-/* =========================
-   MOBILE
-========================= */
-@media(max-width:850px){
-    .dashboard{
-        grid-template-columns:repeat(2,1fr);
-    }
-    .grid,
-    .upload-grid{
-        grid-template-columns:1fr;
-    }
-    .full{
-        grid-column:auto;
-    }
-    .summary-grid{
-        grid-template-columns:1fr 1fr;
-    }
-    .actions{
-        grid-template-columns:1fr;
-    }
-    .history-item{
-        grid-template-columns:1fr 1fr;
-    }
-}
-@media(max-width:560px){
-    .royal-frame{
-        inset:5px;
-    }
-    .topbar{
-        width:96%;
-        margin-top:12px;
-        padding:10px 13px;
-    }
-    .top-title{
-        font-size:11px;
-    }
-    .clock{
-        font-size:14px;
-    }
-    .container{
-        width:96%;
-        margin-top:15px;
-    }
-    .hero{
-        padding:30px 8px 25px;
-    }
-    .royal-badge{
-        width:95px;
-        height:95px;
-    }
-    .crown{
-        font-size:48px;
-    }
-    .hero h1{
-        font-size:28px;
-    }
-    .hero h2{
-        font-size:12px;
-        letter-spacing:1px;
-    }
-    .main-card{
-        padding:17px;
-        border-radius:22px;
-    }
-    .dashboard{
-        gap:8px;
-    }
-    .stat-card{
-        padding:13px;
-        min-height:90px;
-    }
-    .stat-value{
-        font-size:18px;
-    }
-    .status-grid{
-        grid-template-columns:1fr;
-    }
-    .summary-grid{
-        grid-template-columns:1fr;
-    }
-    .history-item{
-        grid-template-columns:1fr;
-    }
-    .modal-card{
-        padding:18px;
+    .hero p,
+    .hero .english,
+    .stat-label,
+    .summary-label{
+        color:#555;
     }
 }
 </style>
@@ -1089,528 +1051,749 @@ textarea{
 <body>
 <div class="royal-frame"></div>
 <div class="particles" id="particles"></div>
-<!-- TOP BAR -->
-<div class="topbar">
-    <div class="top-status">
-        <div class="status-dot"></div>
-        <div>
-            <div class="top-title">MESA ME • نظام الدوريات</div>
-            <div class="top-sub">النظام الملكي لتوثيق تقارير شرطة MESA ME</div>
+<div class="container">
+    <!-- ================= TOP BAR ================= -->
+    <div class="topbar">
+        <div class="brand-mini">
+            <div class="brand-mini-icon">♛</div>
+            <div class="brand-mini-text">
+                <strong>MESA ME POLICE</strong>
+                <span>ROYAL PATROL SYSTEM</span>
+            </div>
+        </div>
+        <div class="system-status">
+            <span class="status-dot"></span>
+            النظام يعمل بشكل طبيعي
+        </div>
+        <div class="clock">
+            <div class="clock-time" id="clockTime">00:00:00</div>
+            <div class="clock-date" id="clockDate">---</div>
         </div>
     </div>
-    <div class="clock-box">
-        <div class="clock" id="liveClock">00:00:00</div>
-        <div class="today-text" id="liveDate">جاري التحميل...</div>
-    </div>
-</div>
-<main class="container">
-    <!-- HERO -->
+    <!-- ================= HERO ================= -->
     <section class="hero">
-        <div class="royal-badge">
-            <div class="crown">♛</div>
-        </div>
+        <div class="hero-badge">♛</div>
         <h1>نظام تقارير دوريات شرطة MESA ME</h1>
-        <h2>ROYAL POLICE PATROL REPORT SYSTEM</h2>
-        <p>منصة فخمة واحترافية لتوثيق الدوريات وإرسال التقارير والصور مباشرة</p>
+        <div class="english">
+            ROYAL POLICE PATROL REPORT SYSTEM
+        </div>
+        <div class="hero-line"></div>
+        <p>
+            منصة ملكية متطورة لتوثيق وإرسال تقارير الدوريات
+            بشكل احترافي ومنظم ومباشر إلى Discord
+        </p>
     </section>
-    <!-- DASHBOARD -->
-    <section class="dashboard">
+    <!-- ================= DASHBOARD ================= -->
+    <div class="dashboard">
         <div class="stat-card">
-            <div class="stat-icon">♛</div>
+            <div class="stat-icon">◉</div>
             <div class="stat-label">حالة النظام</div>
-            <div class="stat-value">متصل</div>
+            <div class="stat-value">
+                ONLINE
+                <small>متصل</small>
+            </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">◈</div>
+            <div class="stat-icon">▣</div>
             <div class="stat-label">الصور المرفوعة</div>
-            <div class="stat-value" id="imageCount">0 / 2</div>
+            <div class="stat-value" id="imageCount">0 <small>/ 2</small></div>
         </div>
         <div class="stat-card">
             <div class="stat-icon">◷</div>
             <div class="stat-label">مدة الدورية</div>
-            <div class="stat-value" id="dashboardDuration">--</div>
+            <div class="stat-value" id="dashboardDuration">—</div>
         </div>
         <div class="stat-card">
-            <div class="completion">
-                <div class="completion-ring" id="completionRing">
-                    <div class="completion-number" id="completionNumber">0%</div>
-                </div>
-                <div>
-                    <div class="stat-label">اكتمال التقرير</div>
-                    <div class="stat-value" id="completionText">0%</div>
-                </div>
-            </div>
+            <div class="stat-icon">✦</div>
+            <div class="stat-label">اكتمال التقرير</div>
+            <div class="stat-value" id="dashboardCompletion">0%</div>
         </div>
-    </section>
-    <!-- MAIN FORM -->
-    <section class="main-card">
-        <form id="reportForm">
-            <!-- SECTION 1 -->
-            <div class="section">
-                <div class="section-head">
-                    <div class="section-number">01</div>
-                    <div>
-                        <div class="section-title">بيانات الدورية</div>
-                        <div class="section-subtitle">المعلومات الأساسية للتقرير</div>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="field">
-                        <label>اسم قائد / مسؤول الدورية <span>*</span></label>
-                        <input
-                            type="text"
-                            id="leader"
-                            placeholder="اكتب الاسم الكامل"
-                            autocomplete="off"
-                        >
-                    </div>
-                    <div class="field">
-                        <label>تاريخ الدورية <span>*</span></label>
-                        <input type="date" id="reportDate">
-                    </div>
-                    <div class="field">
-                        <label>القسم / الوحدة <span>*</span></label>
-                        <select id="department">
-                            <option value="">اختر القسم</option>
-                            <option>الدوريات العامة</option>
-                            <option>المرور</option>
-                            <option>الاستجابة السريعة</option>
-                            <option>التحريات</option>
-                            <option>العمليات</option>
-                            <option>أمن المنشآت</option>
-                            <option>الشرطة المجتمعية</option>
-                            <option>وحدة الدعم</option>
-                            <option>الإدارة العليا</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>رقم / رمز الدورية</label>
-                        <input
-                            type="text"
-                            id="patrolCode"
-                            placeholder="مثال: P-01"
-                            autocomplete="off"
-                        >
-                    </div>
-                </div>
+    </div>
+    <!-- ================= FORM ================= -->
+    <form id="patrolForm">
+        <!-- SECTION 01 -->
+        <section class="section">
+            <div class="section-title">
+                <div class="section-number">01</div>
+                <h2>بيانات الدورية</h2>
+                <span>PRIMARY INFORMATION</span>
             </div>
-            <!-- SECTION 2 -->
-            <div class="section">
-                <div class="section-head">
-                    <div class="section-number">02</div>
-                    <div>
-                        <div class="section-title">حالة الدورية</div>
-                        <div class="section-subtitle">حدد الحالة الحالية للدورية</div>
-                    </div>
-                </div>
-                <div class="status-grid">
-                    <div class="status-option">
-                        <input type="radio" name="status" id="statusComplete" value="مكتملة">
-                        <label for="statusComplete">
-                            <span class="status-dot-mini"></span>
-                            مكتملة
-                        </label>
-                    </div>
-                    <div class="status-option">
-                        <input type="radio" name="status" id="statusFollow" value="قيد المتابعة">
-                        <label for="statusFollow">
-                            <span class="status-dot-mini"></span>
-                            قيد المتابعة
-                        </label>
-                    </div>
-                    <div class="status-option">
-                        <input type="radio" name="status" id="statusNotes" value="يوجد ملاحظات">
-                        <label for="statusNotes">
-                            <span class="status-dot-mini"></span>
-                            يوجد ملاحظات
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <!-- SECTION 3 -->
-            <div class="section">
-                <div class="section-head">
-                    <div class="section-number">03</div>
-                    <div>
-                        <div class="section-title">وقت الدورية</div>
-                        <div class="section-subtitle">سيتم حساب المدة تلقائيًا حتى في حال عبور منتصف الليل</div>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="field">
-                        <label>وقت بداية الدورية <span>*</span></label>
-                        <input type="time" id="timeIn">
-                    </div>
-                    <div class="field">
-                        <label>وقت نهاية الدورية <span>*</span></label>
-                        <input type="time" id="timeOut">
-                    </div>
-                    <div class="full">
-                        <div class="duration-card">
-                            <div>
-                                <div class="duration-caption">إجمالي مدة الدورية</div>
-                                <div class="duration-big" id="durationDisplay">00:00</div>
-                            </div>
-                            <div style="text-align:left">
-                                <div class="duration-caption">الحالة الزمنية</div>
-                                <strong id="durationStatus" style="color:var(--muted);font-size:11px">
-                                    بانتظار الأوقات
-                                </strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- SECTION 4 -->
-            <div class="section">
-                <div class="section-head">
-                    <div class="section-number">04</div>
-                    <div>
-                        <div class="section-title">توثيق الصور</div>
-                        <div class="section-subtitle">ارفع صورة بداية الدورية وصورة نهايتها</div>
-                    </div>
-                </div>
-                <div class="upload-grid">
-                    <div class="upload-box">
-                        <input type="file" id="entryImage" accept="image/jpeg,image/png,image/webp">
-                        <div class="upload-content">
-                            <div class="upload-icon">◈</div>
-                            <div class="upload-title">صورة بداية الدورية</div>
-                            <div class="upload-hint">JPG / PNG / WEBP • الحد 8MB</div>
-                        </div>
-                        <div class="preview" id="entryPreview">
-                            <img id="entryPreviewImg" alt="صورة بداية الدورية">
-                            <div class="preview-overlay">
-                                <span>صورة البداية</span>
-                                <span>اضغط للتكبير</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="upload-box">
-                        <input type="file" id="exitImage" accept="image/jpeg,image/png,image/webp">
-                        <div class="upload-content">
-                            <div class="upload-icon">◆</div>
-                            <div class="upload-title">صورة نهاية الدورية</div>
-                            <div class="upload-hint">JPG / PNG / WEBP • الحد 8MB</div>
-                        </div>
-                        <div class="preview" id="exitPreview">
-                            <img id="exitPreviewImg" alt="صورة نهاية الدورية">
-                            <div class="preview-overlay">
-                                <span>صورة النهاية</span>
-                                <span>اضغط للتكبير</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- SECTION 5 -->
-            <div class="section">
-                <div class="section-head">
-                    <div class="section-number">05</div>
-                    <div>
-                        <div class="section-title">الملاحظات والتفاصيل</div>
-                        <div class="section-subtitle">أضف أي تفاصيل مهمة تخص الدورية</div>
-                    </div>
+            <div class="form-grid">
+                <div class="field">
+                    <label>
+                        اسم قائد الدورية
+                        <span>*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="leader"
+                        placeholder="أدخل اسم قائد الدورية"
+                        autocomplete="off"
+                        required
+                    >
                 </div>
                 <div class="field">
-                    <label>ملاحظات الدورية</label>
-                    <textarea
-                        id="notes"
-                        maxlength="1000"
-                        placeholder="اكتب تفاصيل الدورية، الأحداث، الملاحظات، الحالات أو أي معلومات إضافية..."
-                    ></textarea>
-                    <div class="char-count">
-                        <span id="charCount">0</span> / 1000
+                    <label>
+                        تاريخ الدورية
+                        <span>*</span>
+                    </label>
+                    <input
+                        type="date"
+                        id="reportDate"
+                        required
+                    >
+                </div>
+                <div class="field full">
+                    <label>
+                        نوع الدورية
+                        <span>*</span>
+                    </label>
+                    <select id="department" required>
+                        <option value="">
+                            اختر نوع الدورية
+                        </option>
+                        <option value="دورية مستشفى">
+                            دورية مستشفى
+                        </option>
+                        <option value="دورية منطقة خضراء">
+                            دورية منطقة خضراء
+                        </option>
+                        <option value="دورية تفتيش جوازات">
+                            دورية تفتيش جوازات
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </section>
+        <!-- SECTION 02 -->
+        <section class="section">
+            <div class="section-title">
+                <div class="section-number">02</div>
+                <h2>حالة الدورية</h2>
+                <span>PATROL STATUS</span>
+            </div>
+            <div class="status-options">
+                <div class="status-option">
+                    <input
+                        type="radio"
+                        name="status"
+                        id="statusComplete"
+                        value="مكتملة"
+                        checked
+                    >
+                    <label for="statusComplete">
+                        <span>✓</span>
+                        <small>مكتملة</small>
+                    </label>
+                </div>
+                <div class="status-option">
+                    <input
+                        type="radio"
+                        name="status"
+                        id="statusFollow"
+                        value="قيد المتابعة"
+                    >
+                    <label for="statusFollow">
+                        <span>◷</span>
+                        <small>قيد المتابعة</small>
+                    </label>
+                </div>
+                <div class="status-option">
+                    <input
+                        type="radio"
+                        name="status"
+                        id="statusNotes"
+                        value="يوجد ملاحظات"
+                    >
+                    <label for="statusNotes">
+                        <span>!</span>
+                        <small>يوجد ملاحظات</small>
+                    </label>
+                </div>
+            </div>
+        </section>
+        <!-- SECTION 03 -->
+        <section class="section">
+            <div class="section-title">
+                <div class="section-number">03</div>
+                <h2>وقت الدورية</h2>
+                <span>PATROL TIME</span>
+            </div>
+            <div class="time-row">
+                <div class="field">
+                    <label>وقت بداية الدورية <span>*</span></label>
+                    <input
+                        type="time"
+                        id="timeIn"
+                        required
+                    >
+                </div>
+                <div class="time-arrow">
+                    ←
+                </div>
+                <div class="field">
+                    <label>وقت نهاية الدورية <span>*</span></label>
+                    <input
+                        type="time"
+                        id="timeOut"
+                        required
+                    >
+                </div>
+            </div>
+            <div class="duration-box">
+                <span>مدة الدورية المحسوبة</span>
+                <strong id="durationText">—</strong>
+            </div>
+        </section>
+        <!-- SECTION 04 -->
+        <section class="section">
+            <div class="section-title">
+                <div class="section-number">04</div>
+                <h2>توثيق صور الدورية</h2>
+                <span>VISUAL EVIDENCE</span>
+            </div>
+            <div class="upload-grid">
+                <!-- ENTRY -->
+                <div class="upload-box" id="entryUpload">
+                    <input
+                        type="file"
+                        id="entryImage"
+                        accept="image/jpeg,image/png,image/webp"
+                    >
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            ⇧
+                        </div>
+                        <div class="upload-title">
+                            صورة بداية الدورية
+                        </div>
+                        <div class="upload-sub">
+                            JPG / PNG / WEBP — حد أقصى 8MB
+                        </div>
+                    </div>
+                    <div class="preview" id="entryPreview">
+                        <img id="entryPreviewImg" alt="صورة بداية الدورية">
+                        <div class="preview-overlay">
+                            <button
+                                type="button"
+                                class="preview-btn"
+                                onclick="openLightbox('entry')"
+                            >
+                                عرض الصورة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- EXIT -->
+                <div class="upload-box" id="exitUpload">
+                    <input
+                        type="file"
+                        id="exitImage"
+                        accept="image/jpeg,image/png,image/webp"
+                    >
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            ⇩
+                        </div>
+                        <div class="upload-title">
+                            صورة نهاية الدورية
+                        </div>
+                        <div class="upload-sub">
+                            JPG / PNG / WEBP — حد أقصى 8MB
+                        </div>
+                    </div>
+                    <div class="preview" id="exitPreview">
+                        <img id="exitPreviewImg" alt="صورة نهاية الدورية">
+                        <div class="preview-overlay">
+                            <button
+                                type="button"
+                                class="preview-btn"
+                                onclick="openLightbox('exit')"
+                            >
+                                عرض الصورة
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- SECTION 6 -->
-            <div class="section">
-                <div class="section-head">
-                    <div class="section-number">06</div>
-                    <div>
-                        <div class="section-title">المعاينة الملكية</div>
-                        <div class="section-subtitle">راجع المعلومات قبل الإرسال</div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="summary-grid">
-                        <div class="summary-item">
-                            <div class="summary-label">قائد الدورية</div>
-                            <div class="summary-value" id="sumLeader">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">التاريخ</div>
-                            <div class="summary-value" id="sumDate">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">القسم</div>
-                            <div class="summary-value" id="sumDepartment">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">الحالة</div>
-                            <div class="summary-value" id="sumStatus">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">وقت البداية</div>
-                            <div class="summary-value" id="sumTimeIn">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">وقت النهاية</div>
-                            <div class="summary-value" id="sumTimeOut">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">مدة الدورية</div>
-                            <div class="summary-value" id="sumDuration">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">رمز الدورية</div>
-                            <div class="summary-value" id="sumPatrolCode">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">الصور</div>
-                            <div class="summary-value" id="sumImages">0 / 2</div>
-                        </div>
-                    </div>
+        </section>
+        <!-- SECTION 05 -->
+        <section class="section">
+            <div class="section-title">
+                <div class="section-number">05</div>
+                <h2>ملاحظات الدورية</h2>
+                <span>ADDITIONAL NOTES</span>
+            </div>
+            <div class="textarea-wrap">
+                <textarea
+                    id="notes"
+                    maxlength="1000"
+                    placeholder="اكتب هنا جميع الملاحظات أو التفاصيل المتعلقة بالدورية..."
+                ></textarea>
+                <div class="char-count">
+                    <span id="charCount">0</span> / 1000
                 </div>
             </div>
-            <!-- ACTIONS -->
-            <div class="actions">
-                <button type="submit" class="btn btn-primary">
-                    ♛ إرسال التقرير إلى Discord
-                </button>
-                <button type="button" class="btn btn-secondary" id="printBtn">
-                    🖨 طباعة نسخة
-                </button>
-                <button type="button" class="btn btn-danger" id="clearBtn">
-                    ⟳ مسح التقرير
-                </button>
+        </section>
+        <!-- SECTION 06 -->
+        <section class="section">
+            <div class="section-title">
+                <div class="section-number">06</div>
+                <h2>المعاينة الملكية</h2>
+                <span>REPORT PREVIEW</span>
             </div>
-            <div class="autosave">
-                <span>●</span>
-                الحفظ التلقائي:
-                <strong id="saveStatus">جاهز</strong>
+            <div class="summary">
+                <div class="summary-item">
+                    <div class="summary-label">
+                        قائد الدورية
+                    </div>
+                    <div
+                        class="summary-value"
+                        id="sumLeader"
+                    >
+                        —
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">
+                        نوع الدورية
+                    </div>
+                    <div
+                        class="summary-value"
+                        id="sumDepartment"
+                    >
+                        —
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">
+                        التاريخ
+                    </div>
+                    <div
+                        class="summary-value"
+                        id="sumDate"
+                    >
+                        —
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">
+                        الحالة
+                    </div>
+                    <div
+                        class="summary-value"
+                        id="sumStatus"
+                    >
+                        مكتملة
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">
+                        البداية
+                    </div>
+                    <div
+                        class="summary-value"
+                        id="sumTimeIn"
+                    >
+                        —
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">
+                        النهاية
+                    </div>
+                    <div
+                        class="summary-value"
+                        id="sumTimeOut"
+                    >
+                        —
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">
+                        المدة
+                    </div>
+                    <div
+                        class="summary-value"
+                        id="sumDuration"
+                    >
+                        —
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">
+                        الصور
+                    </div>
+                    <div
+                        class="summary-value"
+                        id="sumImages"
+                    >
+                        0 / 2
+                    </div>
+                </div>
             </div>
-        </form>
-    </section>
-    <!-- HISTORY -->
-    <section class="history-card">
-        <div class="history-head">
-            <h3>♛ سجل الدوريات الأخير</h3>
+            <div class="progress-wrap">
+                <div class="progress-head">
+                    <span>
+                        نسبة اكتمال التقرير
+                    </span>
+                    <strong id="completionText">
+                        0%
+                    </strong>
+                </div>
+                <div class="progress">
+                    <div
+                        class="progress-bar"
+                        id="progressBar"
+                    ></div>
+                </div>
+            </div>
+        </section>
+        <!-- ACTIONS -->
+        <div class="actions">
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="sendBtn"
+            >
+                <span>♛</span>
+                إرسال التقرير إلى Discord
+            </button>
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="printBtn"
+            >
+                <span>▣</span>
+                طباعة
+            </button>
             <button
                 type="button"
                 class="btn btn-danger"
+                id="clearBtn"
+            >
+                <span>×</span>
+                مسح البيانات
+            </button>
+        </div>
+    </form>
+    <!-- ================= HISTORY ================= -->
+    <section class="section">
+        <div class="section-title">
+            <div class="section-number">07</div>
+            <h2>سجل التقارير الأخيرة</h2>
+            <span>LOCAL HISTORY</span>
+        </div>
+        <div
+            class="history-list"
+            id="historyList"
+        ></div>
+        <div
+            style="margin-top:12px;text-align:left;"
+        >
+            <button
+                type="button"
+                class="btn btn-secondary"
                 id="clearHistoryBtn"
-                style="padding:8px 12px;font-size:10px"
+                style="min-height:38px;padding:0 14px;font-size:10px;"
             >
                 مسح السجل
             </button>
         </div>
-        <div class="history-list" id="historyList">
-            <div class="empty-history">
-                لا توجد تقارير مرسلة محفوظة محليًا حتى الآن
-            </div>
-        </div>
     </section>
-</main>
-<!-- CONFIRM MODAL -->
-<div class="modal" id="confirmModal">
-    <div class="modal-card">
-        <div class="modal-title">تأكيد الإرسال الملكي</div>
-        <div class="modal-sub">
-            راجع البيانات التالية قبل إرسال التقرير إلى Discord
+    <div class="footer">
+        MESA ME ROYAL POLICE SYSTEM
+        <br>
+        <b>POWERED BY ROYAL TECHNOLOGY</b>
+    </div>
+</div>
+<!-- ================= CONFIRM MODAL ================= -->
+<div
+    class="modal"
+    id="confirmModal"
+>
+    <div class="modal-box">
+        <div class="modal-icon">
+            ♛
         </div>
-        <div class="confirm-preview">
-            <div class="confirm-row">
-                <span>قائد الدورية</span>
-                <strong id="confirmLeader">—</strong>
-            </div>
-            <div class="confirm-row">
-                <span>القسم</span>
-                <strong id="confirmDepartment">—</strong>
-            </div>
-            <div class="confirm-row">
-                <span>الحالة</span>
-                <strong id="confirmStatus">—</strong>
-            </div>
-            <div class="confirm-row">
-                <span>التاريخ</span>
-                <strong id="confirmDate">—</strong>
-            </div>
-            <div class="confirm-row">
-                <span>مدة الدورية</span>
-                <strong id="confirmDuration">—</strong>
-            </div>
-            <div class="confirm-images">
-                <img id="confirmEntryImg" alt="صورة البداية">
-                <img id="confirmExitImg" alt="صورة النهاية">
-            </div>
-        </div>
+        <h3>
+            تأكيد إرسال التقرير
+        </h3>
+        <p>
+            هل أنت متأكد من أن جميع بيانات الدورية صحيحة؟
+            سيتم إرسال التقرير والصور مباشرة إلى Discord.
+        </p>
         <div class="modal-actions">
-            <button class="btn btn-primary" id="confirmSend">
-                ♛ تأكيد الإرسال
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="confirmSend"
+            >
+                تأكيد الإرسال
             </button>
-            <button class="btn btn-secondary" id="cancelConfirm">
-                رجوع
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="cancelSend"
+            >
+                إلغاء
             </button>
         </div>
     </div>
 </div>
-<!-- LOADING -->
-<div class="modal" id="loadingModal">
-    <div class="modal-card" style="max-width:400px">
-        <div class="loading-ring"></div>
-        <div class="loading-text">
-            جاري إرسال التقرير الملكي...
-        </div>
-        <div class="loading-sub">
-            يتم رفع البيانات والصور إلى نظام Discord
-        </div>
+<!-- ================= LOADING MODAL ================= -->
+<div
+    class="modal"
+    id="loadingModal"
+>
+    <div class="modal-box">
+        <div class="loading-spinner"></div>
+        <h3>
+            جاري إرسال التقرير
+        </h3>
+        <p>
+            يرجى الانتظار لحظات...
+        </p>
     </div>
 </div>
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose">×</button>
-    <img id="lightboxImg" alt="معاينة الصورة">
+<!-- ================= LIGHTBOX ================= -->
+<div
+    class="modal lightbox"
+    id="lightbox"
+>
+    <button
+        type="button"
+        class="lightbox-close"
+        id="lightboxClose"
+    >
+        ×
+    </button>
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Preview"
+    >
 </div>
-<div class="toast-container" id="toastContainer"></div>
+<!-- ================= TOAST ================= -->
+<div
+    class="toast-container"
+    id="toastContainer"
+></div>
 <script>
-/* ============================================================
-   MESA ME — ROYAL POLICE PATROL REPORT SYSTEM
-============================================================ */
-/* =========================
-   DISCORD WEBHOOK
-========================= */
+/* =========================================================
+   CONFIG
+========================================================= */
 const WEBHOOK_URL =
 "https://discord.com/api/webhooks/1552613985453477908/UtWZAf3yiGmMcLVBER8s8cj4AigbiB29yKGcbVtrMWMyYUXOTELGTHzo5II2SyOfEBxO";
-const DRAFT_KEY = "mesa_me_royal_patrol_draft";
-const HISTORY_KEY = "mesa_me_royal_patrol_history";
-/* =========================
+const DRAFT_KEY =
+"mesa_me_royal_patrol_draft";
+const HISTORY_KEY =
+"mesa_me_royal_patrol_history";
+/* =========================================================
    ELEMENTS
-========================= */
-const form = document.getElementById("reportForm");
-const leader = document.getElementById("leader");
-const reportDate = document.getElementById("reportDate");
-const department = document.getElementById("department");
-const patrolCode = document.getElementById("patrolCode");
-const timeIn = document.getElementById("timeIn");
-const timeOut = document.getElementById("timeOut");
-const notes = document.getElementById("notes");
-const entryImage = document.getElementById("entryImage");
-const exitImage = document.getElementById("exitImage");
-const durationDisplay = document.getElementById("durationDisplay");
-const durationStatus = document.getElementById("durationStatus");
-const entryPreview = document.getElementById("entryPreview");
-const exitPreview = document.getElementById("exitPreview");
-const entryPreviewImg = document.getElementById("entryPreviewImg");
-const exitPreviewImg = document.getElementById("exitPreviewImg");
-const confirmModal = document.getElementById("confirmModal");
-const loadingModal = document.getElementById("loadingModal");
-let entryObjectURL = null;
-let exitObjectURL = null;
-/* =========================
-   PARTICLES
-========================= */
-const particles = document.getElementById("particles");
-for(let i = 0; i < 55; i++){
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = Math.random() * 100 + "%";
-    p.style.animationDuration = (8 + Math.random() * 14) + "s";
-    p.style.animationDelay = (-Math.random() * 15) + "s";
-    const size = 1 + Math.random() * 3;
-    p.style.width = size + "px";
-    p.style.height = size + "px";
-    particles.appendChild(p);
-}
-/* =========================
-   DATE + CLOCK
-========================= */
+========================================================= */
+const leader =
+document.getElementById("leader");
+const reportDate =
+document.getElementById("reportDate");
+const department =
+document.getElementById("department");
+const timeIn =
+document.getElementById("timeIn");
+const timeOut =
+document.getElementById("timeOut");
+const notes =
+document.getElementById("notes");
+const entryImage =
+document.getElementById("entryImage");
+const exitImage =
+document.getElementById("exitImage");
+const durationText =
+document.getElementById("durationText");
+const charCount =
+document.getElementById("charCount");
+const imageCount =
+document.getElementById("imageCount");
+const dashboardDuration =
+document.getElementById("dashboardDuration");
+const dashboardCompletion =
+document.getElementById("dashboardCompletion");
+const progressBar =
+document.getElementById("progressBar");
+const completionText =
+document.getElementById("completionText");
+const sumLeader =
+document.getElementById("sumLeader");
+const sumDepartment =
+document.getElementById("sumDepartment");
+const sumDate =
+document.getElementById("sumDate");
+const sumStatus =
+document.getElementById("sumStatus");
+const sumTimeIn =
+document.getElementById("sumTimeIn");
+const sumTimeOut =
+document.getElementById("sumTimeOut");
+const sumDuration =
+document.getElementById("sumDuration");
+const sumImages =
+document.getElementById("sumImages");
+const confirmModal =
+document.getElementById("confirmModal");
+const loadingModal =
+document.getElementById("loadingModal");
+const lightbox =
+document.getElementById("lightbox");
+const lightboxImage =
+document.getElementById("lightboxImage");
+const historyList =
+document.getElementById("historyList");
+/* =========================================================
+   DATE
+========================================================= */
 function setToday(){
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2,"0");
-    const day = String(now.getDate()).padStart(2,"0");
-    if(!reportDate.value){
-        reportDate.value = `${year}-${month}-${day}`;
-    }
-}
-function updateClock(){
-    const now = new Date();
-    const time = new Intl.DateTimeFormat("ar-IQ",{
-        hour:"2-digit",
-        minute:"2-digit",
-        second:"2-digit",
-        hour12:false
-    }).format(now);
-    const date = new Intl.DateTimeFormat("ar-IQ",{
-        weekday:"long",
-        year:"numeric",
-        month:"long",
-        day:"numeric"
-    }).format(now);
-    document.getElementById("liveClock").textContent = time;
-    document.getElementById("liveDate").textContent = date;
+    const today =
+        new Date();
+    const year =
+        today.getFullYear();
+    const month =
+        String(today.getMonth()+1)
+        .padStart(2,"0");
+    const day =
+        String(today.getDate())
+        .padStart(2,"0");
+    reportDate.value =
+        `${year}-${month}-${day}`;
 }
 setToday();
+/* =========================================================
+   CLOCK
+========================================================= */
+function updateClock(){
+    const now =
+        new Date();
+    const time =
+        now.toLocaleTimeString(
+            "ar-IQ",
+            {
+                hour12:false
+            }
+        );
+    const date =
+        now.toLocaleDateString(
+            "ar-IQ",
+            {
+                weekday:"long",
+                year:"numeric",
+                month:"long",
+                day:"numeric"
+            }
+        );
+    document.getElementById("clockTime")
+        .textContent = time;
+    document.getElementById("clockDate")
+        .textContent = date;
+}
 updateClock();
 setInterval(updateClock,1000);
-/* =========================
-   DATE FORMAT
-========================= */
-function formatDate(value){
-    if(!value) return "—";
-    const date = new Date(value + "T00:00:00");
-    return new Intl.DateTimeFormat("ar-IQ",{
-        year:"numeric",
-        month:"long",
-        day:"numeric"
-    }).format(date);
+/* =========================================================
+   PARTICLES
+========================================================= */
+function createParticles(){
+    const container =
+        document.getElementById("particles");
+    for(let i=0;i<35;i++){
+        const p =
+            document.createElement("div");
+        p.className =
+            "particle";
+        p.style.left =
+            Math.random()*100 + "%";
+        p.style.animationDuration =
+            (8 + Math.random()*15) + "s";
+        p.style.animationDelay =
+            (-Math.random()*20) + "s";
+        p.style.width =
+            (1 + Math.random()*3) + "px";
+        p.style.height =
+            p.style.width;
+        container.appendChild(p);
+    }
 }
-/* =========================
+createParticles();
+/* =========================================================
+   STATUS
+========================================================= */
+function getStatus(){
+    const selected =
+        document.querySelector(
+            'input[name="status"]:checked'
+        );
+    return selected
+        ? selected.value
+        : "مكتملة";
+}
+/* =========================================================
    DURATION
-========================= */
+========================================================= */
 function calculateDuration(){
     if(!timeIn.value || !timeOut.value){
-        durationDisplay.textContent = "00:00";
-        durationStatus.textContent = "بانتظار الأوقات";
-        return "00:00";
+        durationText.textContent = "—";
+        dashboardDuration.textContent = "—";
+        sumDuration.textContent = "—";
+        return "—";
     }
-    const [inH,inM] = timeIn.value.split(":").map(Number);
-    const [outH,outM] = timeOut.value.split(":").map(Number);
-    let start = inH * 60 + inM;
-    let end = outH * 60 + outM;
-    if(end < start){
-        end += 24 * 60;
-        durationStatus.textContent = "دورية عابرة لمنتصف الليل";
-    }else{
-        durationStatus.textContent = "المدة محسوبة تلقائيًا";
+    const start =
+        timeIn.value
+        .split(":")
+        .map(Number);
+    const end =
+        timeOut.value
+        .split(":")
+        .map(Number);
+    let startMinutes =
+        start[0]*60 + start[1];
+    let endMinutes =
+        end[0]*60 + end[1];
+    if(endMinutes < startMinutes){
+        endMinutes += 24*60;
     }
-    const diff = end - start;
-    const hours = Math.floor(diff / 60);
-    const minutes = diff % 60;
-    const result =
-        String(hours).padStart(2,"0") + ":" +
-        String(minutes).padStart(2,"0");
-    durationDisplay.textContent = result;
-    document.getElementById("dashboardDuration").textContent = result;
-    document.getElementById("sumDuration").textContent = result;
+    const total =
+        endMinutes - startMinutes;
+    const hours =
+        Math.floor(total/60);
+    const minutes =
+        total%60;
+    let result = "";
+    if(hours > 0){
+        result +=
+            `${hours} ساعة`;
+    }
+    if(minutes > 0){
+        if(result){
+            result += " و ";
+        }
+        result +=
+            `${minutes} دقيقة`;
+    }
+    if(!result){
+        result = "0 دقيقة";
+    }
+    durationText.textContent =
+        result;
+    dashboardDuration.textContent =
+        result;
+    sumDuration.textContent =
+        result;
     return result;
 }
-/* =========================
-   STATUS
-========================= */
-function getStatus(){
-    const checked = document.querySelector(
-        'input[name="status"]:checked'
-    );
-    return checked ? checked.value : "";
-}
-/* =========================
+/* =========================================================
    IMAGE VALIDATION
-========================= */
+========================================================= */
 function validateImage(file){
-    if(!file) return true;
+    if(!file){
+        return true;
+    }
     const allowed = [
         "image/jpeg",
         "image/png",
@@ -1618,675 +1801,803 @@ function validateImage(file){
     ];
     if(!allowed.includes(file.type)){
         showToast(
-            "نوع الملف غير صالح",
-            "استخدم JPG أو PNG أو WEBP فقط."
+            "نوع الصورة غير مدعوم. استخدم JPG أو PNG أو WEBP.",
+            "error"
         );
         return false;
     }
-    if(file.size > 8 * 1024 * 1024){
+    const maxSize =
+        8 * 1024 * 1024;
+    if(file.size > maxSize){
         showToast(
-            "حجم الصورة كبير",
-            "الحد الأقصى للصورة هو 8MB."
+            "حجم الصورة يجب ألا يتجاوز 8MB.",
+            "error"
         );
         return false;
     }
     return true;
 }
-/* =========================
+/* =========================================================
    IMAGE PREVIEW
-========================= */
-function setupImagePreview(input,preview,img,type){
-    input.addEventListener("change",()=>{
-        const file = input.files[0];
-        if(!file) return;
-        if(!validateImage(file)){
-            input.value = "";
-            preview.classList.remove("show");
-            return;
-        }
-        const url = URL.createObjectURL(file);
-        if(type === "entry"){
-            if(entryObjectURL){
-                URL.revokeObjectURL(entryObjectURL);
+========================================================= */
+function setupImagePreview(
+    input,
+    preview,
+    previewImg
+){
+    input.addEventListener(
+        "change",
+        function(){
+            const file =
+                this.files[0];
+            if(!file){
+                return;
             }
-            entryObjectURL = url;
-        }else{
-            if(exitObjectURL){
-                URL.revokeObjectURL(exitObjectURL);
+            if(!validateImage(file)){
+                this.value = "";
+                preview.style.display =
+                    "none";
+                updateAll();
+                return;
             }
-            exitObjectURL = url;
+            const reader =
+                new FileReader();
+            reader.onload =
+                function(e){
+                    previewImg.src =
+                        e.target.result;
+                    preview.style.display =
+                        "block";
+                    updateAll();
+                };
+            reader.readAsDataURL(file);
         }
-        img.src = url;
-        preview.classList.add("show");
-        updateAll();
-        saveDraft();
-    });
+    );
 }
 setupImagePreview(
     entryImage,
-    entryPreview,
-    entryPreviewImg,
-    "entry"
+    document.getElementById("entryPreview"),
+    document.getElementById("entryPreviewImg")
 );
 setupImagePreview(
     exitImage,
-    exitPreview,
-    exitPreviewImg,
-    "exit"
+    document.getElementById("exitPreview"),
+    document.getElementById("exitPreviewImg")
 );
-/* =========================
+/* =========================================================
    LIGHTBOX
-========================= */
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-function openLightbox(src){
-    lightboxImg.src = src;
-    lightbox.classList.add("show");
-}
-entryPreviewImg.addEventListener("click",(e)=>{
-    e.stopPropagation();
-    if(entryPreviewImg.src) openLightbox(entryPreviewImg.src);
-});
-exitPreviewImg.addEventListener("click",(e)=>{
-    e.stopPropagation();
-    if(exitPreviewImg.src) openLightbox(exitPreviewImg.src);
-});
-document.getElementById("lightboxClose").addEventListener(
-    "click",
-    ()=>lightbox.classList.remove("show")
-);
-lightbox.addEventListener("click",(e)=>{
-    if(e.target === lightbox){
-        lightbox.classList.remove("show");
+========================================================= */
+function openLightbox(type){
+    let source = "";
+    if(type === "entry"){
+        source =
+            document.getElementById(
+                "entryPreviewImg"
+            ).src;
     }
-});
-/* =========================
-   CHARACTER COUNT
-========================= */
-notes.addEventListener("input",()=>{
-    document.getElementById("charCount").textContent =
-        notes.value.length;
-    updateAll();
-    saveDraft();
-});
-/* =========================
+    if(type === "exit"){
+        source =
+            document.getElementById(
+                "exitPreviewImg"
+            ).src;
+    }
+    if(!source){
+        return;
+    }
+    lightboxImage.src =
+        source;
+    lightbox.classList.add("active");
+}
+document.getElementById(
+    "lightboxClose"
+).addEventListener(
+    "click",
+    function(){
+        lightbox.classList.remove(
+            "active"
+        );
+    }
+);
+lightbox.addEventListener(
+    "click",
+    function(e){
+        if(e.target === lightbox){
+            lightbox.classList.remove(
+                "active"
+            );
+        }
+    }
+);
+/* =========================================================
    SUMMARY
-========================= */
+========================================================= */
 function updateSummary(){
-    const status = getStatus();
-    document.getElementById("sumLeader").textContent =
-        leader.value || "—";
-    document.getElementById("sumDate").textContent =
-        formatDate(reportDate.value);
-    document.getElementById("sumDepartment").textContent =
+    sumLeader.textContent =
+        leader.value.trim() || "—";
+    sumDepartment.textContent =
         department.value || "—";
-    document.getElementById("sumStatus").textContent =
-        status || "—";
-    document.getElementById("sumTimeIn").textContent =
+    sumDate.textContent =
+        reportDate.value || "—";
+    sumStatus.textContent =
+        getStatus();
+    sumTimeIn.textContent =
         timeIn.value || "—";
-    document.getElementById("sumTimeOut").textContent =
+    sumTimeOut.textContent =
         timeOut.value || "—";
-    document.getElementById("sumPatrolCode").textContent =
-        patrolCode.value || "—";
-    document.getElementById("sumImages").textContent =
-        `${entryImage.files.length ? 1 : 0} / 1 + ${exitImage.files.length ? 1 : 0} / 1`;
-    calculateDuration();
+    const images =
+        Number(!!entryImage.files[0]) +
+        Number(!!exitImage.files[0]);
+    imageCount.innerHTML =
+        `${images} <small>/ 2</small>`;
+    sumImages.textContent =
+        `${images} / 2`;
+    charCount.textContent =
+        notes.value.length;
 }
-/* =========================
+/* =========================================================
    COMPLETION
-========================= */
+========================================================= */
 function updateCompletion(){
-    const checks = [
-        !!leader.value.trim(),
-        !!reportDate.value,
-        !!department.value,
-        !!getStatus(),
-        !!timeIn.value,
-        !!timeOut.value,
-        !!entryImage.files.length,
-        !!exitImage.files.length
-    ];
-    const completed = checks.filter(Boolean).length;
-    const percent = Math.round((completed / checks.length) * 100);
-    document.getElementById("completionNumber").textContent =
+    let completed = 0;
+    const total = 8;
+    if(leader.value.trim()) completed++;
+    if(reportDate.value) completed++;
+    if(department.value) completed++;
+    if(timeIn.value) completed++;
+    if(timeOut.value) completed++;
+    if(entryImage.files[0]) completed++;
+    if(exitImage.files[0]) completed++;
+    if(notes.value.trim()) completed++;
+    const percent =
+        Math.round(
+            completed / total * 100
+        );
+    progressBar.style.width =
         percent + "%";
-    document.getElementById("completionText").textContent =
+    completionText.textContent =
         percent + "%";
-    document.getElementById("completionRing").style.background =
-        `conic-gradient(var(--gold) ${percent * 3.6}deg,#222 ${percent * 3.6}deg)`;
-    document.getElementById("imageCount").textContent =
-        `${(entryImage.files.length ? 1 : 0) + (exitImage.files.length ? 1 : 0)} / 2`;
+    dashboardCompletion.textContent =
+        percent + "%";
 }
-/* =========================
+/* =========================================================
    UPDATE ALL
-========================= */
+========================================================= */
 function updateAll(){
+    calculateDuration();
     updateSummary();
     updateCompletion();
-    document.getElementById("charCount").textContent =
-        notes.value.length;
+    saveDraft();
 }
-/* =========================
+/* =========================================================
    AUTOSAVE
-========================= */
-let saveTimer = null;
+========================================================= */
 function saveDraft(){
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(()=>{
-        const data = {
-            leader: leader.value,
-            reportDate: reportDate.value,
-            department: department.value,
-            patrolCode: patrolCode.value,
-            status: getStatus(),
-            timeIn: timeIn.value,
-            timeOut: timeOut.value,
-            notes: notes.value
-        };
-        localStorage.setItem(
-            DRAFT_KEY,
-            JSON.stringify(data)
-        );
-        document.getElementById("saveStatus").textContent =
-            "تم الحفظ تلقائيًا";
-        setTimeout(()=>{
-            document.getElementById("saveStatus").textContent =
-                "جاهز";
-        },2000);
-    },400);
+    const draft = {
+        leader:
+            leader.value,
+        reportDate:
+            reportDate.value,
+        department:
+            department.value,
+        status:
+            getStatus(),
+        timeIn:
+            timeIn.value,
+        timeOut:
+            timeOut.value,
+        notes:
+            notes.value
+    };
+    localStorage.setItem(
+        DRAFT_KEY,
+        JSON.stringify(draft)
+    );
 }
 function loadDraft(){
     try{
-        const raw = localStorage.getItem(DRAFT_KEY);
-        if(!raw) return;
-        const data = JSON.parse(raw);
-        leader.value = data.leader || "";
-        reportDate.value = data.reportDate || reportDate.value;
-        department.value = data.department || "";
-        patrolCode.value = data.patrolCode || "";
-        timeIn.value = data.timeIn || "";
-        timeOut.value = data.timeOut || "";
-        notes.value = data.notes || "";
-        if(data.status){
-            const radio = document.querySelector(
-                `input[name="status"][value="${CSS.escape(data.status)}"]`
+        const raw =
+            localStorage.getItem(
+                DRAFT_KEY
             );
-            if(radio) radio.checked = true;
+        if(!raw){
+            return;
         }
-        document.getElementById("saveStatus").textContent =
-            "تم استرجاع المسودة";
+        const draft =
+            JSON.parse(raw);
+        if(draft.leader)
+            leader.value =
+                draft.leader;
+        if(draft.reportDate)
+            reportDate.value =
+                draft.reportDate;
+        if(draft.department)
+            department.value =
+                draft.department;
+        if(draft.timeIn)
+            timeIn.value =
+                draft.timeIn;
+        if(draft.timeOut)
+            timeOut.value =
+                draft.timeOut;
+        if(draft.notes)
+            notes.value =
+                draft.notes;
+        if(draft.status){
+            const radio =
+                document.querySelector(
+                    `input[name="status"][value="${draft.status}"]`
+                );
+            if(radio){
+                radio.checked = true;
+            }
+        }
+        updateAll();
     }catch(error){
-        console.error(error);
+        console.error(
+            "Draft load error:",
+            error
+        );
     }
 }
 loadDraft();
-updateAll();
-/* =========================
+/* =========================================================
    INPUT LISTENERS
-========================= */
+========================================================= */
 [
     leader,
     reportDate,
     department,
-    patrolCode,
     timeIn,
-    timeOut
-].forEach(element=>{
-    element.addEventListener("input",()=>{
-        updateAll();
-        saveDraft();
-    });
-    element.addEventListener("change",()=>{
-        updateAll();
-        saveDraft();
-    });
-});
-document.querySelectorAll('input[name="status"]').forEach(radio=>{
-    radio.addEventListener("change",()=>{
-        updateAll();
-        saveDraft();
-    });
-});
-/* =========================
+    timeOut,
+    notes
+].forEach(
+    element => {
+        element.addEventListener(
+            "input",
+            updateAll
+        );
+        element.addEventListener(
+            "change",
+            updateAll
+        );
+    }
+);
+document
+.querySelectorAll(
+    'input[name="status"]'
+)
+.forEach(
+    radio => {
+        radio.addEventListener(
+            "change",
+            updateAll
+        );
+    }
+);
+/* =========================================================
    VALIDATION
-========================= */
+========================================================= */
 function validateForm(){
     if(!leader.value.trim()){
         showToast(
-            "بيانات ناقصة",
-            "اكتب اسم قائد أو مسؤول الدورية."
+            "يرجى إدخال اسم قائد الدورية.",
+            "error"
         );
         leader.focus();
         return false;
     }
     if(!reportDate.value){
         showToast(
-            "بيانات ناقصة",
-            "حدد تاريخ الدورية."
+            "يرجى اختيار تاريخ الدورية.",
+            "error"
         );
         reportDate.focus();
         return false;
     }
     if(!department.value){
         showToast(
-            "بيانات ناقصة",
-            "اختر القسم أو الوحدة."
+            "يرجى اختيار نوع الدورية.",
+            "error"
         );
         department.focus();
         return false;
     }
-    if(!getStatus()){
-        showToast(
-            "حالة الدورية غير محددة",
-            "حدد حالة الدورية."
-        );
-        return false;
-    }
     if(!timeIn.value || !timeOut.value){
         showToast(
-            "الأوقات ناقصة",
-            "حدد وقت بداية ونهاية الدورية."
+            "يرجى تحديد وقت البداية والنهاية.",
+            "error"
         );
         return false;
     }
-    if(!entryImage.files.length){
+    if(!entryImage.files[0]){
         showToast(
-            "الصورة الأولى ناقصة",
-            "ارفع صورة بداية الدورية."
+            "يرجى رفع صورة بداية الدورية.",
+            "error"
         );
         return false;
     }
-    if(!exitImage.files.length){
+    if(!exitImage.files[0]){
         showToast(
-            "الصورة الثانية ناقصة",
-            "ارفع صورة نهاية الدورية."
+            "يرجى رفع صورة نهاية الدورية.",
+            "error"
         );
         return false;
     }
     return true;
 }
-/* =========================
-   CONFIRMATION
-========================= */
-function openConfirmModal(){
-    document.getElementById("confirmLeader").textContent =
-        leader.value;
-    document.getElementById("confirmDepartment").textContent =
-        department.value;
-    document.getElementById("confirmStatus").textContent =
-        getStatus();
-    document.getElementById("confirmDate").textContent =
-        formatDate(reportDate.value);
-    document.getElementById("confirmDuration").textContent =
-        calculateDuration();
-    document.getElementById("confirmEntryImg").src =
-        entryPreviewImg.src;
-    document.getElementById("confirmExitImg").src =
-        exitPreviewImg.src;
-    confirmModal.classList.add("show");
-}
-document.getElementById("cancelConfirm").addEventListener(
+/* =========================================================
+   SEND BUTTON
+========================================================= */
+document.getElementById(
+    "sendBtn"
+).addEventListener(
     "click",
-    ()=>confirmModal.classList.remove("show")
+    function(){
+        if(!validateForm()){
+            return;
+        }
+        confirmModal.classList.add(
+            "active"
+        );
+    }
 );
-/* =========================
-   FORM SUBMIT
-========================= */
-form.addEventListener("submit",(e)=>{
-    e.preventDefault();
-    if(!validateForm()) return;
-    openConfirmModal();
-});
-/* =========================
-   SEND TO DISCORD
-========================= */
-document.getElementById("confirmSend").addEventListener(
+/* =========================================================
+   CANCEL
+========================================================= */
+document.getElementById(
+    "cancelSend"
+).addEventListener(
     "click",
-    sendReport
+    function(){
+        confirmModal.classList.remove(
+            "active"
+        );
+    }
 );
-async function sendReport(){
-    confirmModal.classList.remove("show");
-    loadingModal.classList.add("show");
-    try{
-        const status = getStatus();
-        const statusColor =
-            status === "مكتملة"
-                ? 0x39d98a
-                : status === "قيد المتابعة"
-                    ? 0x5aa9ff
-                    : 0xffb347;
-        const duration = calculateDuration();
-        const embed = {
-            title: "♛ تقرير دورية شرطة MESA ME",
-            description:
-                "تم تسجيل تقرير دورية جديد عبر النظام الملكي لتقارير شرطة MESA ME.",
-            color: statusColor,
-            author:{
-                name:"MESA ME • ROYAL POLICE SYSTEM"
-            },
-            fields:[
+/* =========================================================
+   SEND REPORT
+========================================================= */
+document.getElementById(
+    "confirmSend"
+).addEventListener(
+    "click",
+    async function(){
+        confirmModal.classList.remove(
+            "active"
+        );
+        loadingModal.classList.add(
+            "active"
+        );
+        try{
+            const duration =
+                calculateDuration();
+            const embedFields = [
                 {
                     name:"👮 قائد الدورية",
-                    value:leader.value || "غير محدد",
+                    value:
+                        leader.value.trim() ||
+                        "غير محدد",
                     inline:true
                 },
                 {
-                    name:"🏛 القسم / الوحدة",
-                    value:department.value || "غير محدد",
+                    name:"🏛️ نوع الدورية",
+                    value:
+                        department.value ||
+                        "غير محدد",
                     inline:true
                 },
                 {
-                    name:"🚨 حالة الدورية",
-                    value:status || "غير محددة",
+                    name:"📌 الحالة",
+                    value:
+                        getStatus(),
                     inline:true
                 },
                 {
                     name:"📅 التاريخ",
-                    value:formatDate(reportDate.value),
+                    value:
+                        reportDate.value ||
+                        "غير محدد",
                     inline:true
                 },
                 {
-                    name:"🕐 بداية الدورية",
-                    value:timeIn.value || "غير محدد",
+                    name:"🕐 وقت البداية",
+                    value:
+                        timeIn.value ||
+                        "غير محدد",
                     inline:true
                 },
                 {
-                    name:"🕐 نهاية الدورية",
-                    value:timeOut.value || "غير محدد",
+                    name:"🕐 وقت النهاية",
+                    value:
+                        timeOut.value ||
+                        "غير محدد",
                     inline:true
                 },
                 {
-                    name:"⏱ مدة الدورية",
-                    value:duration,
-                    inline:true
-                },
-                {
-                    name:"🔰 رمز الدورية",
-                    value:patrolCode.value || "غير محدد",
+                    name:"⏱️ مدة الدورية",
+                    value:
+                        duration ||
+                        "غير محسوبة",
                     inline:true
                 },
                 {
                     name:"📝 الملاحظات",
-                    value:notes.value.trim() || "لا توجد ملاحظات",
+                    value:
+                        notes.value.trim() ||
+                        "لا توجد ملاحظات",
                     inline:false
                 }
-            ],
-            footer:{
-                text:"♛ MESA ME • Royal Police Patrol Report System"
-            },
-            timestamp:new Date().toISOString()
-        };
-        const payload = {
-            username:"♛ شرطة MESA ME • تقارير الدوريات",
-            embeds:[embed],
-            allowed_mentions:{
-                parse:[]
+            ];
+            const payload = {
+                username:
+                    "MESA ME | Royal Police",
+                avatar_url:
+                    "",
+                content:
+                    "👑 **تقرير دورية شرطة جديد**",
+                embeds:[
+                    {
+                        title:
+                            "♛ تقرير دورية شرطة MESA ME",
+                        description:
+                            "تم تسجيل تقرير دورية جديد عبر النظام الملكي.",
+                        color:
+                            0xD4AF37,
+                        fields:
+                            embedFields,
+                        footer:{
+                            text:
+                                "MESA ME ROYAL POLICE • PATROL REPORT SYSTEM"
+                        },
+                        timestamp:
+                            new Date().toISOString()
+                    }
+                ],
+                allowed_mentions:{
+                    parse:[]
+                }
+            };
+            const formData =
+                new FormData();
+            formData.append(
+                "payload_json",
+                JSON.stringify(payload)
+            );
+            formData.append(
+                "files[0]",
+                entryImage.files[0],
+                entryImage.files[0].name
+            );
+            formData.append(
+                "files[1]",
+                exitImage.files[0],
+                exitImage.files[0].name
+            );
+            const response =
+                await fetch(
+                    WEBHOOK_URL + "?wait=true",
+                    {
+                        method:"POST",
+                        body:formData
+                    }
+                );
+            if(!response.ok){
+                let errorText = "";
+                try{
+                    errorText =
+                        await response.text();
+                }catch(e){}
+                console.error(
+                    "Discord Error:",
+                    errorText
+                );
+                throw new Error(
+                    "Discord rejected the webhook request."
+                );
             }
-        };
-        const formData = new FormData();
-        formData.append(
-            "payload_json",
-            JSON.stringify(payload)
-        );
-        const entryFile = entryImage.files[0];
-        const exitFile = exitImage.files[0];
-        formData.append(
-            "files[0]",
-            entryFile,
-            "MESA-ME-patrol-entry." +
-            getExtension(entryFile.name)
-        );
-        formData.append(
-            "files[1]",
-            exitFile,
-            "MESA-ME-patrol-exit." +
-            getExtension(exitFile.name)
-        );
-        /*
-          إرسال التقرير مباشرة إلى Discord.
-          wait=true يجعل Discord يعيد استجابة للرسالة المنشأة،
-          وهذا يساعدنا على التأكد من نجاح العملية.
-        */
-        const response = await fetch(
-            WEBHOOK_URL + "?wait=true",
-            {
-                method:"POST",
-                body:formData
-            }
-        );
-        if(!response.ok){
-            let errorText = "";
-            try{
-                errorText = await response.text();
-            }catch{}
-            console.error(errorText);
-            throw new Error(
-                "HTTP " + response.status
+            saveToHistory();
+            loadingModal.classList.remove(
+                "active"
+            );
+            showToast(
+                "تم إرسال التقرير بنجاح إلى Discord ✓",
+                "success"
+            );
+            resetForm();
+        }catch(error){
+            console.error(
+                "Send error:",
+                error
+            );
+            loadingModal.classList.remove(
+                "active"
+            );
+            showToast(
+                "حدث خطأ أثناء إرسال التقرير. تأكد من رابط Webhook واتصال الإنترنت.",
+                "error"
             );
         }
-        saveToHistory({
-            leader:leader.value,
-            reportDate:reportDate.value,
-            department:department.value,
-            patrolCode:patrolCode.value,
-            status,
-            timeIn:timeIn.value,
-            timeOut:timeOut.value,
-            duration,
-            sentAt:new Date().toISOString()
-        });
-        localStorage.removeItem(DRAFT_KEY);
-        loadingModal.classList.remove("show");
-        showToast(
-            "تم إرسال التقرير بنجاح ♛",
-            "تم إرسال تقرير دورية MESA ME والصور إلى Discord."
-        );
-        resetForm();
-        renderHistory();
-    }catch(error){
-        console.error(error);
-        loadingModal.classList.remove("show");
-        showToast(
-            "فشل الإرسال",
-            "تأكد من اتصال الإنترنت وصحة رابط Webhook."
-        );
-    }
-}
-/* =========================
-   FILE EXTENSION
-========================= */
-function getExtension(filename){
-    const parts = filename.split(".");
-    return parts.length > 1
-        ? parts.pop().toLowerCase()
-        : "jpg";
-}
-/* =========================
-   RESET
-========================= */
-function resetForm(){
-    form.reset();
-    setToday();
-    durationDisplay.textContent = "00:00";
-    durationStatus.textContent = "بانتظار الأوقات";
-    document.getElementById("dashboardDuration").textContent =
-        "--";
-    document.getElementById("charCount").textContent =
-        "0";
-    entryPreview.classList.remove("show");
-    exitPreview.classList.remove("show");
-    entryPreviewImg.src = "";
-    exitPreviewImg.src = "";
-    document.getElementById("saveStatus").textContent =
-        "جاهز";
-    updateAll();
-}
-/* =========================
-   CLEAR FORM
-========================= */
-document.getElementById("clearBtn").addEventListener(
-    "click",
-    ()=>{
-        const okay = confirm(
-            "هل تريد مسح تقرير الدورية الحالي؟"
-        );
-        if(!okay) return;
-        localStorage.removeItem(DRAFT_KEY);
-        resetForm();
-        showToast(
-            "تم المسح",
-            "تم تنظيف نموذج التقرير بالكامل."
-        );
     }
 );
-/* =========================
-   PRINT
-========================= */
-document.getElementById("printBtn").addEventListener(
-    "click",
-    ()=>window.print()
-);
-/* =========================
+/* =========================================================
    HISTORY
-========================= */
-function getHistory(){
+========================================================= */
+function saveToHistory(){
+    let history = [];
     try{
-        return JSON.parse(
-            localStorage.getItem(HISTORY_KEY)
-        ) || [];
-    }catch{
-        return [];
+        history =
+            JSON.parse(
+                localStorage.getItem(
+                    HISTORY_KEY
+                ) || "[]"
+            );
+    }catch(e){
+        history = [];
     }
-}
-function saveToHistory(record){
-    const history = getHistory();
-    history.unshift(record);
-    const limited = history.slice(0,10);
+    history.unshift({
+        leader:
+            leader.value.trim(),
+        department:
+            department.value,
+        date:
+            reportDate.value,
+        status:
+            getStatus(),
+        duration:
+            calculateDuration(),
+        createdAt:
+            new Date().toISOString()
+    });
+    history =
+        history.slice(0,10);
     localStorage.setItem(
         HISTORY_KEY,
-        JSON.stringify(limited)
+        JSON.stringify(history)
     );
+    renderHistory();
 }
+/* =========================================================
+   RENDER HISTORY
+========================================================= */
 function renderHistory(){
-    const list = document.getElementById("historyList");
-    const history = getHistory();
+    let history = [];
+    try{
+        history =
+            JSON.parse(
+                localStorage.getItem(
+                    HISTORY_KEY
+                ) || "[]"
+            );
+    }catch(e){
+        history = [];
+    }
     if(!history.length){
-        list.innerHTML = `
-            <div class="empty-history">
-                لا توجد تقارير مرسلة محفوظة محليًا حتى الآن
+        historyList.innerHTML = `
+            <div class="history-empty">
+                لا توجد تقارير محفوظة حتى الآن.
             </div>
         `;
         return;
     }
-    list.innerHTML = history.map((item,index)=>{
-        const sentDate = new Date(item.sentAt);
-        const dateText = new Intl.DateTimeFormat("ar-IQ",{
-            dateStyle:"medium",
-            timeStyle:"short"
-        }).format(sentDate);
-        return `
-            <div class="history-item">
-                <div>
-                    <small>قائد الدورية</small>
-                    <strong>${escapeHTML(item.leader)}</strong>
-                </div>
-                <div>
-                    <small>القسم</small>
-                    <strong>${escapeHTML(item.department)}</strong>
-                </div>
-                <div>
-                    <small>الحالة</small>
-                    <strong>${escapeHTML(item.status)}</strong>
-                </div>
-                <div>
-                    <small>المدة • ${escapeHTML(dateText)}</small>
-                    <strong>${escapeHTML(item.duration)}</strong>
-                </div>
-            </div>
-        `;
-    }).join("");
+    historyList.innerHTML =
+        history.map(
+            item => {
+                const date =
+                    new Date(
+                        item.createdAt
+                    );
+                const formatted =
+                    date.toLocaleString(
+                        "ar-IQ",
+                        {
+                            dateStyle:"medium",
+                            timeStyle:"short"
+                        }
+                    );
+                return `
+                    <div class="history-item">
+                        <div class="history-icon">
+                            ♛
+                        </div>
+                        <div class="history-main">
+                            <strong>
+                                ${escapeHTML(
+                                    item.leader ||
+                                    "غير محدد"
+                                )}
+                            </strong>
+                            <span>
+                                ${escapeHTML(
+                                    item.department ||
+                                    "غير محدد"
+                                )}
+                                •
+                                ${escapeHTML(
+                                    item.date ||
+                                    "غير محدد"
+                                )}
+                                •
+                                ${escapeHTML(
+                                    item.duration ||
+                                    "—"
+                                )}
+                                •
+                                ${escapeHTML(
+                                    formatted
+                                )}
+                            </span>
+                        </div>
+                        <div class="history-status">
+                            ${escapeHTML(
+                                item.status ||
+                                "مكتملة"
+                            )}
+                        </div>
+                    </div>
+                `;
+            }
+        ).join("");
 }
-renderHistory();
-/* =========================
+/* =========================================================
    CLEAR HISTORY
-========================= */
-document.getElementById("clearHistoryBtn").addEventListener(
+========================================================= */
+document.getElementById(
+    "clearHistoryBtn"
+).addEventListener(
     "click",
-    ()=>{
-        const history = getHistory();
-        if(!history.length){
-            showToast(
-                "السجل فارغ",
-                "لا توجد تقارير محفوظة."
-            );
+    function(){
+        if(
+            !confirm(
+                "هل تريد مسح سجل التقارير بالكامل؟"
+            )
+        ){
             return;
         }
-        if(!confirm("هل تريد مسح سجل التقارير المحلي؟")){
-            return;
-        }
-        localStorage.removeItem(HISTORY_KEY);
+        localStorage.removeItem(
+            HISTORY_KEY
+        );
         renderHistory();
         showToast(
-            "تم مسح السجل",
-            "تم حذف سجل التقارير من هذا المتصفح."
+            "تم مسح سجل التقارير.",
+            "success"
         );
     }
 );
-/* =========================
+renderHistory();
+/* =========================================================
+   RESET FORM
+========================================================= */
+function resetForm(){
+    document.getElementById(
+        "patrolForm"
+    ).reset();
+    setToday();
+    document.getElementById(
+        "entryPreview"
+    ).style.display = "none";
+    document.getElementById(
+        "exitPreview"
+    ).style.display = "none";
+    document.getElementById(
+        "entryPreviewImg"
+    ).src = "";
+    document.getElementById(
+        "exitPreviewImg"
+    ).src = "";
+    document.getElementById(
+        "statusComplete"
+    ).checked = true;
+    localStorage.removeItem(
+        DRAFT_KEY
+    );
+    updateAll();
+}
+/* =========================================================
+   PRINT
+========================================================= */
+document.getElementById(
+    "printBtn"
+).addEventListener(
+    "click",
+    function(){
+        updateAll();
+        window.print();
+    }
+);
+/* =========================================================
+   CLEAR FORM
+========================================================= */
+document.getElementById(
+    "clearBtn"
+).addEventListener(
+    "click",
+    function(){
+        if(
+            !confirm(
+                "هل أنت متأكد من مسح جميع بيانات التقرير الحالي؟"
+            )
+        ){
+            return;
+        }
+        resetForm();
+        showToast(
+            "تم مسح بيانات التقرير.",
+            "success"
+        );
+    }
+);
+/* =========================================================
    ESCAPE HTML
-========================= */
+========================================================= */
 function escapeHTML(value){
-    return String(value || "")
+    return String(value)
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
 }
-/* =========================
+/* =========================================================
    TOAST
-========================= */
-function showToast(title,message){
+========================================================= */
+function showToast(
+    message,
+    type = ""
+){
     const container =
-        document.getElementById("toastContainer");
+        document.getElementById(
+            "toastContainer"
+        );
     const toast =
-        document.createElement("div");
-    toast.className = "toast";
-    toast.innerHTML = `
-        <div class="toast-title">${escapeHTML(title)}</div>
-        <div class="toast-message">${escapeHTML(message)}</div>
-    `;
-    container.appendChild(toast);
-    setTimeout(()=>{
-        toast.style.opacity = "0";
-        toast.style.transform = "translateX(-20px)";
-        setTimeout(()=>{
-            toast.remove();
-        },300);
-    },4500);
+        document.createElement(
+            "div"
+        );
+    toast.className =
+        "toast " + type;
+    toast.textContent =
+        message;
+    container.appendChild(
+        toast
+    );
+    setTimeout(
+        function(){
+            toast.style.opacity =
+                "0";
+            toast.style.transform =
+                "translateX(-30px)";
+            setTimeout(
+                function(){
+                    toast.remove();
+                },
+                300
+            );
+        },
+        3500
+    );
 }
-/* =========================
-   KEYBOARD SHORTCUTS
-========================= */
-document.addEventListener("keydown",(e)=>{
-    if(e.key === "Escape"){
-        confirmModal.classList.remove("show");
-        loadingModal.classList.remove("show");
-        lightbox.classList.remove("show");
+/* =========================================================
+   KEYBOARD SHORTCUT
+========================================================= */
+document.addEventListener(
+    "keydown",
+    function(e){
+        if(e.key === "Escape"){
+            confirmModal.classList.remove(
+                "active"
+            );
+            loadingModal.classList.remove(
+                "active"
+            );
+            lightbox.classList.remove(
+                "active"
+            );
+        }
     }
-    /*
-      Ctrl + P
-      يترك المتصفح يتعامل مع الطباعة بشكل طبيعي.
-    */
-});
-/* =========================
-   FINAL INITIALIZATION
-========================= */
-updateAll();
-renderHistory();
-console.log(
-    "♛ MESA ME ROYAL POLICE PATROL SYSTEM READY"
 );
+/* =========================================================
+   INITIAL UPDATE
+========================================================= */
+updateAll();
 </script>
 </body>
 </html>
