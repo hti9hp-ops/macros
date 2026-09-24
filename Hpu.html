@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام تقارير دورية المستشفى</title>
+    <title>تقرير دورية المستشفى</title>
     <style>
         body { font-family: Tahoma, sans-serif; background-color: #1a1a1a; color: #fff; padding: 20px; direction: rtl; }
         .container { max-width: 500px; margin: 0 auto; background: #2c2c2c; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         h2 { text-align: center; color: #ff4757; }
         label { display: block; margin-top: 15px; font-weight: bold; }
         input, textarea { width: 100%; padding: 10px; margin-top: 5px; border: none; border-radius: 5px; background: #3c3c3c; color: #fff; box-sizing: border-box; }
+        input[type="file"] { background: #444; cursor: pointer; padding: 8px; }
         button { width: 100%; background: #ff4757; color: white; padding: 12px; border: none; border-radius: 5px; margin-top: 20px; font-size: 16px; cursor: pointer; font-weight: bold; }
         button:hover { background: #ff6b81; }
+        #loading { display: none; text-align: center; margin-top: 10px; color: #ff6b81; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -31,59 +33,90 @@
         <label>وقت الخروج من المستشفى:</label>
         <input type="text" id="timeOut" required>
 
-        <label>رابط الصورة أو الدليل:</label>
-        <input type="text" id="imageUrl" placeholder="ضع رابط الصورة هنا مباشرة" required>
+        <label>إرفاق صورة الدورية:</label>
+        <input type="file" id="imageFile" accept="image/*" required>
 
-        <button type="submit">إرسال التقرير إلى ديسكورد</button>
+        <div id="loading">جاري رفع الصورة وإرسال التقرير... ⏳</div>
+        <button type="submit" id="submitBtn">إرسال التقرير إلى ديسكورد</button>
     </form>
 </div>
 
 <script>
-    document.getElementById('reportForm').addEventListener('submit', function(e) {
+    document.getElementById('reportForm').addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const webhookUrl = "https://discord.com/api/webhooks/1552613985453477908/UtWZAf3yiGmMcLVBER8s8cj4AigbiB29yKGcbVtrMWMyYUXOTELGTHzo5II2SyOfEBxO";
-
+        
         const leaderName = document.getElementById('leaderName').value;
         const reportDate = document.getElementById('reportDate').value;
         const timeIn = document.getElementById('timeIn').value;
         const timeOut = document.getElementById('timeOut').value;
-        const imgUrl = document.getElementById('imageUrl').value;
+        const imageInput = document.getElementById('imageFile').files[0];
 
-        const description = `**اسم قائد الدورية:** ${leaderName}\n**تاريخ الدورية:** ${reportDate}\n**وقت دخول المستشفى:** ${timeIn}\n**وقت الخروج من المستشفى:** ${timeOut}`;
+        if (!imageInput) {
+            alert('الرجاء اختيار صورة!');
+            return;
+        }
 
-        const embed = {
-            "title": "🚨 تقرير دورية جديد تم استلامه عبر الموقع!",
-            "description": description,
-            "color": 15158332,
-            "image": {
-                "url": imgUrl
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('submitBtn').disabled = true;
+
+        try {
+            // رفع الصورة إلى خدمة مجانية لتوليد رابط مباشر (ImgBB API)
+            const formData = new FormData();
+            formData.append('image', imageInput);
+
+            const imgbbResponse = await fetch('https://api.imgbb.com/1/upload?key=d49576e1a49f7b1989f77f51b147d3d1', {
+                method: 'POST',
+                body: formData
+            });
+            const imgData = await imgbbResponse.json();
+
+            if (!imgData.success) {
+                throw new Error('فشل رفع الصورة');
             }
-        };
 
-        const payload = {
-            "embeds": [embed]
-        };
+            const imageUrl = imgData.data.url;
 
-        fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
-            if(response.ok) {
+            // تجهيز رسالة ديسكورد
+            const description = `**اسم قائد الدورية:** ${leaderName}\n**تاريخ الدورية:** ${reportDate}\n**وقت دخول المستشفى:** ${timeIn}\n**وقت الخروج من المستشفى:** ${timeOut}`;
+
+            const embed = {
+                "title": "🚨 تقرير دورية جديد تم استلامه!",
+                "description": description,
+                "color": 15158332,
+                "image": {
+                    "url": imageUrl
+                }
+            };
+
+            const payload = {
+                "embeds": [embed]
+            };
+
+            // إرسال البيانات للويكهوك
+            const discordResponse = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (discordResponse.ok) {
                 alert('تم إرسال التقرير بنجاح إلى ديسكورد!');
                 document.getElementById('reportForm').reset();
             } else {
-                alert('حدث خطأ أثناء الإرسال.');
+                alert('حدث خطأ أثناء الإرسال إلى ديسكورد.');
             }
-        })
-        .catch(error => {
+
+        } catch (error) {
             console.error('Error:', error);
-            alert('حدث خطأ في الاتصال.');
-        });
+            alert('حدث خطأ أثناء رفع الصورة أو الاتصال.');
+        } finally {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('submitBtn').disabled = false;
+        }
     });
 </script>
 
