@@ -9,59 +9,56 @@
             font-family: Tahoma, sans-serif; 
             margin: 0;
             padding: 0;
-            background-color: #000;
+            background-color: #050505;
             color: #ffd700;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
-        /* الحاوية التي تمثل الصورة الأصلية بالكامل */
-        .royal-wrapper {
+        .royal-container {
             position: relative;
             width: 100%;
-            max-width: 480px;
+            max-width: 450px;
             background: url('0078E09A-A0D3-4E22-B4E6-38177691B224.png') no-repeat top center;
-            background-size: 100% auto;
+            background-size: 100% 100%;
+            background-color: #090806;
             box-sizing: border-box;
-            /* تعديل هذه المسافة حسب ارتفاع التاج والأسود في أعلى صورتك لتبدأ الحقول تماماً مكانها الصحيح */
-            padding-top: 240px; 
-            padding-bottom: 50px;
-            padding-left: 25px;
-            padding-right: 25px;
+            padding: 160px 20px 40px 20px;
+            border-radius: 12px;
         }
         .header-title {
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 2px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
         }
         .sub-title {
             text-align: center;
             font-size: 12px;
             color: #c5a059;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         label { 
             display: block; 
-            margin-top: 12px; 
+            margin-top: 10px; 
             font-weight: bold; 
             color: #f3e5ab;
-            font-size: 13px;
+            font-size: 12px;
             text-shadow: 0 1px 3px rgba(0,0,0,0.9);
         }
         input { 
             width: 100%; 
-            padding: 11px; 
-            margin-top: 5px; 
+            padding: 10px; 
+            margin-top: 4px; 
             border: 1px solid #d4af37; 
-            border-radius: 8px; 
-            background: rgba(15, 12, 7, 0.9); 
+            border-radius: 6px; 
+            background: rgba(12, 10, 6, 0.95); 
             color: #fff; 
             box-sizing: border-box; 
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
         }
         input:focus {
@@ -72,20 +69,20 @@
             color: #776644;
         }
         input[type="file"] { 
-            background: rgba(15, 12, 7, 0.9); 
+            background: rgba(12, 10, 6, 0.95); 
             cursor: pointer; 
-            padding: 9px; 
+            padding: 8px; 
             color: #ffd700;
         }
         button { 
             width: 100%; 
             background: linear-gradient(to bottom, #990000 0%, #4d0000 100%); 
             color: white; 
-            padding: 14px; 
+            padding: 13px; 
             border: 1px solid #ff4d4d; 
-            border-radius: 8px; 
-            margin-top: 25px; 
-            font-size: 16px; 
+            border-radius: 6px; 
+            margin-top: 20px; 
+            font-size: 15px; 
             cursor: pointer; 
             font-weight: bold; 
             box-shadow: 0 4px 15px rgba(153, 0, 0, 0.7);
@@ -97,18 +94,18 @@
         #loading { 
             display: none; 
             text-align: center; 
-            margin-top: 15px; 
+            margin-top: 12px; 
             color: #ffd700; 
             font-weight: bold; 
-            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
 
-<div class="royal-wrapper">
+<div class="royal-container">
     <div class="header-title">Ehab Engineer</div>
-
+    <div class="sub-title">نظام الماكرو الموحد للعمليات الأمنية</div>
 
     <form id="reportForm">
         <label>أسم قائد الدورية:</label>
