@@ -12,103 +12,116 @@
         }
         body { 
             font-family: Tahoma, sans-serif; 
-            background-color: #000;
-            color: #ffd700;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 10px;
+            padding: 15px;
         }
-        .royal-card {
+        .modern-card {
             width: 100%;
-            max-width: 420px;
-            background: url('0078E09A-A0D3-4E22-B4E6-38177691B224.png') no-repeat top center;
-            background-size: 100% 100%;
-            background-color: #0b0906;
-            border-radius: 14px;
-            padding: 140px 18px 30px 18px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.9);
+            max-width: 440px;
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
         .main-title {
             text-align: center;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 2px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+            color: #38bdf8;
+            margin-bottom: 4px;
         }
         .main-sub {
             text-align: center;
-            font-size: 11px;
-            color: #c5a059;
-            margin-bottom: 15px;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        .form-header {
+            text-align: center;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
         }
         .field-group {
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
         label { 
             display: block; 
-            margin-bottom: 3px; 
-            font-weight: bold; 
-            color: #f3e5ab;
-            font-size: 11px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+            margin-bottom: 5px; 
+            font-weight: 600; 
+            color: #cbd5e1;
+            font-size: 12px;
         }
         input { 
             width: 100%; 
-            padding: 9px 10px; 
-            border: 1px solid #d4af37; 
-            border-radius: 6px; 
-            background: rgba(15, 12, 7, 0.95); 
+            padding: 11px 12px; 
+            border: 1px solid #475569; 
+            border-radius: 8px; 
+            background: #0f172a; 
             color: #fff; 
-            font-size: 12px;
+            font-size: 13px;
             outline: none;
+            transition: 0.2s;
         }
         input:focus {
-            border-color: #fff;
-            box-shadow: 0 0 6px rgba(212, 175, 55, 0.8);
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
         }
         input::placeholder {
-            color: #776644;
+            color: #64748b;
         }
         input[type="file"] { 
             cursor: pointer; 
-            padding: 7px; 
-            color: #ffd700;
-            font-size: 11px;
+            padding: 8px; 
+            color: #38bdf8;
+            font-size: 12px;
         }
         .submit-btn { 
             width: 100%; 
-            background: linear-gradient(to bottom, #990000 0%, #4d0000 100%); 
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); 
             color: white; 
-            padding: 12px; 
-            border: 1px solid #ff4d4d; 
-            border-radius: 6px; 
+            padding: 13px; 
+            border: none; 
+            border-radius: 8px; 
             margin-top: 15px; 
-            font-size: 14px; 
+            font-size: 15px; 
             cursor: pointer; 
             font-weight: bold; 
-            box-shadow: 0 4px 12px rgba(153, 0, 0, 0.7);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+            transition: 0.2s;
         }
         .submit-btn:hover { 
-            background: linear-gradient(to bottom, #cc0000 100%, #660000 100%); 
+            background: linear-gradient(135deg, #0369a1 0%, #075985 100%); 
         }
         #loading { 
             display: none; 
             text-align: center; 
-            margin-top: 10px; 
-            color: #ffd700; 
+            margin-top: 12px; 
+            color: #38bdf8; 
             font-weight: bold; 
-            font-size: 12px;
+            font-size: 13px;
         }
     </style>
 </head>
 <body>
 
-<div class="royal-card">
+<div class="modern-card">
     <div class="main-title">Ehab Engineer</div>
     <div class="main-sub">نظام الماكرو الموحد للعمليات الأمنية</div>
+
+    <div class="form-header">🚨 تقرير دورية المستشفى</div>
 
     <form id="reportForm">
         <div class="field-group">
@@ -170,7 +183,7 @@
         try {
             const formData = new FormData();
             
-            const content = `👑 **تقرير دورية جديد - Ehab Engineer**\n\n` +
+            const content = `🛡️ **تقرير دورية جديد - Ehab Engineer**\n\n` +
                             `**اسم قائد الدورية:** ${leaderName}\n` +
                             `**تاريخ الدورية:** ${reportDate}\n` +
                             `**وقت دخول المستشفى:** ${timeIn}\n` +
