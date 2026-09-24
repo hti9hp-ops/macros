@@ -127,8 +127,12 @@ body::after{
         transform:translateY(110vh) translateX(0) scale(.4);
         opacity:0;
     }
-    15%{opacity:.7}
-    85%{opacity:.7}
+    15%{
+        opacity:.7;
+    }
+    85%{
+        opacity:.7;
+    }
     100%{
         transform:translateY(-10vh) translateX(80px) scale(1.2);
         opacity:0;
@@ -146,7 +150,9 @@ body::after{
     border-radius:20px;
     background:rgba(8,8,8,.8);
     backdrop-filter:blur(18px);
-    box-shadow:0 10px 40px rgba(0,0,0,.5),inset 0 0 30px rgba(212,175,55,.025);
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.5),
+        inset 0 0 30px rgba(212,175,55,.025);
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -168,7 +174,10 @@ body::after{
     animation:pulse 1.7s infinite;
 }
 @keyframes pulse{
-    50%{opacity:.45;transform:scale(.75)}
+    50%{
+        opacity:.45;
+        transform:scale(.75);
+    }
 }
 .top-title{
     color:var(--gold2);
@@ -236,10 +245,14 @@ body::after{
     animation:spin 22s linear infinite;
 }
 @keyframes spin{
-    to{transform:rotate(360deg)}
+    to{
+        transform:rotate(360deg);
+    }
 }
 @keyframes royalFloat{
-    50%{transform:translateY(-7px)}
+    50%{
+        transform:translateY(-7px);
+    }
 }
 .crown{
     font-size:65px;
@@ -280,7 +293,8 @@ body::after{
     padding:18px;
     border:1px solid var(--line);
     border-radius:20px;
-    background:linear-gradient(145deg,rgba(24,24,24,.95),rgba(7,7,7,.92));
+    background:
+        linear-gradient(145deg,rgba(24,24,24,.95),rgba(7,7,7,.92));
     box-shadow:var(--shadow);
     position:relative;
     overflow:hidden;
@@ -289,7 +303,9 @@ body::after{
 .stat-card:hover{
     transform:translateY(-4px);
     border-color:rgba(212,175,55,.55);
-    box-shadow:0 20px 60px rgba(0,0,0,.75),0 0 25px rgba(212,175,55,.08);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.75),
+        0 0 25px rgba(212,175,55,.08);
 }
 .stat-card::after{
     content:"";
@@ -298,7 +314,8 @@ body::after{
     height:100px;
     left:-40px;
     bottom:-50px;
-    background:radial-gradient(circle,rgba(212,175,55,.18),transparent 70%);
+    background:
+        radial-gradient(circle,rgba(212,175,55,.18),transparent 70%);
 }
 .stat-label{
     color:var(--muted);
@@ -350,7 +367,8 @@ body::after{
 ========================= */
 .main-card{
     position:relative;
-    background:linear-gradient(145deg,rgba(18,18,18,.94),rgba(5,5,5,.97));
+    background:
+        linear-gradient(145deg,rgba(18,18,18,.94),rgba(5,5,5,.97));
     border:1px solid var(--line);
     border-radius:28px;
     padding:28px;
@@ -388,7 +406,8 @@ body::after{
     place-items:center;
     color:#0b0b0b;
     font-weight:900;
-    background:linear-gradient(135deg,#fff0a3,#d4af37,#80610e);
+    background:
+        linear-gradient(135deg,#fff0a3,#d4af37,#80610e);
     box-shadow:0 0 18px rgba(212,175,55,.18);
 }
 .section-title{
@@ -440,7 +459,9 @@ input:focus,
 select:focus,
 textarea:focus{
     border-color:var(--gold);
-    box-shadow:0 0 0 3px rgba(212,175,55,.07),0 0 25px rgba(212,175,55,.08);
+    box-shadow:
+        0 0 0 3px rgba(212,175,55,.07),
+        0 0 25px rgba(212,175,55,.08);
     background:rgba(12,12,12,.9);
 }
 input::placeholder,
@@ -675,7 +696,8 @@ textarea{
 }
 .btn-primary{
     color:#080808;
-    background:linear-gradient(135deg,#fff0a0,#d4af37,#a17b16);
+    background:
+        linear-gradient(135deg,#fff0a0,#d4af37,#a17b16);
     box-shadow:0 8px 30px rgba(212,175,55,.17);
     position:relative;
     overflow:hidden;
@@ -691,7 +713,9 @@ textarea{
     animation:shine 3.2s infinite;
 }
 @keyframes shine{
-    55%,100%{transform:skewX(-20deg) translateX(250px)}
+    55%,100%{
+        transform:skewX(-20deg) translateX(250px);
+    }
 }
 .btn-secondary{
     color:var(--gold2);
@@ -797,12 +821,20 @@ textarea{
     background:
         radial-gradient(circle at 50% 0,rgba(212,175,55,.09),transparent 45%),
         #090909;
-    box-shadow:0 30px 100px #000,0 0 60px rgba(212,175,55,.08);
+    box-shadow:
+        0 30px 100px #000,
+        0 0 60px rgba(212,175,55,.08);
     animation:modalIn .25s ease;
 }
 @keyframes modalIn{
-    from{opacity:0;transform:translateY(20px) scale(.97)}
-    to{opacity:1;transform:none}
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
 }
 .modal-title{
     text-align:center;
@@ -905,8 +937,14 @@ textarea{
     animation:toastIn .3s ease;
 }
 @keyframes toastIn{
-    from{opacity:0;transform:translateX(-20px)}
-    to{opacity:1;transform:none}
+    from{
+        opacity:0;
+        transform:translateX(-20px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
 }
 .toast-title{
     color:var(--gold2);
@@ -1094,50 +1132,96 @@ textarea{
     <div class="top-status">
         <div class="status-dot"></div>
         <div>
-            <div class="top-title">MESA ME • نظام الدوريات</div>
-            <div class="top-sub">النظام الملكي لتوثيق تقارير شرطة MESA ME</div>
+            <div class="top-title">
+                MESA ME • نظام الدوريات
+            </div>
+            <div class="top-sub">
+                النظام الملكي لتوثيق تقارير شرطة MESA ME
+            </div>
         </div>
     </div>
     <div class="clock-box">
-        <div class="clock" id="liveClock">00:00:00</div>
-        <div class="today-text" id="liveDate">جاري التحميل...</div>
+        <div class="clock" id="liveClock">
+            00:00:00
+        </div>
+        <div class="today-text" id="liveDate">
+            جاري التحميل...
+        </div>
     </div>
 </div>
 <main class="container">
     <!-- HERO -->
     <section class="hero">
         <div class="royal-badge">
-            <div class="crown">♛</div>
+            <div class="crown">
+                ♛
+            </div>
         </div>
-        <h1>نظام تقارير دوريات شرطة MESA ME</h1>
-        <h2>ROYAL POLICE PATROL REPORT SYSTEM</h2>
-        <p>منصة فخمة واحترافية لتوثيق الدوريات وإرسال التقارير والصور مباشرة</p>
+        <h1>
+            نظام تقارير دوريات شرطة MESA ME
+        </h1>
+        <h2>
+            ROYAL POLICE PATROL REPORT SYSTEM
+        </h2>
+        <p>
+            منصة فخمة واحترافية لتوثيق الدوريات وإرسال التقارير والصور مباشرة
+        </p>
     </section>
     <!-- DASHBOARD -->
     <section class="dashboard">
         <div class="stat-card">
-            <div class="stat-icon">♛</div>
-            <div class="stat-label">حالة النظام</div>
-            <div class="stat-value">متصل</div>
+            <div class="stat-icon">
+                ♛
+            </div>
+            <div class="stat-label">
+                حالة النظام
+            </div>
+            <div class="stat-value">
+                متصل
+            </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">◈</div>
-            <div class="stat-label">الصور المرفوعة</div>
-            <div class="stat-value" id="imageCount">0 / 2</div>
+            <div class="stat-icon">
+                ◈
+            </div>
+            <div class="stat-label">
+                الصور المرفوعة
+            </div>
+            <div class="stat-value" id="imageCount">
+                0 / 2
+            </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon">◷</div>
-            <div class="stat-label">مدة الدورية</div>
-            <div class="stat-value" id="dashboardDuration">--</div>
+            <div class="stat-icon">
+                ◷
+            </div>
+            <div class="stat-label">
+                مدة الدورية
+            </div>
+            <div class="stat-value" id="dashboardDuration">
+                --
+            </div>
         </div>
         <div class="stat-card">
             <div class="completion">
                 <div class="completion-ring" id="completionRing">
-                    <div class="completion-number" id="completionNumber">0%</div>
+                    <div
+                        class="completion-number"
+                        id="completionNumber"
+                    >
+                        0%
+                    </div>
                 </div>
                 <div>
-                    <div class="stat-label">اكتمال التقرير</div>
-                    <div class="stat-value" id="completionText">0%</div>
+                    <div class="stat-label">
+                        اكتمال التقرير
+                    </div>
+                    <div
+                        class="stat-value"
+                        id="completionText"
+                    >
+                        0%
+                    </div>
                 </div>
             </div>
         </div>
@@ -1148,15 +1232,24 @@ textarea{
             <!-- SECTION 1 -->
             <div class="section">
                 <div class="section-head">
-                    <div class="section-number">01</div>
+                    <div class="section-number">
+                        01
+                    </div>
                     <div>
-                        <div class="section-title">بيانات الدورية</div>
-                        <div class="section-subtitle">المعلومات الأساسية للتقرير</div>
+                        <div class="section-title">
+                            بيانات الدورية
+                        </div>
+                        <div class="section-subtitle">
+                            المعلومات الأساسية للتقرير
+                        </div>
                     </div>
                 </div>
                 <div class="grid">
                     <div class="field">
-                        <label>اسم قائد / مسؤول الدورية <span>*</span></label>
+                        <label>
+                            اسم قائد / مسؤول الدورية
+                            <span>*</span>
+                        </label>
                         <input
                             type="text"
                             id="leader"
@@ -1165,61 +1258,84 @@ textarea{
                         >
                     </div>
                     <div class="field">
-                        <label>تاريخ الدورية <span>*</span></label>
-                        <input type="date" id="reportDate">
-                    </div>
-                    <div class="field">
-                        <label>القسم / الوحدة <span>*</span></label>
-                        <select id="department">
-                            <option value="">اختر القسم</option>
-                            <option>الدوريات العامة</option>
-                            <option>المرور</option>
-                            <option>الاستجابة السريعة</option>
-                            <option>التحريات</option>
-                            <option>العمليات</option>
-                            <option>أمن المنشآت</option>
-                            <option>الشرطة المجتمعية</option>
-                            <option>وحدة الدعم</option>
-                            <option>الإدارة العليا</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>رقم / رمز الدورية</label>
+                        <label>
+                            تاريخ الدورية
+                            <span>*</span>
+                        </label>
                         <input
-                            type="text"
-                            id="patrolCode"
-                            placeholder="مثال: P-01"
-                            autocomplete="off"
+                            type="date"
+                            id="reportDate"
                         >
+                    </div>
+                    <div class="field full">
+                        <label>
+                            نوع الدورية
+                            <span>*</span>
+                        </label>
+                        <select id="department">
+                            <option value="">
+                                اختر نوع الدورية
+                            </option>
+                            <option value="دورية مستشفى">
+                                دورية مستشفى
+                            </option>
+                            <option value="دورية منطقة خضراء">
+                                دورية منطقة خضراء
+                            </option>
+                            <option value="دورية تفتيش جوازات">
+                                دورية تفتيش جوازات
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
             <!-- SECTION 2 -->
             <div class="section">
                 <div class="section-head">
-                    <div class="section-number">02</div>
+                    <div class="section-number">
+                        02
+                    </div>
                     <div>
-                        <div class="section-title">حالة الدورية</div>
-                        <div class="section-subtitle">حدد الحالة الحالية للدورية</div>
+                        <div class="section-title">
+                            حالة الدورية
+                        </div>
+                        <div class="section-subtitle">
+                            حدد الحالة الحالية للدورية
+                        </div>
                     </div>
                 </div>
                 <div class="status-grid">
                     <div class="status-option">
-                        <input type="radio" name="status" id="statusComplete" value="مكتملة">
+                        <input
+                            type="radio"
+                            name="status"
+                            id="statusComplete"
+                            value="مكتملة"
+                        >
                         <label for="statusComplete">
                             <span class="status-dot-mini"></span>
                             مكتملة
                         </label>
                     </div>
                     <div class="status-option">
-                        <input type="radio" name="status" id="statusFollow" value="قيد المتابعة">
+                        <input
+                            type="radio"
+                            name="status"
+                            id="statusFollow"
+                            value="قيد المتابعة"
+                        >
                         <label for="statusFollow">
                             <span class="status-dot-mini"></span>
                             قيد المتابعة
                         </label>
                     </div>
                     <div class="status-option">
-                        <input type="radio" name="status" id="statusNotes" value="يوجد ملاحظات">
+                        <input
+                            type="radio"
+                            name="status"
+                            id="statusNotes"
+                            value="يوجد ملاحظات"
+                        >
                         <label for="statusNotes">
                             <span class="status-dot-mini"></span>
                             يوجد ملاحظات
@@ -1230,30 +1346,60 @@ textarea{
             <!-- SECTION 3 -->
             <div class="section">
                 <div class="section-head">
-                    <div class="section-number">03</div>
+                    <div class="section-number">
+                        03
+                    </div>
                     <div>
-                        <div class="section-title">وقت الدورية</div>
-                        <div class="section-subtitle">سيتم حساب المدة تلقائيًا حتى في حال عبور منتصف الليل</div>
+                        <div class="section-title">
+                            وقت الدورية
+                        </div>
+                        <div class="section-subtitle">
+                            سيتم حساب المدة تلقائيًا حتى في حال عبور منتصف الليل
+                        </div>
                     </div>
                 </div>
                 <div class="grid">
                     <div class="field">
-                        <label>وقت بداية الدورية <span>*</span></label>
-                        <input type="time" id="timeIn">
+                        <label>
+                            وقت بداية الدورية
+                            <span>*</span>
+                        </label>
+                        <input
+                            type="time"
+                            id="timeIn"
+                        >
                     </div>
                     <div class="field">
-                        <label>وقت نهاية الدورية <span>*</span></label>
-                        <input type="time" id="timeOut">
+                        <label>
+                            وقت نهاية الدورية
+                            <span>*</span>
+                        </label>
+                        <input
+                            type="time"
+                            id="timeOut"
+                        >
                     </div>
                     <div class="full">
                         <div class="duration-card">
                             <div>
-                                <div class="duration-caption">إجمالي مدة الدورية</div>
-                                <div class="duration-big" id="durationDisplay">00:00</div>
+                                <div class="duration-caption">
+                                    إجمالي مدة الدورية
+                                </div>
+                                <div
+                                    class="duration-big"
+                                    id="durationDisplay"
+                                >
+                                    00:00
+                                </div>
                             </div>
                             <div style="text-align:left">
-                                <div class="duration-caption">الحالة الزمنية</div>
-                                <strong id="durationStatus" style="color:var(--muted);font-size:11px">
+                                <div class="duration-caption">
+                                    الحالة الزمنية
+                                </div>
+                                <strong
+                                    id="durationStatus"
+                                    style="color:var(--muted);font-size:11px"
+                                >
                                     بانتظار الأوقات
                                 </strong>
                             </div>
@@ -1264,40 +1410,86 @@ textarea{
             <!-- SECTION 4 -->
             <div class="section">
                 <div class="section-head">
-                    <div class="section-number">04</div>
+                    <div class="section-number">
+                        04
+                    </div>
                     <div>
-                        <div class="section-title">توثيق الصور</div>
-                        <div class="section-subtitle">ارفع صورة بداية الدورية وصورة نهايتها</div>
+                        <div class="section-title">
+                            توثيق الصور
+                        </div>
+                        <div class="section-subtitle">
+                            ارفع صورة بداية الدورية وصورة نهايتها
+                        </div>
                     </div>
                 </div>
                 <div class="upload-grid">
                     <div class="upload-box">
-                        <input type="file" id="entryImage" accept="image/jpeg,image/png,image/webp">
+                        <input
+                            type="file"
+                            id="entryImage"
+                            accept="image/jpeg,image/png,image/webp"
+                        >
                         <div class="upload-content">
-                            <div class="upload-icon">◈</div>
-                            <div class="upload-title">صورة بداية الدورية</div>
-                            <div class="upload-hint">JPG / PNG / WEBP • الحد 8MB</div>
+                            <div class="upload-icon">
+                                ◈
+                            </div>
+                            <div class="upload-title">
+                                صورة بداية الدورية
+                            </div>
+                            <div class="upload-hint">
+                                JPG / PNG / WEBP • الحد 8MB
+                            </div>
                         </div>
-                        <div class="preview" id="entryPreview">
-                            <img id="entryPreviewImg" alt="صورة بداية الدورية">
+                        <div
+                            class="preview"
+                            id="entryPreview"
+                        >
+                            <img
+                                id="entryPreviewImg"
+                                alt="صورة بداية الدورية"
+                            >
                             <div class="preview-overlay">
-                                <span>صورة البداية</span>
-                                <span>اضغط للتكبير</span>
+                                <span>
+                                    صورة البداية
+                                </span>
+                                <span>
+                                    اضغط للتكبير
+                                </span>
                             </div>
                         </div>
                     </div>
                     <div class="upload-box">
-                        <input type="file" id="exitImage" accept="image/jpeg,image/png,image/webp">
+                        <input
+                            type="file"
+                            id="exitImage"
+                            accept="image/jpeg,image/png,image/webp"
+                        >
                         <div class="upload-content">
-                            <div class="upload-icon">◆</div>
-                            <div class="upload-title">صورة نهاية الدورية</div>
-                            <div class="upload-hint">JPG / PNG / WEBP • الحد 8MB</div>
+                            <div class="upload-icon">
+                                ◆
+                            </div>
+                            <div class="upload-title">
+                                صورة نهاية الدورية
+                            </div>
+                            <div class="upload-hint">
+                                JPG / PNG / WEBP • الحد 8MB
+                            </div>
                         </div>
-                        <div class="preview" id="exitPreview">
-                            <img id="exitPreviewImg" alt="صورة نهاية الدورية">
+                        <div
+                            class="preview"
+                            id="exitPreview"
+                        >
+                            <img
+                                id="exitPreviewImg"
+                                alt="صورة نهاية الدورية"
+                            >
                             <div class="preview-overlay">
-                                <span>صورة النهاية</span>
-                                <span>اضغط للتكبير</span>
+                                <span>
+                                    صورة النهاية
+                                </span>
+                                <span>
+                                    اضغط للتكبير
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -1306,97 +1498,181 @@ textarea{
             <!-- SECTION 5 -->
             <div class="section">
                 <div class="section-head">
-                    <div class="section-number">05</div>
+                    <div class="section-number">
+                        05
+                    </div>
                     <div>
-                        <div class="section-title">الملاحظات والتفاصيل</div>
-                        <div class="section-subtitle">أضف أي تفاصيل مهمة تخص الدورية</div>
+                        <div class="section-title">
+                            الملاحظات والتفاصيل
+                        </div>
+                        <div class="section-subtitle">
+                            أضف أي تفاصيل مهمة تخص الدورية
+                        </div>
                     </div>
                 </div>
                 <div class="field">
-                    <label>ملاحظات الدورية</label>
+                    <label>
+                        ملاحظات الدورية
+                    </label>
                     <textarea
                         id="notes"
                         maxlength="1000"
                         placeholder="اكتب تفاصيل الدورية، الأحداث، الملاحظات، الحالات أو أي معلومات إضافية..."
                     ></textarea>
                     <div class="char-count">
-                        <span id="charCount">0</span> / 1000
+                        <span id="charCount">
+                            0
+                        </span>
+                        / 1000
                     </div>
                 </div>
             </div>
             <!-- SECTION 6 -->
             <div class="section">
                 <div class="section-head">
-                    <div class="section-number">06</div>
+                    <div class="section-number">
+                        06
+                    </div>
                     <div>
-                        <div class="section-title">المعاينة الملكية</div>
-                        <div class="section-subtitle">راجع المعلومات قبل الإرسال</div>
+                        <div class="section-title">
+                            المعاينة الملكية
+                        </div>
+                        <div class="section-subtitle">
+                            راجع المعلومات قبل الإرسال
+                        </div>
                     </div>
                 </div>
                 <div class="summary">
                     <div class="summary-grid">
                         <div class="summary-item">
-                            <div class="summary-label">قائد الدورية</div>
-                            <div class="summary-value" id="sumLeader">—</div>
+                            <div class="summary-label">
+                                قائد الدورية
+                            </div>
+                            <div
+                                class="summary-value"
+                                id="sumLeader"
+                            >
+                                —
+                            </div>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">التاريخ</div>
-                            <div class="summary-value" id="sumDate">—</div>
+                            <div class="summary-label">
+                                التاريخ
+                            </div>
+                            <div
+                                class="summary-value"
+                                id="sumDate"
+                            >
+                                —
+                            </div>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">القسم</div>
-                            <div class="summary-value" id="sumDepartment">—</div>
+                            <div class="summary-label">
+                                نوع الدورية
+                            </div>
+                            <div
+                                class="summary-value"
+                                id="sumDepartment"
+                            >
+                                —
+                            </div>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">الحالة</div>
-                            <div class="summary-value" id="sumStatus">—</div>
+                            <div class="summary-label">
+                                الحالة
+                            </div>
+                            <div
+                                class="summary-value"
+                                id="sumStatus"
+                            >
+                                —
+                            </div>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">وقت البداية</div>
-                            <div class="summary-value" id="sumTimeIn">—</div>
+                            <div class="summary-label">
+                                وقت البداية
+                            </div>
+                            <div
+                                class="summary-value"
+                                id="sumTimeIn"
+                            >
+                                —
+                            </div>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">وقت النهاية</div>
-                            <div class="summary-value" id="sumTimeOut">—</div>
+                            <div class="summary-label">
+                                وقت النهاية
+                            </div>
+                            <div
+                                class="summary-value"
+                                id="sumTimeOut"
+                            >
+                                —
+                            </div>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">مدة الدورية</div>
-                            <div class="summary-value" id="sumDuration">—</div>
+                            <div class="summary-label">
+                                مدة الدورية
+                            </div>
+                            <div
+                                class="summary-value"
+                                id="sumDuration"
+                            >
+                                —
+                            </div>
                         </div>
                         <div class="summary-item">
-                            <div class="summary-label">رمز الدورية</div>
-                            <div class="summary-value" id="sumPatrolCode">—</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">الصور</div>
-                            <div class="summary-value" id="sumImages">0 / 2</div>
+                            <div class="summary-label">
+                                الصور
+                            </div>
+                            <div
+                                class="summary-value"
+                                id="sumImages"
+                            >
+                                0 / 2
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- ACTIONS -->
             <div class="actions">
-                <button type="submit" class="btn btn-primary">
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
                     ♛ إرسال التقرير إلى Discord
                 </button>
-                <button type="button" class="btn btn-secondary" id="printBtn">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="printBtn"
+                >
                     🖨 طباعة نسخة
                 </button>
-                <button type="button" class="btn btn-danger" id="clearBtn">
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="clearBtn"
+                >
                     ⟳ مسح التقرير
                 </button>
             </div>
             <div class="autosave">
                 <span>●</span>
                 الحفظ التلقائي:
-                <strong id="saveStatus">جاهز</strong>
+                <strong id="saveStatus">
+                    جاهز
+                </strong>
             </div>
         </form>
     </section>
     <!-- HISTORY -->
     <section class="history-card">
         <div class="history-head">
-            <h3>♛ سجل الدوريات الأخير</h3>
+            <h3>
+                ♛ سجل الدوريات الأخير
+            </h3>
             <button
                 type="button"
                 class="btn btn-danger"
@@ -1406,7 +1682,10 @@ textarea{
                 مسح السجل
             </button>
         </div>
-        <div class="history-list" id="historyList">
+        <div
+            class="history-list"
+            id="historyList"
+        >
             <div class="empty-history">
                 لا توجد تقارير مرسلة محفوظة محليًا حتى الآن
             </div>
@@ -1414,51 +1693,94 @@ textarea{
     </section>
 </main>
 <!-- CONFIRM MODAL -->
-<div class="modal" id="confirmModal">
+<div
+    class="modal"
+    id="confirmModal"
+>
     <div class="modal-card">
-        <div class="modal-title">تأكيد الإرسال الملكي</div>
+        <div class="modal-title">
+            تأكيد الإرسال الملكي
+        </div>
         <div class="modal-sub">
             راجع البيانات التالية قبل إرسال التقرير إلى Discord
         </div>
         <div class="confirm-preview">
             <div class="confirm-row">
-                <span>قائد الدورية</span>
-                <strong id="confirmLeader">—</strong>
+                <span>
+                    قائد الدورية
+                </span>
+                <strong id="confirmLeader">
+                    —
+                </strong>
             </div>
             <div class="confirm-row">
-                <span>القسم</span>
-                <strong id="confirmDepartment">—</strong>
+                <span>
+                    نوع الدورية
+                </span>
+                <strong id="confirmDepartment">
+                    —
+                </strong>
             </div>
             <div class="confirm-row">
-                <span>الحالة</span>
-                <strong id="confirmStatus">—</strong>
+                <span>
+                    الحالة
+                </span>
+                <strong id="confirmStatus">
+                    —
+                </strong>
             </div>
             <div class="confirm-row">
-                <span>التاريخ</span>
-                <strong id="confirmDate">—</strong>
+                <span>
+                    التاريخ
+                </span>
+                <strong id="confirmDate">
+                    —
+                </strong>
             </div>
             <div class="confirm-row">
-                <span>مدة الدورية</span>
-                <strong id="confirmDuration">—</strong>
+                <span>
+                    مدة الدورية
+                </span>
+                <strong id="confirmDuration">
+                    —
+                </strong>
             </div>
             <div class="confirm-images">
-                <img id="confirmEntryImg" alt="صورة البداية">
-                <img id="confirmExitImg" alt="صورة النهاية">
+                <img
+                    id="confirmEntryImg"
+                    alt="صورة البداية"
+                >
+                <img
+                    id="confirmExitImg"
+                    alt="صورة النهاية"
+                >
             </div>
         </div>
         <div class="modal-actions">
-            <button class="btn btn-primary" id="confirmSend">
+            <button
+                class="btn btn-primary"
+                id="confirmSend"
+            >
                 ♛ تأكيد الإرسال
             </button>
-            <button class="btn btn-secondary" id="cancelConfirm">
+            <button
+                class="btn btn-secondary"
+                id="cancelConfirm"
+            >
                 رجوع
             </button>
         </div>
     </div>
 </div>
 <!-- LOADING -->
-<div class="modal" id="loadingModal">
-    <div class="modal-card" style="max-width:400px">
+<div
+    class="modal"
+    id="loadingModal"
+>
+    <div
+        class="modal-card"
+        style="max-width:400px"
+    >
         <div class="loading-ring"></div>
         <div class="loading-text">
             جاري إرسال التقرير الملكي...
@@ -1469,11 +1791,25 @@ textarea{
     </div>
 </div>
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose">×</button>
-    <img id="lightboxImg" alt="معاينة الصورة">
+<div
+    class="lightbox"
+    id="lightbox"
+>
+    <button
+        class="lightbox-close"
+        id="lightboxClose"
+    >
+        ×
+    </button>
+    <img
+        id="lightboxImg"
+        alt="معاينة الصورة"
+    >
 </div>
-<div class="toast-container" id="toastContainer"></div>
+<div
+    class="toast-container"
+    id="toastContainer"
+></div>
 <script>
 /* ============================================================
    MESA ME — ROYAL POLICE PATROL REPORT SYSTEM
@@ -1483,134 +1819,237 @@ textarea{
 ========================= */
 const WEBHOOK_URL =
 "https://discord.com/api/webhooks/1552613985453477908/UtWZAf3yiGmMcLVBER8s8cj4AigbiB29yKGcbVtrMWMyYUXOTELGTHzo5II2SyOfEBxO";
-const DRAFT_KEY = "mesa_me_royal_patrol_draft";
-const HISTORY_KEY = "mesa_me_royal_patrol_history";
+const DRAFT_KEY =
+"mesa_me_royal_patrol_draft";
+const HISTORY_KEY =
+"mesa_me_royal_patrol_history";
 /* =========================
    ELEMENTS
 ========================= */
-const form = document.getElementById("reportForm");
-const leader = document.getElementById("leader");
-const reportDate = document.getElementById("reportDate");
-const department = document.getElementById("department");
-const patrolCode = document.getElementById("patrolCode");
-const timeIn = document.getElementById("timeIn");
-const timeOut = document.getElementById("timeOut");
-const notes = document.getElementById("notes");
-const entryImage = document.getElementById("entryImage");
-const exitImage = document.getElementById("exitImage");
-const durationDisplay = document.getElementById("durationDisplay");
-const durationStatus = document.getElementById("durationStatus");
-const entryPreview = document.getElementById("entryPreview");
-const exitPreview = document.getElementById("exitPreview");
-const entryPreviewImg = document.getElementById("entryPreviewImg");
-const exitPreviewImg = document.getElementById("exitPreviewImg");
-const confirmModal = document.getElementById("confirmModal");
-const loadingModal = document.getElementById("loadingModal");
+const form =
+document.getElementById("reportForm");
+const leader =
+document.getElementById("leader");
+const reportDate =
+document.getElementById("reportDate");
+const department =
+document.getElementById("department");
+const timeIn =
+document.getElementById("timeIn");
+const timeOut =
+document.getElementById("timeOut");
+const notes =
+document.getElementById("notes");
+const entryImage =
+document.getElementById("entryImage");
+const exitImage =
+document.getElementById("exitImage");
+const durationDisplay =
+document.getElementById("durationDisplay");
+const durationStatus =
+document.getElementById("durationStatus");
+const entryPreview =
+document.getElementById("entryPreview");
+const exitPreview =
+document.getElementById("exitPreview");
+const entryPreviewImg =
+document.getElementById("entryPreviewImg");
+const exitPreviewImg =
+document.getElementById("exitPreviewImg");
+const confirmModal =
+document.getElementById("confirmModal");
+const loadingModal =
+document.getElementById("loadingModal");
 let entryObjectURL = null;
 let exitObjectURL = null;
 /* =========================
    PARTICLES
 ========================= */
-const particles = document.getElementById("particles");
+const particles =
+document.getElementById("particles");
 for(let i = 0; i < 55; i++){
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = Math.random() * 100 + "%";
-    p.style.animationDuration = (8 + Math.random() * 14) + "s";
-    p.style.animationDelay = (-Math.random() * 15) + "s";
-    const size = 1 + Math.random() * 3;
-    p.style.width = size + "px";
-    p.style.height = size + "px";
+    const p =
+    document.createElement("div");
+    p.className =
+    "particle";
+    p.style.left =
+    Math.random() * 100 + "%";
+    p.style.animationDuration =
+    (8 + Math.random() * 14) + "s";
+    p.style.animationDelay =
+    (-Math.random() * 15) + "s";
+    const size =
+    1 + Math.random() * 3;
+    p.style.width =
+    size + "px";
+    p.style.height =
+    size + "px";
     particles.appendChild(p);
 }
 /* =========================
    DATE + CLOCK
 ========================= */
 function setToday(){
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2,"0");
-    const day = String(now.getDate()).padStart(2,"0");
+    const now =
+    new Date();
+    const year =
+    now.getFullYear();
+    const month =
+    String(now.getMonth() + 1)
+    .padStart(2,"0");
+    const day =
+    String(now.getDate())
+    .padStart(2,"0");
     if(!reportDate.value){
-        reportDate.value = `${year}-${month}-${day}`;
+        reportDate.value =
+        `${year}-${month}-${day}`;
     }
 }
 function updateClock(){
-    const now = new Date();
-    const time = new Intl.DateTimeFormat("ar-IQ",{
-        hour:"2-digit",
-        minute:"2-digit",
-        second:"2-digit",
-        hour12:false
-    }).format(now);
-    const date = new Intl.DateTimeFormat("ar-IQ",{
-        weekday:"long",
-        year:"numeric",
-        month:"long",
-        day:"numeric"
-    }).format(now);
-    document.getElementById("liveClock").textContent = time;
-    document.getElementById("liveDate").textContent = date;
+    const now =
+    new Date();
+    const time =
+    new Intl.DateTimeFormat(
+        "ar-IQ",
+        {
+            hour:"2-digit",
+            minute:"2-digit",
+            second:"2-digit",
+            hour12:false
+        }
+    ).format(now);
+    const date =
+    new Intl.DateTimeFormat(
+        "ar-IQ",
+        {
+            weekday:"long",
+            year:"numeric",
+            month:"long",
+            day:"numeric"
+        }
+    ).format(now);
+    document.getElementById(
+        "liveClock"
+    ).textContent =
+    time;
+    document.getElementById(
+        "liveDate"
+    ).textContent =
+    date;
 }
 setToday();
 updateClock();
-setInterval(updateClock,1000);
+setInterval(
+    updateClock,
+    1000
+);
 /* =========================
    DATE FORMAT
 ========================= */
 function formatDate(value){
-    if(!value) return "—";
-    const date = new Date(value + "T00:00:00");
-    return new Intl.DateTimeFormat("ar-IQ",{
-        year:"numeric",
-        month:"long",
-        day:"numeric"
-    }).format(date);
+    if(!value)
+        return "—";
+    const date =
+    new Date(
+        value + "T00:00:00"
+    );
+    return new Intl.DateTimeFormat(
+        "ar-IQ",
+        {
+            year:"numeric",
+            month:"long",
+            day:"numeric"
+        }
+    ).format(date);
 }
 /* =========================
    DURATION
 ========================= */
 function calculateDuration(){
-    if(!timeIn.value || !timeOut.value){
-        durationDisplay.textContent = "00:00";
-        durationStatus.textContent = "بانتظار الأوقات";
+    if(
+        !timeIn.value ||
+        !timeOut.value
+    ){
+        durationDisplay.textContent =
+        "00:00";
+        durationStatus.textContent =
+        "بانتظار الأوقات";
+        document.getElementById(
+            "dashboardDuration"
+        ).textContent =
+        "--";
+        document.getElementById(
+            "sumDuration"
+        ).textContent =
+        "—";
         return "00:00";
     }
-    const [inH,inM] = timeIn.value.split(":").map(Number);
-    const [outH,outM] = timeOut.value.split(":").map(Number);
-    let start = inH * 60 + inM;
-    let end = outH * 60 + outM;
+    const [
+        inH,
+        inM
+    ] =
+    timeIn.value
+    .split(":")
+    .map(Number);
+    const [
+        outH,
+        outM
+    ] =
+    timeOut.value
+    .split(":")
+    .map(Number);
+    let start =
+    inH * 60 + inM;
+    let end =
+    outH * 60 + outM;
     if(end < start){
         end += 24 * 60;
-        durationStatus.textContent = "دورية عابرة لمنتصف الليل";
+        durationStatus.textContent =
+        "دورية عابرة لمنتصف الليل";
     }else{
-        durationStatus.textContent = "المدة محسوبة تلقائيًا";
+        durationStatus.textContent =
+        "المدة محسوبة تلقائيًا";
     }
-    const diff = end - start;
-    const hours = Math.floor(diff / 60);
-    const minutes = diff % 60;
+    const diff =
+    end - start;
+    const hours =
+    Math.floor(diff / 60);
+    const minutes =
+    diff % 60;
     const result =
-        String(hours).padStart(2,"0") + ":" +
+        String(hours).padStart(2,"0")
+        + ":" +
         String(minutes).padStart(2,"0");
-    durationDisplay.textContent = result;
-    document.getElementById("dashboardDuration").textContent = result;
-    document.getElementById("sumDuration").textContent = result;
+    durationDisplay.textContent =
+    result;
+    document.getElementById(
+        "dashboardDuration"
+    ).textContent =
+    result;
+    document.getElementById(
+        "sumDuration"
+    ).textContent =
+    result;
     return result;
 }
 /* =========================
    STATUS
 ========================= */
 function getStatus(){
-    const checked = document.querySelector(
+    const checked =
+    document.querySelector(
         'input[name="status"]:checked'
     );
-    return checked ? checked.value : "";
+    return checked
+        ? checked.value
+        : "";
 }
 /* =========================
    IMAGE VALIDATION
 ========================= */
 function validateImage(file){
-    if(!file) return true;
+    if(!file)
+        return true;
     const allowed = [
         "image/jpeg",
         "image/png",
@@ -1623,7 +2062,10 @@ function validateImage(file){
         );
         return false;
     }
-    if(file.size > 8 * 1024 * 1024){
+    if(
+        file.size >
+        8 * 1024 * 1024
+    ){
         showToast(
             "حجم الصورة كبير",
             "الحد الأقصى للصورة هو 8MB."
@@ -1635,32 +2077,55 @@ function validateImage(file){
 /* =========================
    IMAGE PREVIEW
 ========================= */
-function setupImagePreview(input,preview,img,type){
-    input.addEventListener("change",()=>{
-        const file = input.files[0];
-        if(!file) return;
-        if(!validateImage(file)){
-            input.value = "";
-            preview.classList.remove("show");
-            return;
-        }
-        const url = URL.createObjectURL(file);
-        if(type === "entry"){
-            if(entryObjectURL){
-                URL.revokeObjectURL(entryObjectURL);
+function setupImagePreview(
+    input,
+    preview,
+    img,
+    type
+){
+    input.addEventListener(
+        "change",
+        ()=>{
+            const file =
+            input.files[0];
+            if(!file)
+                return;
+            if(!validateImage(file)){
+                input.value =
+                "";
+                preview.classList.remove(
+                    "show"
+                );
+                return;
             }
-            entryObjectURL = url;
-        }else{
-            if(exitObjectURL){
-                URL.revokeObjectURL(exitObjectURL);
+            const url =
+            URL.createObjectURL(file);
+            if(type === "entry"){
+                if(entryObjectURL){
+                    URL.revokeObjectURL(
+                        entryObjectURL
+                    );
+                }
+                entryObjectURL =
+                url;
+            }else{
+                if(exitObjectURL){
+                    URL.revokeObjectURL(
+                        exitObjectURL
+                    );
+                }
+                exitObjectURL =
+                url;
             }
-            exitObjectURL = url;
+            img.src =
+            url;
+            preview.classList.add(
+                "show"
+            );
+            updateAll();
+            saveDraft();
         }
-        img.src = url;
-        preview.classList.add("show");
-        updateAll();
-        saveDraft();
-    });
+    );
 }
 setupImagePreview(
     entryImage,
@@ -1677,59 +2142,109 @@ setupImagePreview(
 /* =========================
    LIGHTBOX
 ========================= */
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-function openLightbox(src){
-    lightboxImg.src = src;
-    lightbox.classList.add("show");
-}
-entryPreviewImg.addEventListener("click",(e)=>{
-    e.stopPropagation();
-    if(entryPreviewImg.src) openLightbox(entryPreviewImg.src);
-});
-exitPreviewImg.addEventListener("click",(e)=>{
-    e.stopPropagation();
-    if(exitPreviewImg.src) openLightbox(exitPreviewImg.src);
-});
-document.getElementById("lightboxClose").addEventListener(
-    "click",
-    ()=>lightbox.classList.remove("show")
+const lightbox =
+document.getElementById(
+    "lightbox"
 );
-lightbox.addEventListener("click",(e)=>{
-    if(e.target === lightbox){
-        lightbox.classList.remove("show");
+const lightboxImg =
+document.getElementById(
+    "lightboxImg"
+);
+function openLightbox(src){
+    lightboxImg.src =
+    src;
+    lightbox.classList.add(
+        "show"
+    );
+}
+entryPreviewImg.addEventListener(
+    "click",
+    (e)=>{
+        e.stopPropagation();
+        if(entryPreviewImg.src)
+            openLightbox(
+                entryPreviewImg.src
+            );
     }
-});
+);
+exitPreviewImg.addEventListener(
+    "click",
+    (e)=>{
+        e.stopPropagation();
+        if(exitPreviewImg.src)
+            openLightbox(
+                exitPreviewImg.src
+            );
+    }
+);
+document.getElementById(
+    "lightboxClose"
+).addEventListener(
+    "click",
+    ()=>lightbox.classList.remove(
+        "show"
+    )
+);
+lightbox.addEventListener(
+    "click",
+    (e)=>{
+        if(e.target === lightbox){
+            lightbox.classList.remove(
+                "show"
+            );
+        }
+    }
+);
 /* =========================
    CHARACTER COUNT
 ========================= */
-notes.addEventListener("input",()=>{
-    document.getElementById("charCount").textContent =
+notes.addEventListener(
+    "input",
+    ()=>{
+        document.getElementById(
+            "charCount"
+        ).textContent =
         notes.value.length;
-    updateAll();
-    saveDraft();
-});
+        updateAll();
+        saveDraft();
+    }
+);
 /* =========================
    SUMMARY
 ========================= */
 function updateSummary(){
-    const status = getStatus();
-    document.getElementById("sumLeader").textContent =
-        leader.value || "—";
-    document.getElementById("sumDate").textContent =
-        formatDate(reportDate.value);
-    document.getElementById("sumDepartment").textContent =
-        department.value || "—";
-    document.getElementById("sumStatus").textContent =
-        status || "—";
-    document.getElementById("sumTimeIn").textContent =
-        timeIn.value || "—";
-    document.getElementById("sumTimeOut").textContent =
-        timeOut.value || "—";
-    document.getElementById("sumPatrolCode").textContent =
-        patrolCode.value || "—";
-    document.getElementById("sumImages").textContent =
-        `${entryImage.files.length ? 1 : 0} / 1 + ${exitImage.files.length ? 1 : 0} / 1`;
+    const status =
+    getStatus();
+    document.getElementById(
+        "sumLeader"
+    ).textContent =
+    leader.value || "—";
+    document.getElementById(
+        "sumDate"
+    ).textContent =
+    formatDate(
+        reportDate.value
+    );
+    document.getElementById(
+        "sumDepartment"
+    ).textContent =
+    department.value || "—";
+    document.getElementById(
+        "sumStatus"
+    ).textContent =
+    status || "—";
+    document.getElementById(
+        "sumTimeIn"
+    ).textContent =
+    timeIn.value || "—";
+    document.getElementById(
+        "sumTimeOut"
+    ).textContent =
+    timeOut.value || "—";
+    document.getElementById(
+        "sumImages"
+    ).textContent =
+    `${entryImage.files.length ? 1 : 0} / 1 + ${exitImage.files.length ? 1 : 0} / 1`;
     calculateDuration();
 }
 /* =========================
@@ -1746,16 +2261,33 @@ function updateCompletion(){
         !!entryImage.files.length,
         !!exitImage.files.length
     ];
-    const completed = checks.filter(Boolean).length;
-    const percent = Math.round((completed / checks.length) * 100);
-    document.getElementById("completionNumber").textContent =
-        percent + "%";
-    document.getElementById("completionText").textContent =
-        percent + "%";
-    document.getElementById("completionRing").style.background =
-        `conic-gradient(var(--gold) ${percent * 3.6}deg,#222 ${percent * 3.6}deg)`;
-    document.getElementById("imageCount").textContent =
-        `${(entryImage.files.length ? 1 : 0) + (exitImage.files.length ? 1 : 0)} / 2`;
+    const completed =
+    checks.filter(Boolean).length;
+    const percent =
+    Math.round(
+        (completed / checks.length) * 100
+    );
+    document.getElementById(
+        "completionNumber"
+    ).textContent =
+    percent + "%";
+    document.getElementById(
+        "completionText"
+    ).textContent =
+    percent + "%";
+    document.getElementById(
+        "completionRing"
+    ).style.background =
+    `conic-gradient(
+        var(--gold)
+        ${percent * 3.6}deg,
+        #222
+        ${percent * 3.6}deg
+    )`;
+    document.getElementById(
+        "imageCount"
+    ).textContent =
+    `${(entryImage.files.length ? 1 : 0) + (exitImage.files.length ? 1 : 0)} / 2`;
 }
 /* =========================
    UPDATE ALL
@@ -1763,58 +2295,96 @@ function updateCompletion(){
 function updateAll(){
     updateSummary();
     updateCompletion();
-    document.getElementById("charCount").textContent =
-        notes.value.length;
+    document.getElementById(
+        "charCount"
+    ).textContent =
+    notes.value.length;
 }
 /* =========================
    AUTOSAVE
 ========================= */
-let saveTimer = null;
+let saveTimer =
+null;
 function saveDraft(){
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(()=>{
-        const data = {
-            leader: leader.value,
-            reportDate: reportDate.value,
-            department: department.value,
-            patrolCode: patrolCode.value,
-            status: getStatus(),
-            timeIn: timeIn.value,
-            timeOut: timeOut.value,
-            notes: notes.value
-        };
-        localStorage.setItem(
-            DRAFT_KEY,
-            JSON.stringify(data)
-        );
-        document.getElementById("saveStatus").textContent =
+    clearTimeout(
+        saveTimer
+    );
+    saveTimer =
+    setTimeout(
+        ()=>{
+            const data = {
+                leader:
+                leader.value,
+                reportDate:
+                reportDate.value,
+                department:
+                department.value,
+                status:
+                getStatus(),
+                timeIn:
+                timeIn.value,
+                timeOut:
+                timeOut.value,
+                notes:
+                notes.value
+            };
+            localStorage.setItem(
+                DRAFT_KEY,
+                JSON.stringify(data)
+            );
+            document.getElementById(
+                "saveStatus"
+            ).textContent =
             "تم الحفظ تلقائيًا";
-        setTimeout(()=>{
-            document.getElementById("saveStatus").textContent =
-                "جاهز";
-        },2000);
-    },400);
+            setTimeout(
+                ()=>{
+                    document.getElementById(
+                        "saveStatus"
+                    ).textContent =
+                    "جاهز";
+                },
+                2000
+            );
+        },
+        400
+    );
 }
 function loadDraft(){
     try{
-        const raw = localStorage.getItem(DRAFT_KEY);
-        if(!raw) return;
-        const data = JSON.parse(raw);
-        leader.value = data.leader || "";
-        reportDate.value = data.reportDate || reportDate.value;
-        department.value = data.department || "";
-        patrolCode.value = data.patrolCode || "";
-        timeIn.value = data.timeIn || "";
-        timeOut.value = data.timeOut || "";
-        notes.value = data.notes || "";
+        const raw =
+        localStorage.getItem(
+            DRAFT_KEY
+        );
+        if(!raw)
+            return;
+        const data =
+        JSON.parse(raw);
+        leader.value =
+        data.leader || "";
+        reportDate.value =
+        data.reportDate ||
+        reportDate.value;
+        department.value =
+        data.department || "";
+        timeIn.value =
+        data.timeIn || "";
+        timeOut.value =
+        data.timeOut || "";
+        notes.value =
+        data.notes || "";
         if(data.status){
-            const radio = document.querySelector(
+            const radio =
+            document.querySelector(
                 `input[name="status"][value="${CSS.escape(data.status)}"]`
             );
-            if(radio) radio.checked = true;
+            if(radio)
+                radio.checked =
+                true;
         }
-        document.getElementById("saveStatus").textContent =
-            "تم استرجاع المسودة";
+        document.getElementById(
+            "saveStatus"
+        ).textContent =
+        "تم استرجاع المسودة";
     }catch(error){
         console.error(error);
     }
@@ -1828,25 +2398,39 @@ updateAll();
     leader,
     reportDate,
     department,
-    patrolCode,
     timeIn,
     timeOut
-].forEach(element=>{
-    element.addEventListener("input",()=>{
-        updateAll();
-        saveDraft();
-    });
-    element.addEventListener("change",()=>{
-        updateAll();
-        saveDraft();
-    });
-});
-document.querySelectorAll('input[name="status"]').forEach(radio=>{
-    radio.addEventListener("change",()=>{
-        updateAll();
-        saveDraft();
-    });
-});
+].forEach(
+    element=>{
+        element.addEventListener(
+            "input",
+            ()=>{
+                updateAll();
+                saveDraft();
+            }
+        );
+        element.addEventListener(
+            "change",
+            ()=>{
+                updateAll();
+                saveDraft();
+            }
+        );
+    }
+);
+document.querySelectorAll(
+    'input[name="status"]'
+).forEach(
+    radio=>{
+        radio.addEventListener(
+            "change",
+            ()=>{
+                updateAll();
+                saveDraft();
+            }
+        );
+    }
+);
 /* =========================
    VALIDATION
 ========================= */
@@ -1870,7 +2454,7 @@ function validateForm(){
     if(!department.value){
         showToast(
             "بيانات ناقصة",
-            "اختر القسم أو الوحدة."
+            "اختر نوع الدورية."
         );
         department.focus();
         return false;
@@ -1882,7 +2466,10 @@ function validateForm(){
         );
         return false;
     }
-    if(!timeIn.value || !timeOut.value){
+    if(
+        !timeIn.value ||
+        !timeOut.value
+    ){
         showToast(
             "الأوقات ناقصة",
             "حدد وقت بداية ونهاية الدورية."
@@ -1909,174 +2496,255 @@ function validateForm(){
    CONFIRMATION
 ========================= */
 function openConfirmModal(){
-    document.getElementById("confirmLeader").textContent =
-        leader.value;
-    document.getElementById("confirmDepartment").textContent =
-        department.value;
-    document.getElementById("confirmStatus").textContent =
-        getStatus();
-    document.getElementById("confirmDate").textContent =
-        formatDate(reportDate.value);
-    document.getElementById("confirmDuration").textContent =
-        calculateDuration();
-    document.getElementById("confirmEntryImg").src =
-        entryPreviewImg.src;
-    document.getElementById("confirmExitImg").src =
-        exitPreviewImg.src;
-    confirmModal.classList.add("show");
+    document.getElementById(
+        "confirmLeader"
+    ).textContent =
+    leader.value;
+    document.getElementById(
+        "confirmDepartment"
+    ).textContent =
+    department.value;
+    document.getElementById(
+        "confirmStatus"
+    ).textContent =
+    getStatus();
+    document.getElementById(
+        "confirmDate"
+    ).textContent =
+    formatDate(
+        reportDate.value
+    );
+    document.getElementById(
+        "confirmDuration"
+    ).textContent =
+    calculateDuration();
+    document.getElementById(
+        "confirmEntryImg"
+    ).src =
+    entryPreviewImg.src;
+    document.getElementById(
+        "confirmExitImg"
+    ).src =
+    exitPreviewImg.src;
+    confirmModal.classList.add(
+        "show"
+    );
 }
-document.getElementById("cancelConfirm").addEventListener(
+document.getElementById(
+    "cancelConfirm"
+).addEventListener(
     "click",
-    ()=>confirmModal.classList.remove("show")
+    ()=>confirmModal.classList.remove(
+        "show"
+    )
 );
 /* =========================
    FORM SUBMIT
 ========================= */
-form.addEventListener("submit",(e)=>{
-    e.preventDefault();
-    if(!validateForm()) return;
-    openConfirmModal();
-});
+form.addEventListener(
+    "submit",
+    (e)=>{
+        e.preventDefault();
+        if(!validateForm())
+            return;
+        openConfirmModal();
+    }
+);
 /* =========================
    SEND TO DISCORD
 ========================= */
-document.getElementById("confirmSend").addEventListener(
+document.getElementById(
+    "confirmSend"
+).addEventListener(
     "click",
     sendReport
 );
 async function sendReport(){
-    confirmModal.classList.remove("show");
-    loadingModal.classList.add("show");
+    confirmModal.classList.remove(
+        "show"
+    );
+    loadingModal.classList.add(
+        "show"
+    );
     try{
-        const status = getStatus();
+        const status =
+        getStatus();
         const statusColor =
             status === "مكتملة"
                 ? 0x39d98a
                 : status === "قيد المتابعة"
                     ? 0x5aa9ff
                     : 0xffb347;
-        const duration = calculateDuration();
+        const duration =
+        calculateDuration();
         const embed = {
-            title: "♛ تقرير دورية شرطة MESA ME",
+            title:
+            "♛ تقرير دورية شرطة MESA ME",
             description:
-                "تم تسجيل تقرير دورية جديد عبر النظام الملكي لتقارير شرطة MESA ME.",
-            color: statusColor,
+            "تم تسجيل تقرير دورية جديد عبر النظام الملكي لتقارير شرطة MESA ME.",
+            color:
+            statusColor,
             author:{
-                name:"MESA ME • ROYAL POLICE SYSTEM"
+                name:
+                "MESA ME • ROYAL POLICE SYSTEM"
             },
             fields:[
                 {
-                    name:"👮 قائد الدورية",
-                    value:leader.value || "غير محدد",
+                    name:
+                    "👮 قائد الدورية",
+                    value:
+                    leader.value ||
+                    "غير محدد",
                     inline:true
                 },
                 {
-                    name:"🏛 القسم / الوحدة",
-                    value:department.value || "غير محدد",
+                    name:
+                    "🏛 نوع الدورية",
+                    value:
+                    department.value ||
+                    "غير محدد",
                     inline:true
                 },
                 {
-                    name:"🚨 حالة الدورية",
-                    value:status || "غير محددة",
+                    name:
+                    "🚨 حالة الدورية",
+                    value:
+                    status ||
+                    "غير محددة",
                     inline:true
                 },
                 {
-                    name:"📅 التاريخ",
-                    value:formatDate(reportDate.value),
+                    name:
+                    "📅 التاريخ",
+                    value:
+                    formatDate(
+                        reportDate.value
+                    ),
                     inline:true
                 },
                 {
-                    name:"🕐 بداية الدورية",
-                    value:timeIn.value || "غير محدد",
+                    name:
+                    "🕐 بداية الدورية",
+                    value:
+                    timeIn.value ||
+                    "غير محدد",
                     inline:true
                 },
                 {
-                    name:"🕐 نهاية الدورية",
-                    value:timeOut.value || "غير محدد",
+                    name:
+                    "🕐 نهاية الدورية",
+                    value:
+                    timeOut.value ||
+                    "غير محدد",
                     inline:true
                 },
                 {
-                    name:"⏱ مدة الدورية",
-                    value:duration,
+                    name:
+                    "⏱ مدة الدورية",
+                    value:
+                    duration,
                     inline:true
                 },
                 {
-                    name:"🔰 رمز الدورية",
-                    value:patrolCode.value || "غير محدد",
-                    inline:true
-                },
-                {
-                    name:"📝 الملاحظات",
-                    value:notes.value.trim() || "لا توجد ملاحظات",
+                    name:
+                    "📝 الملاحظات",
+                    value:
+                    notes.value.trim() ||
+                    "لا توجد ملاحظات",
                     inline:false
                 }
             ],
             footer:{
-                text:"♛ MESA ME • Royal Police Patrol Report System"
+                text:
+                "♛ MESA ME • Royal Police Patrol Report System"
             },
-            timestamp:new Date().toISOString()
+            timestamp:
+            new Date().toISOString()
         };
         const payload = {
-            username:"♛ شرطة MESA ME • تقارير الدوريات",
-            embeds:[embed],
+            username:
+            "♛ شرطة MESA ME • تقارير الدوريات",
+            embeds:[
+                embed
+            ],
             allowed_mentions:{
                 parse:[]
             }
         };
-        const formData = new FormData();
+        const formData =
+        new FormData();
         formData.append(
             "payload_json",
             JSON.stringify(payload)
         );
-        const entryFile = entryImage.files[0];
-        const exitFile = exitImage.files[0];
+        const entryFile =
+        entryImage.files[0];
+        const exitFile =
+        exitImage.files[0];
         formData.append(
             "files[0]",
             entryFile,
             "MESA-ME-patrol-entry." +
-            getExtension(entryFile.name)
+            getExtension(
+                entryFile.name
+            )
         );
         formData.append(
             "files[1]",
             exitFile,
             "MESA-ME-patrol-exit." +
-            getExtension(exitFile.name)
+            getExtension(
+                exitFile.name
+            )
         );
-        /*
-          إرسال التقرير مباشرة إلى Discord.
-          wait=true يجعل Discord يعيد استجابة للرسالة المنشأة،
-          وهذا يساعدنا على التأكد من نجاح العملية.
-        */
-        const response = await fetch(
-            WEBHOOK_URL + "?wait=true",
+        const response =
+        await fetch(
+            WEBHOOK_URL +
+            "?wait=true",
             {
                 method:"POST",
                 body:formData
             }
         );
         if(!response.ok){
-            let errorText = "";
+            let errorText =
+            "";
             try{
-                errorText = await response.text();
+                errorText =
+                await response.text();
             }catch{}
-            console.error(errorText);
+            console.error(
+                errorText
+            );
             throw new Error(
-                "HTTP " + response.status
+                "HTTP " +
+                response.status
             );
         }
         saveToHistory({
-            leader:leader.value,
-            reportDate:reportDate.value,
-            department:department.value,
-            patrolCode:patrolCode.value,
+            leader:
+            leader.value,
+            reportDate:
+            reportDate.value,
+            department:
+            department.value,
+            status:
             status,
-            timeIn:timeIn.value,
-            timeOut:timeOut.value,
+            timeIn:
+            timeIn.value,
+            timeOut:
+            timeOut.value,
+            duration:
             duration,
-            sentAt:new Date().toISOString()
+            sentAt:
+            new Date().toISOString()
         });
-        localStorage.removeItem(DRAFT_KEY);
-        loadingModal.classList.remove("show");
+        localStorage.removeItem(
+            DRAFT_KEY
+        );
+        loadingModal.classList.remove(
+            "show"
+        );
         showToast(
             "تم إرسال التقرير بنجاح ♛",
             "تم إرسال تقرير دورية MESA ME والصور إلى Discord."
@@ -2084,8 +2752,12 @@ async function sendReport(){
         resetForm();
         renderHistory();
     }catch(error){
-        console.error(error);
-        loadingModal.classList.remove("show");
+        console.error(
+            error
+        );
+        loadingModal.classList.remove(
+            "show"
+        );
         showToast(
             "فشل الإرسال",
             "تأكد من اتصال الإنترنت وصحة رابط Webhook."
@@ -2095,8 +2767,11 @@ async function sendReport(){
 /* =========================
    FILE EXTENSION
 ========================= */
-function getExtension(filename){
-    const parts = filename.split(".");
+function getExtension(
+    filename
+){
+    const parts =
+    filename.split(".");
     return parts.length > 1
         ? parts.pop().toLowerCase()
         : "jpg";
@@ -2107,31 +2782,51 @@ function getExtension(filename){
 function resetForm(){
     form.reset();
     setToday();
-    durationDisplay.textContent = "00:00";
-    durationStatus.textContent = "بانتظار الأوقات";
-    document.getElementById("dashboardDuration").textContent =
-        "--";
-    document.getElementById("charCount").textContent =
-        "0";
-    entryPreview.classList.remove("show");
-    exitPreview.classList.remove("show");
-    entryPreviewImg.src = "";
-    exitPreviewImg.src = "";
-    document.getElementById("saveStatus").textContent =
-        "جاهز";
+    durationDisplay.textContent =
+    "00:00";
+    durationStatus.textContent =
+    "بانتظار الأوقات";
+    document.getElementById(
+        "dashboardDuration"
+    ).textContent =
+    "--";
+    document.getElementById(
+        "charCount"
+    ).textContent =
+    "0";
+    entryPreview.classList.remove(
+        "show"
+    );
+    exitPreview.classList.remove(
+        "show"
+    );
+    entryPreviewImg.src =
+    "";
+    exitPreviewImg.src =
+    "";
+    document.getElementById(
+        "saveStatus"
+    ).textContent =
+    "جاهز";
     updateAll();
 }
 /* =========================
    CLEAR FORM
 ========================= */
-document.getElementById("clearBtn").addEventListener(
+document.getElementById(
+    "clearBtn"
+).addEventListener(
     "click",
     ()=>{
-        const okay = confirm(
+        const okay =
+        confirm(
             "هل تريد مسح تقرير الدورية الحالي؟"
         );
-        if(!okay) return;
-        localStorage.removeItem(DRAFT_KEY);
+        if(!okay)
+            return;
+        localStorage.removeItem(
+            DRAFT_KEY
+        );
         resetForm();
         showToast(
             "تم المسح",
@@ -2142,7 +2837,9 @@ document.getElementById("clearBtn").addEventListener(
 /* =========================
    PRINT
 ========================= */
-document.getElementById("printBtn").addEventListener(
+document.getElementById(
+    "printBtn"
+).addEventListener(
     "click",
     ()=>window.print()
 );
@@ -2152,24 +2849,38 @@ document.getElementById("printBtn").addEventListener(
 function getHistory(){
     try{
         return JSON.parse(
-            localStorage.getItem(HISTORY_KEY)
+            localStorage.getItem(
+                HISTORY_KEY
+            )
         ) || [];
     }catch{
         return [];
     }
 }
-function saveToHistory(record){
-    const history = getHistory();
-    history.unshift(record);
-    const limited = history.slice(0,10);
+function saveToHistory(
+    record
+){
+    const history =
+    getHistory();
+    history.unshift(
+        record
+    );
+    const limited =
+    history.slice(0,10);
     localStorage.setItem(
         HISTORY_KEY,
-        JSON.stringify(limited)
+        JSON.stringify(
+            limited
+        )
     );
 }
 function renderHistory(){
-    const list = document.getElementById("historyList");
-    const history = getHistory();
+    const list =
+    document.getElementById(
+        "historyList"
+    );
+    const history =
+    getHistory();
     if(!history.length){
         list.innerHTML = `
             <div class="empty-history">
@@ -2178,42 +2889,84 @@ function renderHistory(){
         `;
         return;
     }
-    list.innerHTML = history.map((item,index)=>{
-        const sentDate = new Date(item.sentAt);
-        const dateText = new Intl.DateTimeFormat("ar-IQ",{
-            dateStyle:"medium",
-            timeStyle:"short"
-        }).format(sentDate);
-        return `
-            <div class="history-item">
-                <div>
-                    <small>قائد الدورية</small>
-                    <strong>${escapeHTML(item.leader)}</strong>
+    list.innerHTML =
+    history.map(
+        (item,index)=>{
+            const sentDate =
+            new Date(
+                item.sentAt
+            );
+            const dateText =
+            new Intl.DateTimeFormat(
+                "ar-IQ",
+                {
+                    dateStyle:"medium",
+                    timeStyle:"short"
+                }
+            ).format(
+                sentDate
+            );
+            return `
+                <div class="history-item">
+                    <div>
+                        <small>
+                            قائد الدورية
+                        </small>
+                        <strong>
+                            ${escapeHTML(
+                                item.leader
+                            )}
+                        </strong>
+                    </div>
+                    <div>
+                        <small>
+                            نوع الدورية
+                        </small>
+                        <strong>
+                            ${escapeHTML(
+                                item.department
+                            )}
+                        </strong>
+                    </div>
+                    <div>
+                        <small>
+                            الحالة
+                        </small>
+                        <strong>
+                            ${escapeHTML(
+                                item.status
+                            )}
+                        </strong>
+                    </div>
+                    <div>
+                        <small>
+                            المدة •
+                            ${escapeHTML(
+                                dateText
+                            )}
+                        </small>
+                        <strong>
+                            ${escapeHTML(
+                                item.duration
+                            )}
+                        </strong>
+                    </div>
                 </div>
-                <div>
-                    <small>القسم</small>
-                    <strong>${escapeHTML(item.department)}</strong>
-                </div>
-                <div>
-                    <small>الحالة</small>
-                    <strong>${escapeHTML(item.status)}</strong>
-                </div>
-                <div>
-                    <small>المدة • ${escapeHTML(dateText)}</small>
-                    <strong>${escapeHTML(item.duration)}</strong>
-                </div>
-            </div>
-        `;
-    }).join("");
+            `;
+        }
+    ).join("");
 }
 renderHistory();
 /* =========================
    CLEAR HISTORY
 ========================= */
-document.getElementById("clearHistoryBtn").addEventListener(
+document.getElementById(
+    "clearHistoryBtn"
+).addEventListener(
     "click",
     ()=>{
-        const history = getHistory();
+        const history =
+        getHistory();
         if(!history.length){
             showToast(
                 "السجل فارغ",
@@ -2221,10 +2974,16 @@ document.getElementById("clearHistoryBtn").addEventListener(
             );
             return;
         }
-        if(!confirm("هل تريد مسح سجل التقارير المحلي؟")){
+        if(
+            !confirm(
+                "هل تريد مسح سجل التقارير المحلي؟"
+            )
+        ){
             return;
         }
-        localStorage.removeItem(HISTORY_KEY);
+        localStorage.removeItem(
+            HISTORY_KEY
+        );
         renderHistory();
         showToast(
             "تم مسح السجل",
@@ -2235,50 +2994,96 @@ document.getElementById("clearHistoryBtn").addEventListener(
 /* =========================
    ESCAPE HTML
 ========================= */
-function escapeHTML(value){
-    return String(value || "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+function escapeHTML(
+    value
+){
+    return String(
+        value || ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
 }
 /* =========================
    TOAST
 ========================= */
-function showToast(title,message){
+function showToast(
+    title,
+    message
+){
     const container =
-        document.getElementById("toastContainer");
+    document.getElementById(
+        "toastContainer"
+    );
     const toast =
-        document.createElement("div");
-    toast.className = "toast";
+    document.createElement(
+        "div"
+    );
+    toast.className =
+    "toast";
     toast.innerHTML = `
-        <div class="toast-title">${escapeHTML(title)}</div>
-        <div class="toast-message">${escapeHTML(message)}</div>
+        <div class="toast-title">
+            ${escapeHTML(title)}
+        </div>
+        <div class="toast-message">
+            ${escapeHTML(message)}
+        </div>
     `;
-    container.appendChild(toast);
-    setTimeout(()=>{
-        toast.style.opacity = "0";
-        toast.style.transform = "translateX(-20px)";
-        setTimeout(()=>{
-            toast.remove();
-        },300);
-    },4500);
+    container.appendChild(
+        toast
+    );
+    setTimeout(
+        ()=>{
+            toast.style.opacity =
+            "0";
+            toast.style.transform =
+            "translateX(-20px)";
+            setTimeout(
+                ()=>{
+                    toast.remove();
+                },
+                300
+            );
+        },
+        4500
+    );
 }
 /* =========================
    KEYBOARD SHORTCUTS
 ========================= */
-document.addEventListener("keydown",(e)=>{
-    if(e.key === "Escape"){
-        confirmModal.classList.remove("show");
-        loadingModal.classList.remove("show");
-        lightbox.classList.remove("show");
+document.addEventListener(
+    "keydown",
+    (e)=>{
+        if(e.key === "Escape"){
+            confirmModal.classList.remove(
+                "show"
+            );
+            loadingModal.classList.remove(
+                "show"
+            );
+            lightbox.classList.remove(
+                "show"
+            );
+        }
     }
-    /*
-      Ctrl + P
-      يترك المتصفح يتعامل مع الطباعة بشكل طبيعي.
-    */
-});
+);
 /* =========================
    FINAL INITIALIZATION
 ========================= */
