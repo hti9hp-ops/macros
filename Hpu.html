@@ -1,903 +1,3567 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقرير دورية المستشفى</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        :root {
-            --bg: #07111f;
-            --card: #0f1b2d;
-            --input: #172438;
-            --border: #2b3b52;
-            --text: #f8fafc;
-            --muted: #94a3b8;
-            --primary: #0ea5e9;
-            --primary-dark: #0369a1;
-            --success: #22c55e;
-            --danger: #ef4444;
-        }
-        body {
-            font-family: Tahoma, Arial, sans-serif;
-            min-height: 100vh;
-            background:
-                radial-gradient(circle at top right, rgba(14, 165, 233, 0.15), transparent 35%),
-                radial-gradient(circle at bottom left, rgba(37, 99, 235, 0.10), transparent 35%),
-                var(--bg);
-            color: var(--text);
-            padding: 20px 12px;
-        }
-        .container {
-            width: 100%;
-            max-width: 680px;
-            margin: auto;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .logo {
-            width: 70px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: auto;
-            margin-bottom: 12px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #0284c7, #075985);
-            font-size: 32px;
-            box-shadow: 0 15px 40px rgba(14,165,233,.25);
-        }
-        .header h1 {
-            font-size: 23px;
-            margin-bottom: 7px;
-        }
-        .header p {
-            color: var(--muted);
-            font-size: 12px;
-        }
-        .card {
-            background: rgba(15, 27, 45, .96);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 22px;
-            box-shadow: 0 25px 70px rgba(0,0,0,.35);
-        }
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #7dd3fc;
-            font-size: 14px;
-            font-weight: bold;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            margin-bottom: 17px;
-        }
-        .field {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 7px;
-            color: #cbd5e1;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .required {
-            color: #f87171;
-        }
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            background: var(--input);
-            color: white;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            outline: none;
-            font-family: inherit;
-            font-size: 13px;
-            transition: .2s;
-        }
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(14,165,233,.12);
-        }
-        input::placeholder,
-        textarea::placeholder {
-            color: #64748b;
-        }
-        select option {
-            background: #111827;
-        }
-        textarea {
-            min-height: 90px;
-            resize: vertical;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 13px;
-        }
-        .upload-box {
-            border: 1px dashed #475569;
-            border-radius: 13px;
-            padding: 13px;
-            background: #0c1727;
-            transition: .2s;
-        }
-        .upload-box:hover {
-            border-color: var(--primary);
-            background: #0f1d30;
-        }
-        .upload-icon {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        .upload-title {
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        .upload-help {
-            color: var(--muted);
-            font-size: 10px;
-            margin-bottom: 10px;
-        }
-        input[type="file"] {
-            padding: 7px;
-            cursor: pointer;
-            font-size: 10px;
-        }
-        input[type="file"]::file-selector-button {
-            background: #1d4ed8;
-            color: white;
-            border: none;
-            border-radius: 7px;
-            padding: 7px 9px;
-            margin-left: 7px;
-            cursor: pointer;
-            font-family: inherit;
-        }
-        .preview {
-            display: none;
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            margin-top: 10px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-        .file-status {
-            margin-top: 7px;
-            color: var(--muted);
-            font-size: 10px;
-        }
-        .file-status.success {
-            color: #4ade80;
-        }
-        .file-status.error {
-            color: #f87171;
-        }
-        .message {
-            display: none;
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .message.success {
-            display: block;
-            color: #bbf7d0;
-            background: rgba(34,197,94,.10);
-            border: 1px solid rgba(34,197,94,.25);
-        }
-        .message.error {
-            display: block;
-            color: #fecaca;
-            background: rgba(239,68,68,.10);
-            border: 1px solid rgba(239,68,68,.25);
-        }
-        .loading {
-            display: none;
-            text-align: center;
-            margin-top: 12px;
-        }
-        .spinner {
-            width: 25px;
-            height: 25px;
-            margin: auto;
-            border: 3px solid #334155;
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin .8s linear infinite;
-        }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .loading-text {
-            color: #7dd3fc;
-            font-size: 11px;
-            margin-top: 7px;
-        }
-        .submit-btn {
-            width: 100%;
-            margin-top: 8px;
-            padding: 14px;
-            border: none;
-            border-radius: 11px;
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(2,132,199,.25);
-            transition: .2s;
-        }
-        .submit-btn:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.08);
-        }
-        .submit-btn:disabled {
-            opacity: .55;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .footer {
-            text-align: center;
-            color: #64748b;
-            font-size: 10px;
-            margin-top: 15px;
-        }
-        @media (max-width: 550px) {
-            body {
-                padding: 12px 9px;
-            }
-            .card {
-                padding: 17px;
-                border-radius: 17px;
-            }
-            .grid {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-            .header h1 {
-                font-size: 20px;
-            }
-            .logo {
-                width: 62px;
-                height: 62px;
-                font-size: 28px;
-            }
-        }
-    </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#080808">
+
+<title>نظام تقارير دوريات المستشفى </title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Marhey:wght@400;500;600;700&display=swap');
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+:root {
+
+    --gold: #d4af37;
+
+    --gold-light: #f5d76e;
+
+    --gold-dark: #8f6d16;
+
+    --black: #050505;
+
+    --dark: #0b0b0b;
+
+    --dark-2: #111111;
+
+    --card: rgba(18, 18, 18, 0.82);
+
+    --border: rgba(212, 175, 55, 0.25);
+
+    --text: #f7f2df;
+
+    --muted: #aaa38f;
+
+    --success: #35d07f;
+
+    --danger: #ff5c5c;
+
+}
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+body {
+
+    min-height: 100vh;
+
+    font-family: "Cairo", sans-serif;
+
+    color: var(--text);
+
+    background:
+
+        radial-gradient(circle at 15% 15%, rgba(212,175,55,.12), transparent 28%),
+
+        radial-gradient(circle at 85% 20%, rgba(212,175,55,.08), transparent 25%),
+
+        radial-gradient(circle at 50% 100%, rgba(212,175,55,.06), transparent 35%),
+
+        linear-gradient(135deg, #020202, #0b0b0b 45%, #050505);
+
+    overflow-x: hidden;
+
+}
+
+/* ===== الخلفية الفاخرة ===== */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .22;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+    background-size: 45px 45px;
+
+    mask-image: linear-gradient(to bottom, black, transparent);
+
+}
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+
+    height: 500px;
+
+    left: -220px;
+
+    top: -220px;
+
+    background: radial-gradient(circle, rgba(212,175,55,.14), transparent 65%);
+
+    filter: blur(30px);
+
+    pointer-events: none;
+
+}
+
+/* ===== الحاوية ===== */
+
+.container {
+
+    width: min(1100px, calc(100% - 28px));
+
+    margin: auto;
+
+    padding: 35px 0 60px;
+
+}
+
+/* ===== الهيدر ===== */
+
+.hero {
+
+    position: relative;
+
+    text-align: center;
+
+    padding: 42px 20px 34px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 30px;
+
+    background:
+
+        linear-gradient(145deg, rgba(30,30,30,.9), rgba(8,8,8,.94));
+
+    box-shadow:
+
+        0 25px 80px rgba(0,0,0,.6),
+
+        inset 0 1px rgba(255,255,255,.04);
+
+    overflow: hidden;
+
+}
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+
+    height: 2px;
+
+    top: 0;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+
+    box-shadow: 0 0 25px var(--gold);
+
+}
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+
+    height: 300px;
+
+    top: -180px;
+
+    right: -100px;
+
+    background: radial-gradient(circle, rgba(212,175,55,.16), transparent 70%);
+
+}
+
+.crown {
+
+    font-size: 48px;
+
+    margin-bottom: 10px;
+
+    filter: drop-shadow(0 0 18px rgba(212,175,55,.55));
+
+}
+
+.hero h1 {
+
+    font-family: "Marhey", "Cairo", sans-serif;
+
+    font-size: clamp(25px, 5vw, 44px);
+
+    color: var(--gold-light);
+
+    text-shadow:
+
+        0 0 18px rgba(212,175,55,.3),
+
+        0 3px 20px rgba(0,0,0,.8);
+
+    margin-bottom: 8px;
+
+}
+
+.hero p {
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+}
+
+.hero-line {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+    color: var(--gold);
+
+}
+
+.hero-line span {
+
+    width: 70px;
+
+    height: 1px;
+
+    background: linear-gradient(90deg, transparent, var(--gold));
+
+}
+
+.hero-line span:last-child {
+
+    background: linear-gradient(90deg, var(--gold), transparent);
+
+}
+
+/* ===== البطاقة الرئيسية ===== */
+
+.main-card {
+
+    border: 1px solid var(--border);
+
+    border-radius: 30px;
+
+    background: rgba(12,12,12,.86);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+
+        0 30px 100px rgba(0,0,0,.65),
+
+        inset 0 1px rgba(255,255,255,.035);
+
+    overflow: hidden;
+
+}
+
+/* ===== عنوان القسم ===== */
+
+.section {
+
+    padding: 28px;
+
+    border-bottom: 1px solid rgba(255,255,255,.055);
+
+}
+
+.section:last-child {
+
+    border-bottom: 0;
+
+}
+
+.section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+
+}
+
+.section-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 13px;
+
+    background: linear-gradient(145deg, rgba(212,175,55,.2), rgba(212,175,55,.05));
+
+    border: 1px solid var(--border);
+
+    font-size: 20px;
+
+    box-shadow: 0 0 20px rgba(212,175,55,.08);
+
+}
+
+.section-title h2 {
+
+    font-size: 18px;
+
+    color: #f5e8b4;
+
+}
+
+.section-title small {
+
+    display: block;
+
+    color: #777;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+}
+
+/* ===== الشبكات ===== */
+
+.grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+
+}
+
+.grid-3 {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+}
+
+/* ===== الحقول ===== */
+
+.field {
+
+    position: relative;
+
+}
+
+.field.full {
+
+    grid-column: 1 / -1;
+
+}
+
+label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #d7cfb7;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+.required {
+
+    color: var(--gold-light);
+
+}
+
+input,
+
+select,
+
+textarea {
+
+    width: 100%;
+
+    border: 1px solid rgba(255,255,255,.09);
+
+    outline: none;
+
+    color: #f4f0df;
+
+    background:
+
+        linear-gradient(145deg, rgba(30,30,30,.95), rgba(13,13,13,.95));
+
+    border-radius: 14px;
+
+    padding: 14px 15px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition: .25s ease;
+
+}
+
+input:focus,
+
+select:focus,
+
+textarea:focus {
+
+    border-color: rgba(212,175,55,.65);
+
+    box-shadow:
+
+        0 0 0 3px rgba(212,175,55,.08),
+
+        0 0 25px rgba(212,175,55,.08);
+
+    transform: translateY(-1px);
+
+}
+
+textarea {
+
+    min-height: 120px;
+
+    resize: vertical;
+
+}
+
+input[type="date"],
+
+input[type="time"] {
+
+    color-scheme: dark;
+
+}
+
+select {
+
+    cursor: pointer;
+
+}
+
+.hint {
+
+    margin-top: 6px;
+
+    color: #6f6a5e;
+
+    font-size: 11px;
+
+}
+
+/* ===== بطاقات الحالة ===== */
+
+.status-options {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+}
+
+.status-option {
+
+    position: relative;
+
+}
+
+.status-option input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+.status-option label {
+
+    cursor: pointer;
+
+    margin: 0;
+
+    padding: 14px 10px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.025);
+
+    color: #aaa;
+
+    transition: .25s;
+
+}
+
+.status-option input:checked + label {
+
+    border-color: rgba(212,175,55,.65);
+
+    background: rgba(212,175,55,.1);
+
+    color: var(--gold-light);
+
+    box-shadow: 0 0 25px rgba(212,175,55,.08);
+
+}
+
+/* ===== كروت الأوقات ===== */
+
+.time-card {
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    background: linear-gradient(145deg, rgba(255,255,255,.025), rgba(255,255,255,.01));
+
+}
+
+.time-card .time-icon {
+
+    font-size: 22px;
+
+    margin-bottom: 10px;
+
+}
+
+.duration-box {
+
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border-radius: 17px;
+
+    border: 1px solid rgba(212,175,55,.18);
+
+    background:
+
+        linear-gradient(90deg, rgba(212,175,55,.07), rgba(212,175,55,.025));
+
+}
+
+.duration-label {
+
+    color: #aaa;
+
+    font-size: 12px;
+
+}
+
+.duration-value {
+
+    color: var(--gold-light);
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+}
+
+/* ===== الصور ===== */
+
+.photo-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+
+}
+
+.photo-card {
+
+    position: relative;
+
+    min-height: 240px;
+
+    border: 1px dashed rgba(212,175,55,.35);
+
+    border-radius: 20px;
+
+    background:
+
+        radial-gradient(circle at center, rgba(212,175,55,.05), transparent 55%),
+
+        rgba(255,255,255,.015);
+
+    overflow: hidden;
+
+    transition: .25s;
+
+}
+
+.photo-card:hover {
+
+    border-color: rgba(212,175,55,.7);
+
+    box-shadow: 0 0 35px rgba(212,175,55,.07);
+
+}
+
+.photo-card input {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0;
+
+    cursor: pointer;
+
+    z-index: 5;
+
+}
+
+.photo-content {
+
+    min-height: 240px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    padding: 20px;
+
+    text-align: center;
+
+}
+
+.photo-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 20px;
+
+    font-size: 29px;
+
+    background: rgba(212,175,55,.09);
+
+    border: 1px solid rgba(212,175,55,.2);
+
+    margin-bottom: 13px;
+
+}
+
+.photo-title {
+
+    font-weight: 800;
+
+    color: #eee5c8;
+
+}
+
+.photo-subtitle {
+
+    color: #777;
+
+    font-size: 11px;
+
+    margin-top: 5px;
+
+}
+
+.preview {
+
+    display: none;
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 3;
+
+    background: #080808;
+
+}
+
+.preview img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+.preview-overlay {
+
+    position: absolute;
+
+    left: 10px;
+
+    right: 10px;
+
+    bottom: 10px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 9px 12px;
+
+    border-radius: 12px;
+
+    background: rgba(0,0,0,.72);
+
+    backdrop-filter: blur(10px);
+
+    font-size: 11px;
+
+}
+
+.photo-status {
+
+    color: var(--success);
+
+    font-weight: 700;
+
+}
+
+/* ===== ملخص الدورية ===== */
+
+.summary {
+
+    border: 1px solid rgba(212,175,55,.25);
+
+    border-radius: 22px;
+
+    padding: 22px;
+
+    background:
+
+        linear-gradient(145deg, rgba(212,175,55,.07), rgba(255,255,255,.015));
+
+    box-shadow:
+
+        inset 0 1px rgba(255,255,255,.035),
+
+        0 15px 45px rgba(0,0,0,.25);
+
+}
+
+.summary-head {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 17px;
+
+}
+
+.summary-head h3 {
+
+    color: var(--gold-light);
+
+    font-size: 16px;
+
+}
+
+.live {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #888;
+
+    font-size: 10px;
+
+}
+
+.live-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--success);
+
+    box-shadow: 0 0 10px var(--success);
+
+    animation: pulse 1.5s infinite;
+
+}
+
+@keyframes pulse {
+
+    50% {
+
+        opacity: .3;
+
+        transform: scale(.7);
+
+    }
+
+}
+
+.summary-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+}
+
+.summary-item {
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background: rgba(0,0,0,.2);
+
+    border: 1px solid rgba(255,255,255,.045);
+
+}
+
+.summary-item small {
+
+    display: block;
+
+    color: #777;
+
+    font-size: 10px;
+
+    margin-bottom: 5px;
+
+}
+
+.summary-item strong {
+
+    display: block;
+
+    color: #eee8d5;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+/* ===== أزرار ===== */
+
+.actions {
+
+    padding: 28px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    border-top: 1px solid rgba(255,255,255,.055);
+
+}
+
+button {
+
+    border: 0;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+}
+
+.btn {
+
+    min-height: 56px;
+
+    border-radius: 16px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    transition: .25s;
+
+}
+
+.btn-primary {
+
+    position: relative;
+
+    overflow: hidden;
+
+    color: #171205;
+
+    background:
+
+        linear-gradient(135deg, #b98b22, #f2d66c 45%, #b98b22);
+
+    box-shadow:
+
+        0 10px 35px rgba(212,175,55,.18),
+
+        inset 0 1px rgba(255,255,255,.55);
+
+}
+
+.btn-primary::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 70%;
+
+    height: 100%;
+
+    transform: skewX(-25deg);
+
+    background: rgba(255,255,255,.3);
+
+    transition: .6s;
+
+}
+
+.btn-primary:hover::before {
+
+    left: 150%;
+
+}
+
+.btn-primary:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+
+        0 15px 45px rgba(212,175,55,.25),
+
+        inset 0 1px rgba(255,255,255,.55);
+
+}
+
+.btn-secondary {
+
+    color: #cfc8b5;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+}
+
+.btn-secondary:hover {
+
+    background: rgba(255,255,255,.07);
+
+    transform: translateY(-2px);
+
+}
+
+.btn:disabled {
+
+    opacity: .55;
+
+    cursor: not-allowed;
+
+    transform: none !important;
+
+}
+
+/* ===== حالة الإرسال ===== */
+
+.message {
+
+    display: none;
+
+    margin: 0 28px 28px;
+
+    padding: 16px 18px;
+
+    border-radius: 15px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+.message.success {
+
+    display: block;
+
+    color: #8df0b6;
+
+    background: rgba(53,208,127,.08);
+
+    border: 1px solid rgba(53,208,127,.25);
+
+}
+
+.message.error {
+
+    display: block;
+
+    color: #ffaaaa;
+
+    background: rgba(255,92,92,.08);
+
+    border: 1px solid rgba(255,92,92,.25);
+
+}
+
+/* ===== التحميل ===== */
+
+.loading {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    background: rgba(0,0,0,.78);
+
+    backdrop-filter: blur(14px);
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+.loading.active {
+
+    display: flex;
+
+}
+
+.loading-box {
+
+    width: min(360px, calc(100% - 40px));
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 25px;
+
+    background: #0c0c0c;
+
+    box-shadow: 0 25px 80px rgba(0,0,0,.7);
+
+}
+
+.spinner {
+
+    width: 55px;
+
+    height: 55px;
+
+    margin: 0 auto 18px;
+
+    border: 3px solid rgba(212,175,55,.15);
+
+    border-top-color: var(--gold-light);
+
+    border-radius: 50%;
+
+    animation: spin .8s linear infinite;
+
+}
+
+@keyframes spin {
+
+    to { transform: rotate(360deg); }
+
+}
+
+.loading-box h3 {
+
+    color: var(--gold-light);
+
+    margin-bottom: 5px;
+
+}
+
+.loading-box p {
+
+    color: #777;
+
+    font-size: 12px;
+
+}
+
+/* ===== نافذة التأكيد ===== */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 90;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.78);
+
+    backdrop-filter: blur(14px);
+
+}
+
+.modal.active {
+
+    display: flex;
+
+}
+
+.modal-box {
+
+    width: min(520px, 100%);
+
+    max-height: 90vh;
+
+    overflow: auto;
+
+    border: 1px solid var(--border);
+
+    border-radius: 25px;
+
+    background: #0c0c0c;
+
+    box-shadow: 0 30px 100px rgba(0,0,0,.8);
+
+}
+
+.modal-header {
+
+    padding: 24px;
+
+    text-align: center;
+
+    border-bottom: 1px solid rgba(255,255,255,.06);
+
+}
+
+.modal-header .icon {
+
+    font-size: 35px;
+
+    margin-bottom: 8px;
+
+}
+
+.modal-header h2 {
+
+    color: var(--gold-light);
+
+    font-size: 20px;
+
+}
+
+.modal-body {
+
+    padding: 22px;
+
+}
+
+.confirm-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+}
+
+.confirm-item {
+
+    padding: 12px;
+
+    border-radius: 13px;
+
+    background: rgba(255,255,255,.025);
+
+    border: 1px solid rgba(255,255,255,.05);
+
+}
+
+.confirm-item small {
+
+    display: block;
+
+    color: #777;
+
+    font-size: 10px;
+
+    margin-bottom: 4px;
+
+}
+
+.confirm-item strong {
+
+    font-size: 12px;
+
+    color: #eee7d2;
+
+}
+
+.modal-actions {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    padding: 20px 22px 22px;
+
+    border-top: 1px solid rgba(255,255,255,.06);
+
+}
+
+/* ===== الفوتر ===== */
+
+.footer {
+
+    text-align: center;
+
+    padding: 25px 0 0;
+
+    color: #555;
+
+    font-size: 10px;
+
+}
+
+.footer strong {
+
+    color: #8e7740;
+
+}
+
+/* ===== الجوال ===== */
+
+@media (max-width: 750px) {
+
+    .container {
+
+        width: min(100% - 16px, 1100px);
+
+        padding-top: 12px;
+
+    }
+
+    .hero {
+
+        border-radius: 22px;
+
+        padding: 30px 15px 25px;
+
+    }
+
+    .main-card {
+
+        border-radius: 22px;
+
+    }
+
+    .section {
+
+        padding: 20px 15px;
+
+    }
+
+    .grid,
+
+    .grid-3,
+
+    .photo-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .field.full {
+
+        grid-column: auto;
+
+    }
+
+    .status-options {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .summary-grid {
+
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+    .actions {
+
+        grid-template-columns: 1fr;
+
+        padding: 20px 15px;
+
+    }
+
+    .message {
+
+        margin: 0 15px 20px;
+
+    }
+
+    .duration-box {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+}
+
+@media (max-width: 430px) {
+
+    .summary-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .confirm-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .modal-actions {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .hero h1 {
+
+        font-size: 25px;
+
+    }
+
+}
+
+</style>
+
 </head>
+
 <body>
+
 <div class="container">
-    <div class="header">
-        <div class="logo">
-            🚨
-        </div>
-        <h1>
-            تقرير دورية المستشفى
-        </h1>
+
+    <!-- ===== الهيدر ===== -->
+
+    <header class="hero">
+
+        <div class="crown">♛</div>
+
+        <h1>نظام تقارير الدوريات</h1>
+
         <p>
-            يرجى تعبئة البيانات وإرفاق صور الدخول والخروج
+
+            نظام ملكي متكامل لتوثيق ومتابعة دوريات المستشفى
+
         </p>
-    </div>
-    <div class="card">
-        <div id="message" class="message"></div>
+
+        <div class="hero-line">
+
+            <span></span>
+
+            ✦
+
+            <span></span>
+
+        </div>
+
+    </header>
+
+    <!-- ===== النموذج ===== -->
+
+    <main class="main-card">
+
         <form id="reportForm">
-            <!-- بيانات الدورية -->
-            <div class="section-title">
-                🛡️ بيانات الدورية
-            </div>
-            <div class="field">
-                <label>
-                    اسم قائد الدورية
-                    <span class="required">*</span>
-                </label>
-                <input
-                    type="text"
-                    id="leaderName"
-                    placeholder="أدخل اسم قائد الدورية..."
-                    maxlength="100"
-                    required
-                >
-            </div>
-            <div class="grid">
-                <div class="field">
-                    <label>
-                        تاريخ الدورية
-                        <span class="required">*</span>
-                    </label>
-                    <input
-                        type="date"
-                        id="reportDate"
-                        required
-                    >
+
+            <!-- المعلومات الأساسية -->
+
+            <section class="section">
+
+                <div class="section-title">
+
+                    <div class="section-icon">👑</div>
+
+                    <div>
+
+                        <h2>المعلومات الأساسية</h2>
+
+                        <small>بيانات قائد الدورية وموقعها</small>
+
+                    </div>
+
                 </div>
-                <div class="field">
-                    <label>
-                        القسم
-                    </label>
-                    <select id="department">
-                        <option value="الدورية">
-                            الدورية
-                        </option>
-                        <option value="العمليات">
-                            العمليات
-                        </option>
-                        <option value="الأمن">
-                            الأمن
-                        </option>
-                        <option value="الطوارئ">
-                            الطوارئ
-                        </option>
-                        <option value="أخرى">
-                            أخرى
-                        </option>
-                    </select>
+
+                <div class="grid">
+
+                    <div class="field">
+
+                        <label>
+
+                            اسم قائد الدورية
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            id="leader"
+
+                            maxlength="100"
+
+                            placeholder="أدخل اسم قائد الدورية"
+
+                            required
+
+                        >
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>
+
+                            تاريخ الدورية
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+
+                            type="date"
+
+                            id="date"
+
+                            required
+
+                        >
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>
+
+                            القسم
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <select id="department" required>
+
+                            <option value="">اختر القسم</option>
+
+                            <option>الإدارة</option>
+
+                            <option>الطوارئ</option>
+
+                            <option>الاستقبال</option>
+
+                            <option>الأمن</option>
+
+                            <option>الأجنحة</option>
+
+                            <option>العيادات</option>
+
+                            <option>المختبر</option>
+
+                            <option>الصيدلية</option>
+
+                            <option>أخرى</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>
+
+                            حالة الدورية
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <div class="status-options">
+
+                            <div class="status-option">
+
+                                <input
+
+                                    type="radio"
+
+                                    id="statusComplete"
+
+                                    name="status"
+
+                                    value="مكتملة"
+
+                                    checked
+
+                                >
+
+                                <label for="statusComplete">
+
+                                    🟢 مكتملة
+
+                                </label>
+
+                            </div>
+
+                            <div class="status-option">
+
+                                <input
+
+                                    type="radio"
+
+                                    id="statusFollow"
+
+                                    name="status"
+
+                                    value="قيد المتابعة"
+
+                                >
+
+                                <label for="statusFollow">
+
+                                    🟡 متابعة
+
+                                </label>
+
+                            </div>
+
+                            <div class="status-option">
+
+                                <input
+
+                                    type="radio"
+
+                                    id="statusNote"
+
+                                    name="status"
+
+                                    value="يوجد ملاحظات"
+
+                                >
+
+                                <label for="statusNote">
+
+                                    🔴 ملاحظات
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
+
+            </section>
+
             <!-- الأوقات -->
-            <div class="section-title">
-                🕐 أوقات الدورية
-            </div>
-            <div class="grid">
-                <div class="field">
-                    <label>
-                        وقت دخول المستشفى
-                        <span class="required">*</span>
-                    </label>
-                    <input
-                        type="time"
-                        id="timeIn"
-                        required
-                    >
+
+            <section class="section">
+
+                <div class="section-title">
+
+                    <div class="section-icon">⏱️</div>
+
+                    <div>
+
+                        <h2>أوقات الدورية</h2>
+
+                        <small>يتم حساب مدة الدورية تلقائيًا</small>
+
+                    </div>
+
                 </div>
-                <div class="field">
-                    <label>
-                        وقت الخروج من المستشفى
-                        <span class="required">*</span>
-                    </label>
-                    <input
-                        type="time"
-                        id="timeOut"
-                        required
-                    >
+
+                <div class="grid">
+
+                    <div class="time-card">
+
+                        <div class="time-icon">🚪</div>
+
+                        <label>
+
+                            وقت دخول المستشفى
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+
+                            type="time"
+
+                            id="timeIn"
+
+                            required
+
+                        >
+
+                    </div>
+
+                    <div class="time-card">
+
+                        <div class="time-icon">🏁</div>
+
+                        <label>
+
+                            وقت الخروج من المستشفى
+
+                            <span class="required">*</span>
+
+                        </label>
+
+                        <input
+
+                            type="time"
+
+                            id="timeOut"
+
+                            required
+
+                        >
+
+                    </div>
+
+                    <div class="duration-box">
+
+                        <div>
+
+                            <div class="duration-label">
+
+                                مدة الدورية
+
+                            </div>
+
+                            <strong class="duration-value" id="duration">
+
+                                لم يتم تحديد الوقت
+
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            ⏳
+
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
+
+            </section>
+
             <!-- الصور -->
-            <div class="section-title">
-                📷 صور إثبات الدورية
-            </div>
-            <div class="grid">
-                <div class="field">
-                    <div class="upload-box">
-                        <div class="upload-icon">
-                            📥
-                        </div>
-                        <div class="upload-title">
-                            صورة الدخول
-                            <span class="required">*</span>
-                        </div>
-                        <div class="upload-help">
-                            JPG / PNG / WEBP
-                            — الحد الأقصى 8MB
-                        </div>
-                        <input
-                            type="file"
-                            id="imageFile1"
-                            accept="image/jpeg,image/png,image/webp"
-                            required
-                        >
-                        <img
-                            id="preview1"
-                            class="preview"
-                            alt="معاينة صورة الدخول"
-                        >
-                        <div
-                            id="status1"
-                            class="file-status">
-                            لم يتم اختيار صورة
-                        </div>
+
+            <section class="section">
+
+                <div class="section-title">
+
+                    <div class="section-icon">📸</div>
+
+                    <div>
+
+                        <h2>توثيق الدورية</h2>
+
+                        <small>أرفق صور الدخول والخروج</small>
+
                     </div>
+
                 </div>
-                <div class="field">
-                    <div class="upload-box">
-                        <div class="upload-icon">
-                            📤
-                        </div>
-                        <div class="upload-title">
-                            صورة الخروج
-                            <span class="required">*</span>
-                        </div>
-                        <div class="upload-help">
-                            JPG / PNG / WEBP
-                            — الحد الأقصى 8MB
-                        </div>
+
+                <div class="photo-grid">
+
+                    <!-- صورة الدخول -->
+
+                    <div class="photo-card">
+
                         <input
+
                             type="file"
-                            id="imageFile2"
+
+                            id="entryImage"
+
                             accept="image/jpeg,image/png,image/webp"
+
                             required
+
                         >
-                        <img
-                            id="preview2"
-                            class="preview"
-                            alt="معاينة صورة الخروج"
-                        >
-                        <div
-                            id="status2"
-                            class="file-status">
-                            لم يتم اختيار صورة
+
+                        <div class="photo-content">
+
+                            <div class="photo-icon">
+
+                                🚪
+
+                            </div>
+
+                            <div class="photo-title">
+
+                                صورة دخول المستشفى
+
+                            </div>
+
+                            <div class="photo-subtitle">
+
+                                اضغط لاختيار الصورة
+
+                            </div>
+
                         </div>
+
+                        <div class="preview" id="entryPreview">
+
+                            <img id="entryPreviewImg" alt="صورة الدخول">
+
+                            <div class="preview-overlay">
+
+                                <span class="photo-status">
+
+                                    ✓ تم اختيار الصورة
+
+                                </span>
+
+                                <span id="entrySize">
+
+                                    —
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
                     </div>
+
+                    <!-- صورة الخروج -->
+
+                    <div class="photo-card">
+
+                        <input
+
+                            type="file"
+
+                            id="exitImage"
+
+                            accept="image/jpeg,image/png,image/webp"
+
+                            required
+
+                        >
+
+                        <div class="photo-content">
+
+                            <div class="photo-icon">
+
+                                🏁
+
+                            </div>
+
+                            <div class="photo-title">
+
+                                صورة خروج المستشفى
+
+                            </div>
+
+                            <div class="photo-subtitle">
+
+                                اضغط لاختيار الصورة
+
+                            </div>
+
+                        </div>
+
+                        <div class="preview" id="exitPreview">
+
+                            <img id="exitPreviewImg" alt="صورة الخروج">
+
+                            <div class="preview-overlay">
+
+                                <span class="photo-status">
+
+                                    ✓ تم اختيار الصورة
+
+                                </span>
+
+                                <span id="exitSize">
+
+                                    —
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
+
+                <div class="hint">
+
+                    الصيغ المسموحة: JPG / PNG / WEBP — الحد الأقصى 8MB لكل صورة.
+
+                </div>
+
+            </section>
+
             <!-- الملاحظات -->
-            <div class="section-title">
-                📝 ملاحظات
-            </div>
-            <div class="field">
-                <label>
-                    ملاحظات إضافية
-                </label>
-                <textarea
-                    id="notes"
-                    maxlength="1000"
-                    placeholder="اكتب أي ملاحظات متعلقة بالدورية هنا..."
-                ></textarea>
-            </div>
-            <!-- التحميل -->
-            <div
-                id="loading"
-                class="loading">
-                <div class="spinner"></div>
-                <div class="loading-text">
-                    جاري إرسال التقرير والصور إلى Discord...
+
+            <section class="section">
+
+                <div class="section-title">
+
+                    <div class="section-icon">📝</div>
+
+                    <div>
+
+                        <h2>ملاحظات الدورية</h2>
+
+                        <small>أضف أي تفاصيل أو أحداث مهمة</small>
+
+                    </div>
+
                 </div>
+
+                <div class="field">
+
+                    <textarea
+
+                        id="notes"
+
+                        maxlength="1000"
+
+                        placeholder="اكتب ملاحظات الدورية هنا..."
+
+                    ></textarea>
+
+                    <div class="hint">
+
+                        <span id="charCount">0</span> / 1000 حرف
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- الملخص -->
+
+            <section class="section">
+
+                <div class="summary">
+
+                    <div class="summary-head">
+
+                        <h3>
+
+                            ✦ ملخص الدورية
+
+                        </h3>
+
+                        <div class="live">
+
+                            <span class="live-dot"></span>
+
+                            مباشر
+
+                        </div>
+
+                    </div>
+
+                    <div class="summary-grid">
+
+                        <div class="summary-item">
+
+                            <small>قائد الدورية</small>
+
+                            <strong id="sumLeader">
+
+                                —
+
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-item">
+
+                            <small>التاريخ</small>
+
+                            <strong id="sumDate">
+
+                                —
+
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-item">
+
+                            <small>القسم</small>
+
+                            <strong id="sumDepartment">
+
+                                —
+
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-item">
+
+                            <small>وقت الدخول</small>
+
+                            <strong id="sumIn">
+
+                                —
+
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-item">
+
+                            <small>وقت الخروج</small>
+
+                            <strong id="sumOut">
+
+                                —
+
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-item">
+
+                            <small>مدة الدورية</small>
+
+                            <strong id="sumDuration">
+
+                                —
+
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-item">
+
+                            <small>الحالة</small>
+
+                            <strong id="sumStatus">
+
+                                مكتملة
+
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-item">
+
+                            <small>صور الدخول</small>
+
+                            <strong id="sumEntry">
+
+                                غير مرفقة
+
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-item">
+
+                            <small>صور الخروج</small>
+
+                            <strong id="sumExit">
+
+                                غير مرفقة
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- الرسائل -->
+
+            <div
+
+                id="message"
+
+                class="message"
+
+            ></div>
+
+            <!-- الأزرار -->
+
+            <div class="actions">
+
+                <button
+
+                    type="submit"
+
+                    class="btn btn-primary"
+
+                    id="submitBtn"
+
+                >
+
+                    ✦ مراجعة وإرسال التقرير
+
+                </button>
+
+                <button
+
+                    type="button"
+
+                    class="btn btn-secondary"
+
+                    id="clearBtn"
+
+                >
+
+                    ↺ مسح النموذج
+
+                </button>
+
             </div>
-            <!-- زر الإرسال -->
-            <button
-                type="submit"
-                id="submitBtn"
-                class="submit-btn">
-                إرسال التقرير إلى Discord ✈️
-            </button>
+
         </form>
-    </div>
-    <div class="footer">
-        نظام تقارير الدوريات © 2026
-    </div>
+
+    </main>
+
+    <footer class="footer">
+
+        نظام تقارير الدوريات الملكي
+
+        <br>
+
+        <strong>Hospital Patrol Reporting System</strong>
+
+    </footer>
+
 </div>
+
+<!-- ===== نافذة التأكيد ===== -->
+
+<div
+
+    class="modal"
+
+    id="confirmModal"
+
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div class="icon">♛</div>
+
+            <h2>
+
+                تأكيد إرسال التقرير
+
+            </h2>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div class="confirm-grid">
+
+                <div class="confirm-item">
+
+                    <small>قائد الدورية</small>
+
+                    <strong id="confirmLeader">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+                <div class="confirm-item">
+
+                    <small>التاريخ</small>
+
+                    <strong id="confirmDate">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+                <div class="confirm-item">
+
+                    <small>القسم</small>
+
+                    <strong id="confirmDepartment">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+                <div class="confirm-item">
+
+                    <small>الحالة</small>
+
+                    <strong id="confirmStatus">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+                <div class="confirm-item">
+
+                    <small>الدخول</small>
+
+                    <strong id="confirmIn">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+                <div class="confirm-item">
+
+                    <small>الخروج</small>
+
+                    <strong id="confirmOut">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+                <div class="confirm-item">
+
+                    <small>مدة الدورية</small>
+
+                    <strong id="confirmDuration">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+                <div class="confirm-item">
+
+                    <small>الصور</small>
+
+                    <strong>
+
+                        ✓ دخول + ✓ خروج
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+
+                type="button"
+
+                class="btn btn-primary"
+
+                id="confirmSend"
+
+            >
+
+                👑 تأكيد وإرسال
+
+            </button>
+
+            <button
+
+                type="button"
+
+                class="btn btn-secondary"
+
+                id="cancelConfirm"
+
+            >
+
+                رجوع
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===== شاشة التحميل ===== -->
+
+<div
+
+    class="loading"
+
+    id="loading"
+
+>
+
+    <div class="loading-box">
+
+        <div class="spinner"></div>
+
+        <h3>
+
+            جاري إرسال التقرير
+
+        </h3>
+
+        <p>
+
+            يتم الآن توثيق التقرير وإرساله إلى Discord...
+
+        </p>
+
+    </div>
+
+</div>
+
 <script>
-    /*
-    ============================================================
-    Discord Webhook
-    ============================================================
-    */
-    const WEBHOOK_URL =
-        "https://discord.com/api/webhooks/1552613985453477908/UtWZAf3yiGmMcLVBER8s8cj4AigbiB29yKGcbVtrMWMyYUXOTELGTHzo5II2SyOfEBxO";
-    /*
-    ============================================================
-    تاريخ اليوم
-    ============================================================
-    */
-    function setToday() {
-        const input =
-            document.getElementById("reportDate");
-        const now = new Date();
-        const year =
-            now.getFullYear();
-        const month =
-            String(now.getMonth() + 1)
-                .padStart(2, "0");
-        const day =
-            String(now.getDate())
-                .padStart(2, "0");
-        input.value =
-            `${year}-${month}-${day}`;
-    }
-    /*
-    ============================================================
-    الرسائل
-    ============================================================
-    */
-    function showMessage(text, type) {
-        const message =
-            document.getElementById("message");
-        message.textContent = text;
-        message.className =
-            "message " + type;
-        message.style.display =
-            "block";
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
-    function hideMessage() {
-        const message =
-            document.getElementById("message");
-        message.style.display =
-            "none";
-    }
-    /*
-    ============================================================
-    الصور والمعاينة
-    ============================================================
-    */
-    function setupImageInput(
-        inputId,
-        previewId,
-        statusId
-    ) {
-        const input =
-            document.getElementById(inputId);
-        const preview =
-            document.getElementById(previewId);
-        const status =
-            document.getElementById(statusId);
-        input.addEventListener(
-            "change",
-            function () {
-                const file =
-                    this.files[0];
-                preview.style.display =
-                    "none";
-                status.className =
-                    "file-status";
-                if (!file) {
-                    status.textContent =
-                        "لم يتم اختيار صورة";
-                    return;
-                }
-                const allowedTypes = [
-                    "image/jpeg",
-                    "image/png",
-                    "image/webp"
-                ];
-                if (!allowedTypes.includes(file.type)) {
-                    status.textContent =
-                        "نوع الصورة غير مسموح به";
-                    status.classList.add("error");
-                    input.value = "";
-                    return;
-                }
-                const maxSize =
-                    8 * 1024 * 1024;
-                if (file.size > maxSize) {
-                    status.textContent =
-                        "حجم الصورة يجب ألا يتجاوز 8MB";
-                    status.classList.add("error");
-                    input.value = "";
-                    return;
-                }
-                const sizeMB =
-                    (
-                        file.size /
-                        1024 /
-                        1024
-                    ).toFixed(2);
-                status.textContent =
-                    `✓ ${file.name} — ${sizeMB}MB`;
-                status.classList.add("success");
-                const reader =
-                    new FileReader();
-                reader.onload =
-                    function (event) {
-                        preview.src =
-                            event.target.result;
-                        preview.style.display =
-                            "block";
-                    };
-                reader.readAsDataURL(file);
+
+/* =========================================================
+
+   WEBHOOK
+
+========================================================= */
+
+const WEBHOOK_URL =
+
+    "https://discord.com/api/webhooks/1552613985453477908/UtWZAf3yiGmMcLVBER8s8cj4AigbiB29yKGcbVtrMWMyYUXOTELGTHzo5II2SyOfEBxO";
+
+/* =========================================================
+
+   العناصر
+
+========================================================= */
+
+const form = document.getElementById("reportForm");
+
+const leader = document.getElementById("leader");
+
+const date = document.getElementById("date");
+
+const department = document.getElementById("department");
+
+const timeIn = document.getElementById("timeIn");
+
+const timeOut = document.getElementById("timeOut");
+
+const entryImage = document.getElementById("entryImage");
+
+const exitImage = document.getElementById("exitImage");
+
+const notes = document.getElementById("notes");
+
+const duration = document.getElementById("duration");
+
+const message = document.getElementById("message");
+
+const loading = document.getElementById("loading");
+
+const confirmModal = document.getElementById("confirmModal");
+
+const submitBtn = document.getElementById("submitBtn");
+
+/* =========================================================
+
+   التاريخ
+
+========================================================= */
+
+function setToday() {
+
+    const today = new Date();
+
+    const yyyy = today.getFullYear();
+
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    date.value = `${yyyy}-${mm}-${dd}`;
+
+}
+
+/* =========================================================
+
+   حفظ البيانات تلقائيًا
+
+========================================================= */
+
+const STORAGE_KEY = "royal_hospital_patrol_draft";
+
+function saveDraft() {
+
+    const status =
+
+        document.querySelector('input[name="status"]:checked')?.value || "مكتملة";
+
+    const data = {
+
+        leader: leader.value,
+
+        date: date.value,
+
+        department: department.value,
+
+        timeIn: timeIn.value,
+
+        timeOut: timeOut.value,
+
+        notes: notes.value,
+
+        status: status
+
+    };
+
+    localStorage.setItem(
+
+        STORAGE_KEY,
+
+        JSON.stringify(data)
+
+    );
+
+}
+
+function loadDraft() {
+
+    try {
+
+        const saved =
+
+            JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+        if (!saved) return;
+
+        leader.value = saved.leader || "";
+
+        date.value = saved.date || date.value;
+
+        department.value = saved.department || "";
+
+        timeIn.value = saved.timeIn || "";
+
+        timeOut.value = saved.timeOut || "";
+
+        notes.value = saved.notes || "";
+
+        if (saved.status) {
+
+            const radio =
+
+                document.querySelector(
+
+                    `input[name="status"][value="${saved.status}"]`
+
+                );
+
+            if (radio) {
+
+                radio.checked = true;
+
             }
-        );
+
+        }
+
+    } catch (error) {
+
+        console.log("تعذر تحميل البيانات المحفوظة");
+
     }
-    setupImageInput(
-        "imageFile1",
-        "preview1",
-        "status1"
-    );
-    setupImageInput(
-        "imageFile2",
-        "preview2",
-        "status2"
-    );
+
+}
+
+/* =========================================================
+
+   حساب مدة الدورية
+
+========================================================= */
+
+function calculateDuration() {
+
+    if (!timeIn.value || !timeOut.value) {
+
+        duration.textContent = "لم يتم تحديد الوقت";
+
+        return "—";
+
+    }
+
+    const [inH, inM] =
+
+        timeIn.value.split(":").map(Number);
+
+    const [outH, outM] =
+
+        timeOut.value.split(":").map(Number);
+
+    let start =
+
+        inH * 60 + inM;
+
+    let end =
+
+        outH * 60 + outM;
+
     /*
-    ============================================================
-    إرسال التقرير إلى Discord
-    ============================================================
+
+       دعم الدورية التي تتجاوز منتصف الليل
+
     */
-    document
-        .getElementById("reportForm")
-        .addEventListener(
-            "submit",
-            async function (e) {
-                e.preventDefault();
-                hideMessage();
-                const leaderName =
-                    document
-                        .getElementById("leaderName")
-                        .value
-                        .trim();
-                const reportDate =
-                    document
-                        .getElementById("reportDate")
-                        .value;
-                const timeIn =
-                    document
-                        .getElementById("timeIn")
-                        .value;
-                const timeOut =
-                    document
-                        .getElementById("timeOut")
-                        .value;
-                const department =
-                    document
-                        .getElementById("department")
-                        .value;
-                const notes =
-                    document
-                        .getElementById("notes")
-                        .value
-                        .trim();
-                const imageFile1 =
-                    document
-                        .getElementById("imageFile1")
-                        .files[0];
-                const imageFile2 =
-                    document
-                        .getElementById("imageFile2")
-                        .files[0];
-                /*
-                التحقق من البيانات
-                */
-                if (!leaderName) {
-                    showMessage(
-                        "يرجى إدخال اسم قائد الدورية.",
-                        "error"
-                    );
-                    return;
-                }
-                if (!reportDate) {
-                    showMessage(
-                        "يرجى اختيار تاريخ الدورية.",
-                        "error"
-                    );
-                    return;
-                }
-                if (!timeIn || !timeOut) {
-                    showMessage(
-                        "يرجى تحديد وقت الدخول والخروج.",
-                        "error"
-                    );
-                    return;
-                }
-                if (!imageFile1 || !imageFile2) {
-                    showMessage(
-                        "يرجى إرفاق صورتي الدخول والخروج.",
-                        "error"
-                    );
-                    return;
-                }
-                /*
-                التحقق من الوقت
-                */
-                if (timeOut < timeIn) {
-                    showMessage(
-                        "وقت الخروج يجب أن يكون بعد وقت الدخول.",
-                        "error"
-                    );
-                    return;
-                }
-                /*
-                زر الإرسال
-                */
-                const submitBtn =
-                    document.getElementById(
-                        "submitBtn"
-                    );
-                const loading =
-                    document.getElementById(
-                        "loading"
-                    );
-                submitBtn.disabled =
-                    true;
-                loading.style.display =
-                    "block";
-                /*
-                Discord Embed
-                */
-                const embed = {
-                    title:
-                        "🚨 تقرير دورية المستشفى",
-                    color:
-                        0x0284c7,
-                    fields: [
-                        {
-                            name:
-                                "🛡️ اسم قائد الدورية",
-                            value:
-                                leaderName,
-                            inline:
-                                true
-                        },
-                        {
-                            name:
-                                "📅 تاريخ الدورية",
-                            value:
-                                reportDate,
-                            inline:
-                                true
-                        },
-                        {
-                            name:
-                                "🏢 القسم",
-                            value:
-                                department,
-                            inline:
-                                true
-                        },
-                        {
-                            name:
-                                "📥 وقت دخول المستشفى",
-                            value:
-                                timeIn,
-                            inline:
-                                true
-                        },
-                        {
-                            name:
-                                "📤 وقت الخروج من المستشفى",
-                            value:
-                                timeOut,
-                            inline:
-                                true
-                        },
-                        {
-                            name:
-                                "📝 الملاحظات",
-                            value:
-                                notes ||
-                                "لا توجد ملاحظات",
-                            inline:
-                                false
-                        }
-                    ],
-                    footer: {
-                        text:
-                            "نظام تقارير الدوريات"
+
+    if (end < start) {
+
+        end += 24 * 60;
+
+    }
+
+    const diff =
+
+        end - start;
+
+    const hours =
+
+        Math.floor(diff / 60);
+
+    const minutes =
+
+        diff % 60;
+
+    let result = "";
+
+    if (hours > 0) {
+
+        result +=
+
+            `${hours} ${hours === 1 ? "ساعة" : "ساعات"}`;
+
+    }
+
+    if (minutes > 0) {
+
+        if (result) result += " و ";
+
+        result +=
+
+            `${minutes} دقيقة`;
+
+    }
+
+    if (!result) {
+
+        result = "أقل من دقيقة";
+
+    }
+
+    duration.textContent = result;
+
+    return result;
+
+}
+
+/* =========================================================
+
+   تحديث الملخص
+
+========================================================= */
+
+function updateSummary() {
+
+    document.getElementById("sumLeader").textContent =
+
+        leader.value || "—";
+
+    document.getElementById("sumDate").textContent =
+
+        date.value || "—";
+
+    document.getElementById("sumDepartment").textContent =
+
+        department.value || "—";
+
+    document.getElementById("sumIn").textContent =
+
+        timeIn.value || "—";
+
+    document.getElementById("sumOut").textContent =
+
+        timeOut.value || "—";
+
+    document.getElementById("sumDuration").textContent =
+
+        calculateDuration();
+
+    const status =
+
+        document.querySelector('input[name="status"]:checked')?.value
+
+        || "مكتملة";
+
+    document.getElementById("sumStatus").textContent =
+
+        status;
+
+    document.getElementById("sumEntry").textContent =
+
+        entryImage.files[0]
+
+            ? "✓ مرفقة"
+
+            : "غير مرفقة";
+
+    document.getElementById("sumExit").textContent =
+
+        exitImage.files[0]
+
+            ? "✓ مرفقة"
+
+            : "غير مرفقة";
+
+}
+
+/* =========================================================
+
+   عداد الملاحظات
+
+========================================================= */
+
+notes.addEventListener("input", () => {
+
+    document.getElementById("charCount").textContent =
+
+        notes.value.length;
+
+    saveDraft();
+
+});
+
+/* =========================================================
+
+   الصور
+
+========================================================= */
+
+const MAX_FILE_SIZE = 8 * 1024 * 1024;
+
+const allowedTypes = [
+
+    "image/jpeg",
+
+    "image/png",
+
+    "image/webp"
+
+];
+
+function formatSize(bytes) {
+
+    if (bytes < 1024 * 1024) {
+
+        return `${(bytes / 1024).toFixed(0)} KB`;
+
+    }
+
+    return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+
+}
+
+function setupImage(
+
+    input,
+
+    preview,
+
+    previewImg,
+
+    sizeElement
+
+) {
+
+    input.addEventListener("change", () => {
+
+        const file = input.files[0];
+
+        if (!file) {
+
+            preview.style.display = "none";
+
+            updateSummary();
+
+            return;
+
+        }
+
+        if (!allowedTypes.includes(file.type)) {
+
+            input.value = "";
+
+            showMessage(
+
+                "نوع الصورة غير مدعوم. استخدم JPG أو PNG أو WEBP.",
+
+                "error"
+
+            );
+
+            preview.style.display = "none";
+
+            updateSummary();
+
+            return;
+
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+
+            input.value = "";
+
+            showMessage(
+
+                "حجم الصورة أكبر من 8MB.",
+
+                "error"
+
+            );
+
+            preview.style.display = "none";
+
+            updateSummary();
+
+            return;
+
+        }
+
+        const reader =
+
+            new FileReader();
+
+        reader.onload = function(event) {
+
+            previewImg.src =
+
+                event.target.result;
+
+            sizeElement.textContent =
+
+                formatSize(file.size);
+
+            preview.style.display =
+
+                "block";
+
+        };
+
+        reader.readAsDataURL(file);
+
+        saveDraft();
+
+        updateSummary();
+
+        hideMessage();
+
+    });
+
+}
+
+setupImage(
+
+    entryImage,
+
+    document.getElementById("entryPreview"),
+
+    document.getElementById("entryPreviewImg"),
+
+    document.getElementById("entrySize")
+
+);
+
+setupImage(
+
+    exitImage,
+
+    document.getElementById("exitPreview"),
+
+    document.getElementById("exitPreviewImg"),
+
+    document.getElementById("exitSize")
+
+);
+
+/* =========================================================
+
+   الرسائل
+
+========================================================= */
+
+function showMessage(text, type) {
+
+    message.textContent = text;
+
+    message.className =
+
+        `message ${type}`;
+
+    message.style.display = "block";
+
+    message.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "center"
+
+    });
+
+}
+
+function hideMessage() {
+
+    message.textContent = "";
+
+    message.className = "message";
+
+    message.style.display = "none";
+
+}
+
+/* =========================================================
+
+   تأكيد البيانات
+
+========================================================= */
+
+function prepareConfirmation() {
+
+    document.getElementById("confirmLeader").textContent =
+
+        leader.value;
+
+    document.getElementById("confirmDate").textContent =
+
+        date.value;
+
+    document.getElementById("confirmDepartment").textContent =
+
+        department.value;
+
+    document.getElementById("confirmStatus").textContent =
+
+        document.querySelector(
+
+            'input[name="status"]:checked'
+
+        )?.value || "مكتملة";
+
+    document.getElementById("confirmIn").textContent =
+
+        timeIn.value;
+
+    document.getElementById("confirmOut").textContent =
+
+        timeOut.value;
+
+    document.getElementById("confirmDuration").textContent =
+
+        calculateDuration();
+
+}
+
+/* =========================================================
+
+   التحقق
+
+========================================================= */
+
+function validateForm() {
+
+    hideMessage();
+
+    if (!leader.value.trim()) {
+
+        showMessage(
+
+            "يرجى إدخال اسم قائد الدورية.",
+
+            "error"
+
+        );
+
+        leader.focus();
+
+        return false;
+
+    }
+
+    if (!date.value) {
+
+        showMessage(
+
+            "يرجى اختيار تاريخ الدورية.",
+
+            "error"
+
+        );
+
+        date.focus();
+
+        return false;
+
+    }
+
+    if (!department.value) {
+
+        showMessage(
+
+            "يرجى اختيار القسم.",
+
+            "error"
+
+        );
+
+        department.focus();
+
+        return false;
+
+    }
+
+    if (!timeIn.value || !timeOut.value) {
+
+        showMessage(
+
+            "يرجى تحديد وقت الدخول والخروج.",
+
+            "error"
+
+        );
+
+        return false;
+
+    }
+
+    if (!entryImage.files[0]) {
+
+        showMessage(
+
+            "يرجى إرفاق صورة دخول المستشفى.",
+
+            "error"
+
+        );
+
+        return false;
+
+    }
+
+    if (!exitImage.files[0]) {
+
+        showMessage(
+
+            "يرجى إرفاق صورة خروج المستشفى.",
+
+            "error"
+
+        );
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+/* =========================================================
+
+   فتح نافذة التأكيد
+
+========================================================= */
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    if (!validateForm()) {
+
+        return;
+
+    }
+
+    calculateDuration();
+
+    updateSummary();
+
+    prepareConfirmation();
+
+    confirmModal.classList.add("active");
+
+});
+
+/* =========================================================
+
+   إلغاء التأكيد
+
+========================================================= */
+
+document.getElementById("cancelConfirm")
+
+    .addEventListener("click", () => {
+
+        confirmModal.classList.remove("active");
+
+    });
+
+confirmModal.addEventListener("click", (event) => {
+
+    if (event.target === confirmModal) {
+
+        confirmModal.classList.remove("active");
+
+    }
+
+});
+
+/* =========================================================
+
+   إرسال Discord
+
+========================================================= */
+
+document.getElementById("confirmSend")
+
+    .addEventListener("click", async () => {
+
+        confirmModal.classList.remove("active");
+
+        loading.classList.add("active");
+
+        submitBtn.disabled = true;
+
+        try {
+
+            const selectedStatus =
+
+                document.querySelector(
+
+                    'input[name="status"]:checked'
+
+                )?.value || "مكتملة";
+
+            const patrolDuration =
+
+                calculateDuration();
+
+            const embed = {
+
+                title: "♛ تقرير دورية المستشفى",
+
+                description:
+
+                    "تم تسجيل تقرير دورية جديد عبر النظام الملكي.",
+
+                color: 13903543,
+
+                fields: [
+
+                    {
+
+                        name: "👮 قائد الدورية",
+
+                        value: leader.value.trim(),
+
+                        inline: true
+
                     },
-                    timestamp:
-                        new Date().toISOString()
-                };
-                /*
-                تجهيز البيانات
-                */
-                const formData =
-                    new FormData();
-                formData.append(
-                    "payload_json",
-                    JSON.stringify({
-                        username:
-                            "تقرير دورية المستشفى",
-                        embeds:
-                            [embed],
-                        allowed_mentions:
-                            {
-                                parse: []
-                            }
-                    })
-                );
-                formData.append(
-                    "file1",
-                    imageFile1
-                );
-                formData.append(
-                    "file2",
-                    imageFile2
-                );
-                /*
-                الإرسال
-                */
-                try {
-                    const response =
-                        await fetch(
-                            WEBHOOK_URL,
-                            {
-                                method:
-                                    "POST",
-                                body:
-                                    formData
-                            }
-                        );
-                    if (!response.ok) {
-                        throw new Error(
-                            "Discord HTTP " +
-                            response.status
-                        );
+
+                    {
+
+                        name: "📅 تاريخ الدورية",
+
+                        value: date.value,
+
+                        inline: true
+
+                    },
+
+                    {
+
+                        name: "🏥 القسم",
+
+                        value: department.value,
+
+                        inline: true
+
+                    },
+
+                    {
+
+                        name: "🟢 حالة الدورية",
+
+                        value: selectedStatus,
+
+                        inline: true
+
+                    },
+
+                    {
+
+                        name: "🚪 وقت الدخول",
+
+                        value: timeIn.value,
+
+                        inline: true
+
+                    },
+
+                    {
+
+                        name: "🏁 وقت الخروج",
+
+                        value: timeOut.value,
+
+                        inline: true
+
+                    },
+
+                    {
+
+                        name: "⏱️ مدة الدورية",
+
+                        value: patrolDuration,
+
+                        inline: true
+
+                    },
+
+                    {
+
+                        name: "📸 التوثيق",
+
+                        value: "✓ صورة دخول + ✓ صورة خروج",
+
+                        inline: true
+
+                    },
+
+                    {
+
+                        name: "📝 الملاحظات",
+
+                        value:
+
+                            notes.value.trim()
+
+                            || "لا توجد ملاحظات",
+
+                        inline: false
+
                     }
-                    /*
-                    نجاح
-                    */
-                    showMessage(
-                        "تم إرسال التقرير والصورتين بنجاح إلى Discord ✓",
-                        "success"
-                    );
-                    /*
-                    تنظيف النموذج
-                    */
-                    document
-                        .getElementById(
-                            "reportForm"
-                        )
-                        .reset();
-                    document
-                        .getElementById(
-                            "preview1"
-                        )
-                        .style.display =
-                        "none";
-                    document
-                        .getElementById(
-                            "preview2"
-                        )
-                        .style.display =
-                        "none";
-                    document
-                        .getElementById(
-                            "status1"
-                        )
-                        .textContent =
-                        "لم يتم اختيار صورة";
-                    document
-                        .getElementById(
-                            "status2"
-                        )
-                        .textContent =
-                        "لم يتم اختيار صورة";
-                    setToday();
-                } catch (error) {
-                    console.error(
-                        error
-                    );
-                    showMessage(
-                        "حدث خطأ أثناء الإرسال إلى Discord. تأكد من صحة الـWebhook وحاول مرة أخرى.",
-                        "error"
-                    );
-                } finally {
-                    submitBtn.disabled =
-                        false;
-                    loading.style.display =
-                        "none";
+
+                ],
+
+                footer: {
+
+                    text: "نظام تقارير الدوريات الملكي"
+
+                },
+
+                timestamp:
+
+                    new Date().toISOString()
+
+            };
+
+            const payload = {
+
+                username:
+
+                    "♛ نظام تقارير الدوريات",
+
+                embeds: [
+
+                    embed
+
+                ],
+
+                allowed_mentions: {
+
+                    parse: []
+
                 }
+
+            };
+
+            const formData =
+
+                new FormData();
+
+            formData.append(
+
+                "payload_json",
+
+                JSON.stringify(payload)
+
+            );
+
+            /*
+
+               Discord يستخدم files[0] و files[1]
+
+               لإرسال الملفات مع multipart/form-data
+
+            */
+
+            formData.append(
+
+                "files[0]",
+
+                entryImage.files[0]
+
+            );
+
+            formData.append(
+
+                "files[1]",
+
+                exitImage.files[0]
+
+            );
+
+            const response =
+
+                await fetch(
+
+                    WEBHOOK_URL,
+
+                    {
+
+                        method: "POST",
+
+                        body: formData
+
+                    }
+
+                );
+
+            if (!response.ok) {
+
+                let errorText = "";
+
+                try {
+
+                    errorText =
+
+                        await response.text();
+
+                } catch {}
+
+                console.error(
+
+                    "Discord Error:",
+
+                    errorText
+
+                );
+
+                throw new Error(
+
+                    "فشل إرسال التقرير إلى Discord."
+
+                );
+
             }
+
+            /* نجاح */
+
+            loading.classList.remove("active");
+
+            submitBtn.disabled = false;
+
+            showMessage(
+
+                "♛ تم إرسال التقرير والصور بنجاح إلى Discord ✓",
+
+                "success"
+
+            );
+
+            localStorage.removeItem(
+
+                STORAGE_KEY
+
+            );
+
+            form.reset();
+
+            setToday();
+
+            document.getElementById(
+
+                "entryPreview"
+
+            ).style.display = "none";
+
+            document.getElementById(
+
+                "exitPreview"
+
+            ).style.display = "none";
+
+            document.getElementById(
+
+                "charCount"
+
+            ).textContent = "0";
+
+            duration.textContent =
+
+                "لم يتم تحديد الوقت";
+
+            updateSummary();
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        } catch (error) {
+
+            console.error(error);
+
+            loading.classList.remove("active");
+
+            submitBtn.disabled = false;
+
+            showMessage(
+
+                "تعذر إرسال التقرير. تأكد من اتصال الإنترنت وصحة Webhook ثم حاول مرة أخرى.",
+
+                "error"
+
+            );
+
+        }
+
+    });
+
+/* =========================================================
+
+   مسح النموذج
+
+========================================================= */
+
+document.getElementById("clearBtn")
+
+    .addEventListener("click", () => {
+
+        const confirmed =
+
+            confirm(
+
+                "هل أنت متأكد من مسح جميع بيانات التقرير؟"
+
+            );
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+        form.reset();
+
+        setToday();
+
+        localStorage.removeItem(
+
+            STORAGE_KEY
+
         );
-    /*
-    ============================================================
-    تشغيل الصفحة
-    ============================================================
-    */
-    setToday();
+
+        document.getElementById(
+
+            "entryPreview"
+
+        ).style.display = "none";
+
+        document.getElementById(
+
+            "exitPreview"
+
+        ).style.display = "none";
+
+        document.getElementById(
+
+            "charCount"
+
+        ).textContent = "0";
+
+        duration.textContent =
+
+            "لم يتم تحديد الوقت";
+
+        hideMessage();
+
+        updateSummary();
+
+    });
+
+/* =========================================================
+
+   التحديث المباشر
+
+========================================================= */
+
+[
+
+    leader,
+
+    date,
+
+    department,
+
+    timeIn,
+
+    timeOut
+
+].forEach(element => {
+
+    element.addEventListener("input", () => {
+
+        updateSummary();
+
+        saveDraft();
+
+    });
+
+});
+
+document.querySelectorAll(
+
+    'input[name="status"]'
+
+).forEach(radio => {
+
+    radio.addEventListener("change", () => {
+
+        updateSummary();
+
+        saveDraft();
+
+    });
+
+});
+
+/* =========================================================
+
+   تحميل أولي
+
+========================================================= */
+
+setToday();
+
+loadDraft();
+
+updateSummary();
+
+document.getElementById("charCount").textContent =
+
+    notes.value.length;
+
+/* =========================================================
+
+   اختصار لوحة المفاتيح
+
+========================================================= */
+
+document.addEventListener("keydown", (event) => {
+
+    if (
+
+        event.key === "Escape" &&
+
+        confirmModal.classList.contains("active")
+
+    ) {
+
+        confirmModal.classList.remove("active");
+
+    }
+
+});
+
 </script>
+
 </body>
+
 </html>
