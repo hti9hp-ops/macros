@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تقارير دورية المستشفى</title>
+    <style>
+        body { font-family: Tahoma, sans-serif; background-color: #1a1a1a; color: #fff; padding: 20px; direction: rtl; }
+        .container { max-width: 500px; margin: 0 auto; background: #2c2c2c; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        h2 { text-align: center; color: #ff4757; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 5px; border: none; border-radius: 5px; background: #3c3c3c; color: #fff; box-sizing: border-box; }
+        button { width: 100%; background: #ff4757; color: white; padding: 12px; border: none; border-radius: 5px; margin-top: 20px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #ff6b81; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🚨 تقرير دورية المستشفى</h2>
+    <form id="reportForm">
+        <label>اسم قائد الدورية:</label>
+        <input type="text" id="leaderName" required>
+
+        <label>تاريخ الدورية:</label>
+        <input type="text" id="reportDate" required>
+
+        <label>وقت دخول المستشفى:</label>
+        <input type="text" id="timeIn" required>
+
+        <label>وقت الخروج من المستشفى:</label>
+        <input type="text" id="timeOut" required>
+
+        <label>رابط الصورة أو الدليل:</label>
+        <input type="text" id="imageUrl" placeholder="ضع رابط الصورة هنا مباشرة" required>
+
+        <button type="submit">إرسال التقرير إلى ديسكورد</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('reportForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const webhookUrl = "https://discord.com/api/webhooks/1552613985453477908/UtWZAf3yiGmMcLVBER8s8cj4AigbiB29yKGcbVtrMWMyYUXOTELGTHzo5II2SyOfEBxO";
+
+        const leaderName = document.getElementById('leaderName').value;
+        const reportDate = document.getElementById('reportDate').value;
+        const timeIn = document.getElementById('timeIn').value;
+        const timeOut = document.getElementById('timeOut').value;
+        const imgUrl = document.getElementById('imageUrl').value;
+
+        const description = `**اسم قائد الدورية:** ${leaderName}\n**تاريخ الدورية:** ${reportDate}\n**وقت دخول المستشفى:** ${timeIn}\n**وقت الخروج من المستشفى:** ${timeOut}`;
+
+        const embed = {
+            "title": "🚨 تقرير دورية جديد تم استلامه عبر الموقع!",
+            "description": description,
+            "color": 15158332,
+            "image": {
+                "url": imgUrl
+            }
+        };
+
+        const payload = {
+            "embeds": [embed]
+        };
+
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => {
+            if(response.ok) {
+                alert('تم إرسال التقرير بنجاح إلى ديسكورد!');
+                document.getElementById('reportForm').reset();
+            } else {
+                alert('حدث خطأ أثناء الإرسال.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('حدث خطأ في الاتصال.');
+        });
+    });
+</script>
+
+</body>
+</html>
