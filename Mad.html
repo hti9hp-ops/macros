@@ -1,137 +1,1129 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#020408">
-<title>FEDERAL COMMAND | Cyber HUD System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030303">
+<title>THE WARDEN | ROYAL ELITE V3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Marhey:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Share+Tech+Mono&display=swap');
-:root{--bg:#020408;--panel:#060b14;--panel-glow:#0d1b2a;--neon:#00f2fe;--neon-glow:rgba(0,242,254,0.3);--gold:#f39c12;--white:#eef2f7;--muted:#5a6e85;--border:rgba(0,242,254,0.25);--danger:#ff3366}
+:root{
+ --bg:#030303;
+ --panel:#090909;
+ --panel2:#101010;
+ --gold:#d4af37;
+ --gold2:#f8e39a;
+ --gold3:#8c6b16;
+ --white:#f8f1df;
+ --muted:#898274;
+ --green:#51e5a5;
+ --red:#ff6464;
+ --line:rgba(212,175,55,.22);
+ --glow:rgba(212,175,55,.18);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--white);font-family:Cairo,sans-serif;min-height:100vh;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,242,254,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,242,254,0.03) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;z-index:0}
-.shell{max-width:1300px;margin:auto;padding:20px;position:relative;z-index:1}
-.nav{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,rgba(6,11,20,0.9),rgba(13,27,42,0.9));border:1px solid var(--border);border-left:4px solid var(--neon);padding:12px 20px;border-radius:4px;backdrop-filter:blur(10px);box-shadow:0 0 20px rgba(0,0,0,0.8)}
-.brand{display:flex;align-items:center;gap:12px}
-.crest{width:40px;height:40px;background:rgba(0,242,254,0.1);border:1px solid var(--neon);display:grid;place-items:center;color:var(--neon);font-size:18px;font-weight:bold;box-shadow:0 0 10px var(--neon-glow)}
-.brandname{font-family:'Share Tech Mono',monospace;font-size:16px;color:var(--neon);letter-spacing:2px}
-.brandname small{display:block;font-size:9px;color:var(--muted);letter-spacing:1px}
-.navright{display:flex;align-items:center;gap:15px;font-size:11px;font-family:'Share Tech Mono',monospace;color:var(--muted)}
-.live{display:flex;align-items:center;gap:6px;color:var(--neon)}
-.live i{width:6px;height:6px;background:var(--neon);border-radius:50%;box-shadow:0 0 8px var(--neon);animation:pulse 1.5s infinite}
-@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
-.hero{margin:20px 0;background:linear-gradient(135deg,rgba(6,11,20,0.95),rgba(10,18,30,0.9));border:1px solid var(--border);padding:30px;border-radius:6px;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
-.hero::after{content:"TACTICAL HUD";position:absolute;left:-10px;bottom:-20px;font-family:'Share Tech Mono',monospace;font-size:80px;color:rgba(0,242,254,0.02);pointer-events:none}
-.overline{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--neon);letter-spacing:3px}
-.hero h1{font-size:clamp(24px,3vw,38px);margin:10px 0 5px;color:#fff;font-weight:900}
-.hero h1 span{color:var(--neon);text-shadow:0 0 10px var(--neon-glow)}
-.commander{color:var(--gold);font-size:13px;font-weight:700}
-.hero p{color:var(--muted);font-size:12px;margin-top:8px}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
-.metric{background:var(--panel);border:1px solid var(--border);padding:15px;border-radius:4px;position:relative}
-.metric::before{content:"";position:absolute;top:0;right:0;width:3px;height:100%;background:var(--neon)}
-.metric label{font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace}
-.metric strong{font-size:22px;color:#fff;display:block;margin-top:4px;font-family:'Share Tech Mono',monospace}
-.metric strong em{font-size:10px;color:var(--neon);font-style:normal;margin-right:5px}
-.profile{display:flex;align-items:center;gap:15px;background:var(--panel);border:1px solid var(--border);padding:15px 20px;border-radius:4px;margin-bottom:20px}
-.profile-icon{width:40px;height:40px;background:rgba(0,242,254,0.1);border:1px solid var(--neon);display:grid;place-items:center;color:var(--neon);font-size:18px}
-.profile-info{flex:1}
-.profile label{display:block;color:var(--neon);font-size:11px;font-weight:700;margin-bottom:5px;font-family:'Share Tech Mono',monospace}
-#playerName{width:100%;background:#020408;border:1px solid var(--border);color:#fff;padding:10px;outline:none;border-radius:3px;font-size:13px;font-family:Cairo}
-#playerName:focus{border-color:var(--neon);box-shadow:0 0 10px var(--neon-glow)}
-.controls{display:flex;gap:10px;margin-bottom:20px}
-.search{flex:1;position:relative}
-.search input{width:100%;background:var(--panel);border:1px solid var(--border);color:#fff;padding:12px 40px 12px 15px;outline:none;border-radius:4px;font-size:12px}
-.search input:focus{border-color:var(--neon);box-shadow:0 0 10px var(--neon-glow)}
-.search span{position:absolute;right:15px;top:12px;color:var(--neon)}
-.filter{display:flex;gap:6px;flex-wrap:wrap}
-.filter button{background:var(--panel);border:1px solid var(--border);color:var(--muted);padding:10px 15px;font-size:11px;border-radius:4px;cursor:pointer;font-family:'Share Tech Mono',monospace;transition:0.2s}
-.filter button.active,.filter button:hover{background:rgba(0,242,254,0.1);color:var(--neon);border-color:var(--neon);box-shadow:0 0 10px var(--neon-glow)}
-.section{background:var(--panel);border:1px solid var(--border);padding:20px;border-radius:6px;margin-bottom:25px;position:relative}
-.section::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--neon),transparent)}
-.sectionhead{display:flex;align-items:center;gap:12px;margin-bottom:15px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:10px}
-.sectionmark{width:32px;height:32px;background:rgba(0,242,254,0.1);border:1px solid var(--neon);display:grid;place-items:center;color:var(--neon);font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:bold}
-.sectiontitle{font-size:16px;color:#fff;font-weight:900}
-.sectionsubtitle{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;direction:ltr;text-align:right}
-.sectionrule{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
-.rows{display:grid;gap:8px}
-.row{display:flex;align-items:center;gap:10px;background:rgba(2,4,8,0.6);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;border-radius:4px;transition:0.2s}
-.row:hover{border-color:var(--neon);box-shadow:0 0 15px rgba(0,242,254,0.1)}
-.rownum{font-family:'Share Tech Mono',monospace;color:var(--neon);font-size:11px;width:25px}
-.macro{flex:1;background:transparent;border:0;color:#d1dbe5;font-size:12px;font-family:Cairo;outline:none;text-align:right;direction:rtl}
-.macro.copyflash{color:#2ecc71!important}
-.copy{background:linear-gradient(135deg,#0072ff,#00f2fe);border:0;color:#000;font-weight:900;padding:8px 14px;border-radius:3px;font-size:11px;cursor:pointer;transition:0.2s;font-family:'Share Tech Mono',monospace}
-.copy:hover{filter:brightness(1.2);box-shadow:0 0 10px var(--neon)}
-.footer{text-align:center;margin-top:30px;border-top:1px solid var(--border);padding:20px;font-family:'Share Tech Mono',monospace;color:var(--muted);font-size:11px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;visibility:hidden;background:#060b14;border:1px solid var(--neon);color:var(--neon);padding:10px 20px;border-radius:4px;font-size:12px;font-family:'Share Tech Mono',monospace;box-shadow:0 0 20px var(--neon-glow);transition:0.3s;z-index:99}
-.toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
-.empty{text-align:center;color:var(--muted);padding:30px;border:1px dashed var(--border);border-radius:4px;font-size:12px}
-@media(max-width:768px){.metrics{grid-template-columns:1fr}.controls{flex-direction:column}.filter{display:grid;grid-template-columns:repeat(2,1fr)}}
+html{scroll-behavior:smooth}
+body{
+ margin:0;
+ min-height:100vh;
+ overflow-x:hidden;
+ background:
+ radial-gradient(ellipse at 50% -15%,#8b681d35,transparent 42%),
+ radial-gradient(ellipse at 0% 100%,#8b681d12,transparent 30%),
+ #030303;
+ color:var(--white);
+ font-family:Cairo,Tahoma,sans-serif;
+}
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:0;
+ pointer-events:none;
+ background:
+ linear-gradient(#d4af3708 1px,transparent 1px),
+ linear-gradient(90deg,#d4af3708 1px,transparent 1px);
+ background-size:50px 50px;
+ mask-image:linear-gradient(to bottom,#000,transparent 85%);
+}
+body:after{
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:0;
+ background:radial-gradient(circle at center,transparent 40%,#000b 100%);
+}
+button,input{font:inherit}
+button{cursor:pointer}
+::selection{
+ background:var(--gold);
+ color:#000;
+}
+.shell{
+ width:min(1380px,100%);
+ margin:auto;
+ padding:25px;
+ position:relative;
+ z-index:2;
+}
+/* ROYAL FRAME */
+.frame{
+ position:fixed;
+ inset:9px;
+ border:1px solid #d4af3720;
+ border-radius:20px;
+ pointer-events:none;
+ z-index:50;
+}
+.frame:before,.frame:after{
+ content:"";
+ position:absolute;
+ width:80px;
+ height:80px;
+ border-color:var(--gold);
+ opacity:.7;
+}
+.frame:before{
+ top:-1px;
+ right:-1px;
+ border-top:2px solid;
+ border-right:2px solid;
+ border-radius:0 20px 0 0;
+}
+.frame:after{
+ bottom:-1px;
+ left:-1px;
+ border-bottom:2px solid;
+ border-left:2px solid;
+ border-radius:0 0 0 20px;
+}
+/* PARTICLES */
+.particles{
+ position:fixed;
+ inset:0;
+ z-index:1;
+ overflow:hidden;
+ pointer-events:none;
+}
+.particle{
+ position:absolute;
+ width:2px;
+ height:2px;
+ border-radius:50%;
+ background:var(--gold2);
+ box-shadow:0 0 12px var(--gold);
+ animation:float linear infinite;
+}
+.spark{
+ position:absolute;
+ width:8px;
+ height:8px;
+ opacity:0;
+ animation:sparkle ease-in-out infinite;
+ filter:drop-shadow(0 0 6px var(--gold));
+}
+.spark:before,.spark:after{
+ content:"";
+ position:absolute;
+ left:50%;
+ top:50%;
+ background:linear-gradient(#fff7c9,var(--gold));
+ transform:translate(-50%,-50%);
+}
+.spark:before{width:1px;height:100%}
+.spark:after{height:1px;width:100%}
+@keyframes float{
+ 0%{transform:translateY(110vh) translateX(0);opacity:0}
+ 15%,85%{opacity:.7}
+ 100%{transform:translateY(-10vh) translateX(70px);opacity:0}
+}
+@keyframes sparkle{
+ 0%,100%{opacity:0;transform:scale(.2) rotate(0)}
+ 40%{opacity:1;transform:scale(1) rotate(45deg)}
+ 70%{opacity:.3;transform:scale(.5) rotate(90deg)}
+}
+/* TOP NAVIGATION */
+.nav{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:15px;
+ padding:15px 22px;
+ min-height:75px;
+ border:1px solid var(--line);
+ border-radius:20px;
+ background:linear-gradient(135deg,#101010ed,#050505ed);
+ box-shadow:0 15px 55px #000a,inset 0 0 30px #d4af3705;
+ backdrop-filter:blur(20px);
+ position:relative;
+ overflow:hidden;
+}
+.nav:before{
+ content:"";
+ position:absolute;
+ top:0;
+ right:15%;
+ left:15%;
+ height:1px;
+ background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.brand{
+ display:flex;
+ align-items:center;
+ gap:14px;
+}
+.crest{
+ width:48px;
+ height:48px;
+ display:grid;
+ place-items:center;
+ border-radius:50%;
+ color:#080600;
+ font-size:24px;
+ background:radial-gradient(circle at 30% 25%,#fff5ba,#d4af37 45%,#6e500c);
+ border:2px solid #f2d879;
+ box-shadow:0 0 0 5px #d4af3710,0 0 25px #d4af3733;
+}
+.brandname{
+ font:700 16px Marhey,Cairo,sans-serif;
+ color:var(--gold2);
+ letter-spacing:1px;
+}
+.brandname small{
+ display:block;
+ font:700 9px Rajdhani,sans-serif;
+ letter-spacing:2.5px;
+ color:var(--muted);
+ margin-top:3px;
+ direction:ltr;
+}
+.navright{
+ display:flex;
+ align-items:center;
+ gap:20px;
+}
+.live{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ font:700 10px Rajdhani,sans-serif;
+ color:var(--green);
+ letter-spacing:1.5px;
+ direction:ltr;
+}
+.live i{
+ width:7px;
+ height:7px;
+ background:var(--green);
+ border-radius:50%;
+ box-shadow:0 0 12px var(--green);
+ animation:blink 2s infinite;
+}
+@keyframes blink{50%{opacity:.25}}
+.clock{
+ text-align:left;
+}
+.clock b{
+ display:block;
+ color:var(--gold2);
+ font:700 20px Rajdhani,sans-serif;
+ direction:ltr;
+}
+.clock small{
+ color:var(--muted);
+ font-size:9px;
+}
+/* HERO */
+.hero{
+ position:relative;
+ margin:30px 0 25px;
+ padding:38px 25px;
+ border:1px solid #d4af3725;
+ border-radius:25px;
+ background:
+ radial-gradient(ellipse at 50% 50%,#d4af3710,transparent 55%),
+ linear-gradient(135deg,#111111,#050505);
+ overflow:hidden;
+ text-align:center;
+}
+.hero:before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:repeating-linear-gradient(
+ 135deg,
+ transparent 0 14px,
+ #ffffff02 14px 15px
+ );
+ pointer-events:none;
+}
+.hero:after{
+ content:"WARDEN";
+ position:absolute;
+ bottom:-25px;
+ left:50%;
+ transform:translateX(-50%);
+ font:700 110px Rajdhani,sans-serif;
+ letter-spacing:12px;
+ color:#ffffff03;
+ direction:ltr;
+ pointer-events:none;
+}
+.hero-main{position:relative;z-index:2}
+.overline{
+ color:var(--gold);
+ font:700 11px Rajdhani,sans-serif;
+ letter-spacing:4px;
+ direction:ltr;
+}
+.hero h1{
+ margin:15px 0 8px;
+ font:700 clamp(28px,5vw,55px) Marhey,Cairo,sans-serif;
+ color:var(--gold2);
+ text-shadow:0 0 30px #d4af3730;
+}
+.hero h1 span{
+ color:#fff3be;
+}
+.commander{
+ font-size:14px;
+ font-weight:800;
+ color:#e5d6ae;
+}
+.hero p{
+ margin:12px 0 0;
+ font-size:12px;
+ color:var(--muted);
+}
+/* ROYAL SEAL */
+.sealbox{
+ position:relative;
+ z-index:2;
+ margin:0 auto 22px;
+ display:grid;
+ place-items:center;
+}
+.seal{
+ width:145px;
+ height:145px;
+ display:grid;
+ place-items:center;
+ border-radius:50%;
+ position:relative;
+ background:radial-gradient(circle at 30% 25%,#fff5b6,#d4af37 42%,#6d500c 78%,#0c0900);
+ border:3px solid #f3dc7a;
+ box-shadow:
+ 0 0 0 8px #d4af3710,
+ 0 0 45px #d4af3740,
+ inset 0 0 25px #0009;
+ animation:sealFloat 4s ease-in-out infinite;
+}
+.seal:before,.seal:after{
+ content:"";
+ position:absolute;
+ border:1px solid #d4af3755;
+ border-radius:50%;
+}
+.seal:before{inset:-12px}
+.seal:after{
+ inset:-21px;
+ border-style:dashed;
+ animation:spin 35s linear infinite;
+}
+.sealcenter{
+ text-align:center;
+ color:#100c00;
+}
+.sealcenter b{
+ display:block;
+ font-size:65px;
+ line-height:1;
+ filter:drop-shadow(0 3px 5px #fff5a855);
+}
+.sealcenter small{
+ display:block;
+ margin-top:8px;
+ font:900 10px Rajdhani,sans-serif;
+ letter-spacing:3px;
+}
+.sealcenter span{
+ display:block;
+ margin-top:4px;
+ font:700 8px Rajdhani,sans-serif;
+ letter-spacing:1px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sealFloat{50%{transform:translateY(-6px)}}
+/* METRICS */
+.metrics{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:14px;
+ margin-bottom:23px;
+}
+.metric{
+ position:relative;
+ min-height:105px;
+ padding:18px;
+ overflow:hidden;
+ border:1px solid var(--line);
+ border-radius:18px;
+ background:linear-gradient(145deg,#171717,#070707);
+ box-shadow:0 20px 60px #0009;
+ transition:.3s;
+}
+.metric:before{
+ content:"";
+ position:absolute;
+ bottom:-55px;
+ left:-35px;
+ width:120px;
+ height:120px;
+ border-radius:50%;
+ background:radial-gradient(circle,#d4af3720,transparent 70%);
+}
+.metric:hover{
+ transform:translateY(-5px);
+ border-color:#d4af3780;
+ box-shadow:0 20px 60px #000b,0 0 20px #d4af3710;
+}
+.metric label{
+ display:block;
+ color:var(--muted);
+ font-size:11px;
+}
+.metric strong{
+ display:block;
+ margin-top:8px;
+ font:900 24px Cairo,sans-serif;
+ color:var(--gold2);
+}
+.metric strong em{
+ font:700 10px Rajdhani,sans-serif;
+ color:var(--muted);
+ font-style:normal;
+ letter-spacing:1px;
+}
+/* OFFICER PROFILE */
+.profile{
+ display:flex;
+ align-items:center;
+ gap:15px;
+ padding:19px;
+ margin-bottom:23px;
+ border:1px solid var(--line);
+ border-radius:20px;
+ background:linear-gradient(145deg,#151515,#060606);
+ box-shadow:0 15px 50px #0007;
+}
+.profile-icon{
+ width:45px;
+ height:45px;
+ flex-shrink:0;
+ display:grid;
+ place-items:center;
+ border-radius:13px;
+ color:#080600;
+ font-size:22px;
+ background:linear-gradient(135deg,#fff0a0,#d4af37,#80610e);
+}
+.profile-info{flex:1;min-width:0}
+.profile label{
+ display:block;
+ margin-bottom:8px;
+ font-size:11px;
+ font-weight:800;
+ color:#e5d6ae;
+}
+#playerName{
+ width:100%;
+ padding:12px 14px;
+ outline:none;
+ border:1px solid #d4af3733;
+ border-radius:12px;
+ color:var(--white);
+ background:#0009;
+ font:600 13px Cairo;
+ transition:.2s;
+}
+#playerName:focus{
+ border-color:var(--gold);
+ box-shadow:0 0 0 3px #d4af3712;
+}
+#playerName::placeholder{color:#655e50}
+.profile-tag{
+ color:var(--muted);
+ font:700 9px Rajdhani,sans-serif;
+ letter-spacing:1.5px;
+ direction:ltr;
+ white-space:nowrap;
+}
+/* SEARCH & FILTERS */
+.controls{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin-bottom:25px;
+}
+.search{
+ flex:1;
+ position:relative;
+}
+.search input{
+ width:100%;
+ padding:14px 45px 14px 15px;
+ outline:none;
+ border:1px solid #d4af3733;
+ border-radius:14px;
+ background:#080808;
+ color:var(--white);
+ font:500 13px Cairo;
+ transition:.2s;
+}
+.search input:focus{
+ border-color:var(--gold);
+ box-shadow:0 0 0 3px #d4af3712;
+}
+.search span{
+ position:absolute;
+ right:15px;
+ top:10px;
+ font-size:23px;
+ color:var(--gold2);
+}
+.filter{
+ display:flex;
+ flex-wrap:wrap;
+ gap:6px;
+}
+.filter button{
+ padding:10px 13px;
+ border:1px solid #d4af3728;
+ border-radius:12px;
+ background:#101010;
+ color:#aaa38e;
+ font:700 11px Cairo;
+ transition:.25s;
+}
+.filter button:hover,
+.filter button.active{
+ color:var(--gold2);
+ border-color:var(--gold);
+ background:#d4af3714;
+ box-shadow:0 0 20px #d4af370d;
+}
+/* MACRO SECTIONS */
+.section{
+ position:relative;
+ margin:27px 0 30px;
+ padding:22px;
+ border:1px solid var(--line);
+ border-radius:23px;
+ background:linear-gradient(145deg,#121212f5,#050505f5);
+ box-shadow:0 25px 70px #0009;
+ overflow:hidden;
+ animation:sectionIn .5s ease both;
+}
+.section:before{
+ content:"";
+ position:absolute;
+ top:0;
+ right:10%;
+ left:10%;
+ height:1px;
+ background:linear-gradient(90deg,transparent,var(--gold),transparent);
+ box-shadow:0 0 20px var(--gold);
+}
+@keyframes sectionIn{
+ from{opacity:0;transform:translateY(15px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.sectionhead{
+ display:flex;
+ align-items:center;
+ gap:13px;
+ padding-bottom:15px;
+ border-bottom:1px solid #d4af3720;
+ margin-bottom:17px;
+}
+.sectionmark{
+ width:40px;
+ height:40px;
+ flex-shrink:0;
+ display:grid;
+ place-items:center;
+ border-radius:12px;
+ color:#090700;
+ font:900 12px Cairo;
+ background:linear-gradient(135deg,#fff0a3,#d4af37,#80610e);
+ box-shadow:0 0 20px #d4af3720;
+}
+.sectiontitle{
+ margin:0;
+ font-size:16px;
+ font-weight:900;
+ color:var(--gold2);
+}
+.sectionsubtitle{
+ margin-top:3px;
+ color:var(--muted);
+ font:700 10px Rajdhani,sans-serif;
+ letter-spacing:1px;
+ direction:ltr;
+ text-align:right;
+}
+.sectionrule{
+ height:1px;
+ flex:1;
+ background:linear-gradient(90deg,transparent,#d4af3730);
+}
+.rows{
+ display:grid;
+ gap:9px;
+}
+.row{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:9px;
+ border:1px solid #d4af3720;
+ border-radius:13px;
+ background:linear-gradient(100deg,#111,#080808);
+ transition:.25s;
+}
+.row:hover{
+ border-color:#d4af3780;
+ box-shadow:0 0 25px #d4af370b;
+ transform:translateX(-2px);
+}
+.rownum{
+ width:32px;
+ flex-shrink:0;
+ text-align:center;
+ color:var(--gold);
+ font:800 12px Rajdhani,sans-serif;
+}
+.macro{
+ flex:1;
+ min-width:0;
+ padding:9px 8px;
+ border:0;
+ outline:0;
+ background:transparent;
+ color:#e4dece;
+ font:500 12px Cairo;
+ text-align:right;
+ direction:rtl;
+}
+.macro.copyflash{color:var(--green)}
+.copy{
+ min-width:80px;
+ padding:10px 14px;
+ border:0;
+ border-radius:11px;
+ color:#080600;
+ background:linear-gradient(135deg,#fff0a0,#d4af37,#a17b16);
+ box-shadow:0 8px 24px #d4af3720;
+ font:900 11px Cairo;
+ transition:.2s;
+}
+.copy:hover{
+ filter:brightness(1.13);
+ box-shadow:0 0 22px #d4af3740;
+ transform:translateY(-1px);
+}
+.copy:active{transform:scale(.95)}
+.empty{
+ padding:35px;
+ text-align:center;
+ color:var(--muted);
+ border:1px dashed #d4af3740;
+ border-radius:18px;
+}
+/* FOOTER */
+.footer{
+ margin-top:40px;
+ padding:25px 12px;
+ text-align:center;
+ border-top:1px solid var(--line);
+}
+.footer strong{
+ display:block;
+ color:var(--gold2);
+ font:700 17px Marhey,Cairo,sans-serif;
+}
+.footer span{
+ display:block;
+ margin-top:8px;
+ color:var(--muted);
+ font:700 9px Rajdhani,sans-serif;
+ letter-spacing:2px;
+ direction:ltr;
+}
+.footer .copyright{
+ margin-top:12px;
+ font:10px Cairo,sans-serif;
+ color:#555044;
+}
+/* TOAST */
+.toast{
+ position:fixed;
+ bottom:25px;
+ left:50%;
+ transform:translate(-50%,25px);
+ opacity:0;
+ visibility:hidden;
+ z-index:99;
+ padding:14px 23px;
+ border:1px solid #d4af3766;
+ border-radius:14px;
+ background:#0a0a0af5;
+ color:var(--gold2);
+ box-shadow:0 20px 50px #000a;
+ font:800 12px Cairo;
+ transition:.3s;
+ white-space:nowrap;
+}
+.toast.show{
+ opacity:1;
+ visibility:visible;
+ transform:translate(-50%,0);
+}
+/* MOBILE */
+@media(max-width:850px){
+ .metrics{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+ .shell{padding:12px 12px 30px}
+ .frame{inset:5px}
+ .nav{
+  width:100%;
+  padding:11px 12px;
+  border-radius:16px;
+  min-height:60px;
+ }
+ .crest{width:39px;height:39px;font-size:20px}
+ .brand{gap:9px}
+ .brandname{font-size:12px}
+ .brandname small{font-size:8px;letter-spacing:1.5px}
+ .navright{gap:10px}
+ .live{font-size:9px;letter-spacing:1px}
+ .clock b{font-size:15px}
+ .clock small{font-size:8px}
+ .hero{padding:30px 10px 26px;border-radius:20px}
+ .hero h1{font-size:29px}
+ .hero p{font-size:11px}
+ .seal{width:110px;height:110px}
+ .sealcenter b{font-size:50px}
+ .metrics{gap:8px}
+ .metric{padding:13px;min-height:90px;border-radius:15px}
+ .metric label{font-size:10px}
+ .metric strong{font-size:19px}
+ .metric strong em{font-size:8px}
+ .profile{padding:13px;border-radius:16px;gap:10px}
+ .profile-icon{width:38px;height:38px;font-size:19px}
+ .profile-tag{display:none}
+ .controls{display:block}
+ .filter{margin-top:10px}
+ .filter button{flex:1;padding:9px 6px;font-size:10px}
+ .section{padding:16px;border-radius:19px}
+ .sectiontitle{font-size:14px}
+ .sectionmark{width:35px;height:35px}
+ .row{gap:5px;padding:6px;border-radius:11px}
+ .rownum{width:23px;font-size:10px}
+ .macro{font-size:10px;padding:8px 3px}
+ .copy{min-width:57px;padding:8px 6px;font-size:10px;border-radius:9px}
+ .footer strong{font-size:14px}
+}
+@media(max-width:380px){
+ .brandname{font-size:10px}
+ .brandname small{font-size:7px}
+ .navright{gap:6px}
+ .live{font-size:8px}
+ .clock b{font-size:13px}
+ .hero h1{font-size:25px}
+ .copy{min-width:49px}
+ .macro{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{
+  animation:none!important;
+  transition:none!important;
+  scroll-behavior:auto!important;
+ }
+}
 </style>
 </head>
 <body>
+<div class="frame"></div>
+<div class="particles" id="particles"></div>
 <main class="shell">
+<!-- NAVIGATION -->
 <nav class="nav">
- <div class="brand"><div class="crest">⚡</div><div class="brandname">CYBER-HUD<small>FEDERAL POLICE COMMAND</small></div></div>
- <div class="navright"><span class="live"><i></i> SYSTEM ACTIVE</span><span id="liveClock">00:00:00</span></div>
-</nav>
-<header class="hero">
- <div class="overline">SECURITY DIVISION // OPERATIONS</div>
-<h1>نظام <span>الماكروز</span> التكتيكي</h1>
-<div class="commander">قائد الشرطة اللواء الفيدرالي Ehab Engineer</div>
-<p>واجهة تشغيل سيبرانية فائقة السرعة • نسخ فوري • تحكم ميداني متطور</p>
-</header>
-<div class="metrics">
- <div class="metric"><label>TOTAL MACROS</label><strong>33 <em>COMMANDS</em></strong></div>
- <div class="metric"><label>SECURITY TIERS</label><strong>04 <em>DIVISIONS</em></strong></div>
- <div class="metric"><label>SYSTEM STATUS</label><strong style="color:var(--neon)">ONLINE <em>SECURE</em></strong></div>
-</div>
-<section class="profile">
- <div class="profile-icon">🛡</div>
- <div class="profile-info">
-  <label for="playerName">معريف الضابط • OFFICER IDENTITY</label>
-  <input id="playerName" type="text" placeholder="أدخل اسم الشخصية داخل اللعبة..." autocomplete="off" oninput="updateMacros()">
+ <div class="brand">
+  <div class="crest">♛</div>
+  <div class="brandname">
+   THE WARDEN
+   <small>ROYAL ELITE COMMAND SYSTEM</small>
+  </div>
  </div>
+ <div class="navright">
+  <span class="live"><i></i> SYSTEM ONLINE</span>
+  <div class="clock">
+   <b id="liveClock">00:00:00</b>
+   <small id="liveDate">جاري التحميل...</small>
+  </div>
+ </div>
+</nav>
+<!-- HERO -->
+<header class="hero">
+ <div class="sealbox">
+  <div class="seal">
+   <div class="sealcenter">
+    <b>♛</b>
+    <small>ROYAL ELITE</small>
+    <span>FEDERAL POLICE</span>
+   </div>
+  </div>
+ </div>
+ <div class="hero-main">
+  <div class="overline">MESA ME / CENTRAL OPERATIONS</div>
+  <h1>نظام <span>الماكروز</span> الملكي</h1>
+  <div class="commander">
+   قائد الشرطة اللواء الفيدرالي Ehab Engineer
+  </div>
+  <p>
+   منصة القيادة الأمنية المتقدمة • نظام النسخ الاحترافي • الإدارة الميدانية
+  </p>
+ </div>
+</header>
+<!-- METRICS -->
+<div class="metrics">
+ <div class="metric">
+  <label>إجمالي الماكروز</label>
+  <strong id="totalMacros">33 <em>COMMAND LINES</em></strong>
+ </div>
+ <div class="metric">
+  <label>التصنيفات الأمنية</label>
+  <strong>04 <em>DIVISIONS</em></strong>
+ </div>
+ <div class="metric">
+  <label>حالة النظام</label>
+  <strong style="color:var(--green)">ACTIVE <em>READY</em></strong>
+ </div>
+ <div class="metric">
+  <label>التصميم</label>
+  <strong>ROYAL <em>ELITE V3</em></strong>
+ </div>
+</div>
+<!-- OFFICER -->
+<section class="profile">
+ <div class="profile-icon">♙</div>
+ <div class="profile-info">
+  <label for="playerName">
+   تعريف الضابط • OFFICER IDENTITY
+  </label>
+  <input
+   id="playerName"
+   type="text"
+   placeholder="أدخل اسم الشخصية داخل اللعبة..."
+   autocomplete="off"
+  >
+ </div>
+ <div class="profile-tag">AUTHORIZED PERSONNEL</div>
 </section>
+<!-- SEARCH -->
 <div class="controls">
- <div class="search"><span>⌕</span><input id="search" type="search" placeholder="ابحث عن ماكرو أو مخالفة..." oninput="render()"></div>
- <div class="filter" id="filters"><button class="active" data-filter="all">الكل</button><button data-filter="w">تحذيرات</button><button data-filter="c">جنائية</button><button data-filter="v">مدنية</button><button data-filter="a">إدارية</button></div>
+ <div class="search">
+  <span>⌕</span>
+  <input
+   id="search"
+   type="search"
+   placeholder="ابحث عن ماكرو أو مخالفة..."
+   autocomplete="off"
+  >
+ </div>
+ <div class="filter" id="filters">
+  <button class="active" data-filter="all">الكل</button>
+  <button data-filter="w">تحذيرات</button>
+  <button data-filter="c">جنائية</button>
+  <button data-filter="v">مدنية</button>
+  <button data-filter="a">إدارية</button>
+ </div>
 </div>
 <div id="content"></div>
-<footer class="footer"><strong>THE WARDEN • FEDERAL POLICE COMMAND SYSTEM</strong></footer>
+<!-- FOOTER -->
+<footer class="footer">
+ <strong>THE WARDEN • ROYAL ELITE</strong>
+ <span>FEDERAL POLICE COMMAND SYSTEM / MESA ME</span>
+ <div class="copyright">
+  جميع الحقوق محفوظة • ROYAL ELITE V3
+ </div>
+</footer>
 </main>
-<div class="toast" id="toast">✓ تم نسخ الماكرو بنجاح</div>
+<div class="toast" id="toast">
+ ✓ تم نسخ الماكرو بنجاح
+</div>
 <script>
+/* ==========================================
+   ROYAL ELITE MACROS DATABASE
+========================================== */
 const raw={
 w:[
-`/do التحذير الأول : شرطة المدينة هنا!توقف” فورآ مكانك ولا تقم بأي حركة!!”`,
+`/do التحذير الأول : شرطة المدينة هنا! توقف فورآ مكانك ولا تقم بأي حركة!!`,
 `/do !!! التحذير الأخير: ارمِ سلاحك أرضاً فوراً! وارفع يديك عند رأسك!`,
 `/do !!! تنبيه أمني: أنت داخل منطقة محظورة! اخرج فوراً وإلا سيتم استخدام الصاعق الكهربائي أو القوة المميتة ضدك!`,
 `/do تحذير: هذه المنطقة تحت السيطرة الأمنية الكاملة وهي غير آمنة للمدنيين. الابتعاد فوراً ضروري لتجنب الاعتقال والعقوبة!`,
 `/do تحذير: يُمنع التواجد أو التجمهر داخل حرم المستشفى لأكثر من دقيقة لضمان سير العمل الطبي. المغادرة فوراً إجبارية لتجنب العقوبة القانونية!`,
-`/do مرحباً سيدي/سيدتي، معكم الضابط (OFFICER). يرجى إبراز الهوية الشخصية أو جواز السفر للتدقيق الأمني، تعاونك يسرّع الإجراءات`,
+`/do مرحباً سيدي/سيدتي، معكم الضابط {OFFICER}. يرجى إبراز الهوية الشخصية أو جواز السفر للتدقيق الأمني، تعاونك يسرّع الإجراءات`,
 `/do تم التدقيق، أوراقك سليمة. شكراً لتعاونك مع رجال الأمن وتقديرك لعملنا. رافقتك السلامة، يومك سعيد!`,
-`/do سيدي/سيدتي، أنا الضابط (OFFICER)، أنت قيد الاعتقال الآن لارتكابك مخالفة قانونية. لديك الحق في التزام الصمت، ولديكم الحق في توكيل محامٍ. أي شيء تقوله قد يُستخدم ضدك في المحكمة`,
-`/do سيدي،أنا الضابط (OFFICER)، ”يتم إيقافك الآن لوجود انتهاكات قانونية في وثائقك الرسمية، سيتم تحويلك للجهات المختصة ولك الحق في محامٍ وجلسة استماع عادلة”`,
-`/do سيدي، أنا الضابط (OFFICER)، أنت مطلوب للعدالة بموجب مذكرة توقيف رسمية صادرة بحقك. سيتم اقتيادك للمركز الآن، ولك كافة الحقوق القانونية لطلب محامٍ والدفاع عن نفسك`
+`/do سيدي/سيدتي، أنا الضابط {OFFICER}، أنت قيد الاعتقال الآن لارتكابك مخالفة قانونية. لديك الحق في التزام الصمت، ولديكم الحق في توكيل محامٍ. أي شيء تقوله قد يُستخدم ضدك في المحكمة`,
+`/do سيدي، أنا الضابط {OFFICER}، يتم إيقافك الآن لوجود انتهاكات قانونية في وثائقك الرسمية، سيتم تحويلك للجهات المختصة ولك الحق في محامٍ وجلسة استماع عادلة`,
+`/do سيدي، أنا الضابط {OFFICER}، أنت مطلوب للعدالة بموجب مذكرة توقيف رسمية صادرة بحقك. سيتم اقتيادك للمركز الآن، ولك كافة الحقوق القانونية لطلب محامٍ والدفاع عن نفسك`
 ],
 c:[
-`/me 1.1 الاستيلاء على مؤسسات الدولة [+20 دقيقة]`,`/me 1.2 الاستيلاء على السلطة بالقوة؛  [+20 دقيقة]`,`/me 1.3 أخذ الرهائن أو الاختطاف [+20 دقيقة]`,`/me 1.4 الاصطدام المميت بالمشاة [+20 دقيقة]`,`/me 1.5 محاولة السرقة [+20 دقيقة]`,`/me 1.6 سرقة ضابط شرطة [+20 دقيقة]`,`/me 1.7 الدخول غير المنسق إلى الأراضي المحمية بالقانون [+20 دقيقة]`,`/me 1.8 الاصطدام بالمشاة [+20 دقيقة]`,`/me 1.9إشهار سلاح في مكان عام[+20 دقيقة]`,`/me 1.10 رشوة ضابط شرطة [+20 دقيقة]`
+`/me 1.1 الاستيلاء على مؤسسات الدولة [+20 دقيقة]`,
+`/me 1.2 الاستيلاء على السلطة بالقوة [+20 دقيقة]`,
+`/me 1.3 أخذ الرهائن أو الاختطاف [+20 دقيقة]`,
+`/me 1.4 الاصطدام المميت بالمشاة [+20 دقيقة]`,
+`/me 1.5 محاولة السرقة [+20 دقيقة]`,
+`/me 1.6 سرقة ضابط شرطة [+20 دقيقة]`,
+`/me 1.7 الدخول غير المنسق إلى الأراضي المحمية بالقانون [+20 دقيقة]`,
+`/me 1.8 الاصطدام بالمشاة [+20 دقيقة]`,
+`/me 1.9 إشهار سلاح في مكان عام [+20 دقيقة]`,
+`/me 1.10 رشوة ضابط شرطة [+20 دقيقة]`
 ],
 v:[
-`/me 2.1 إتلاف ممتلكات الدولة [+10 دقائق]`,`/me 2.2 الإضرار أو التلف بالممتلكات الخاصة  [+10 دقائق]`,`/me 2.3 مكالمات كاذبة للشرطة و/أو خدمات الطوارئ [+10 دقائق]`,`/me 2.4 الفجور (تشغيل الموسيقى بعد أن يُطلب منك إيقاف تشغيلها/البصق في وجه شخص ما، إلخ) [+10 دقائق]`,`/me 2.5 التهديد بالقتل [+10 دقائق]`,`/me 2.6 إهانة موظف حكومي [+10 دقائق]`,`/me 2.7 الابتزاز [+10 دقائق]`
+`/me 2.1 إتلاف ممتلكات الدولة [+10 دقائق]`,
+`/me 2.2 الإضرار أو التلف بالممتلكات الخاصة [+10 دقائق]`,
+`/me 2.3 مكالمات كاذبة للشرطة و/أو خدمات الطوارئ [+10 دقائق]`,
+`/me 2.4 الفجور (تشغيل الموسيقى بعد أن يُطلب منك إيقاف تشغيلها/البصق في وجه شخص ما، إلخ) [+10 دقائق]`,
+`/me 2.5 التهديد بالقتل [+10 دقائق]`,
+`/me 2.6 إهانة موظف حكومي [+10 دقائق]`,
+`/me 2.7 الابتزاز [+10 دقائق]`
 ],
 a:[
-`/me 3.1 مقاومة الاعتقال [+5 دقائق]`,`/me 3.2 عصيان ضابط الشرطة [+5 دقائق]`,`/me 3.3 المساعدة في مقاومة الاعتقال [+5 دقائق]`,`/me 3.4 انتهاك قواعد المرور: القيادة في المسار المعاكس، الاصطدام بالأعمدة، تجاوز الإشارات الحمراء [+5 دقائق]`,`/me 3.5 الاعتداء على مدني (ضرب) [+5 دقائق]`,`/me 3.6 رفض تقديم المستندات المطلوبة: بطاقة الهوية، ومستندات السيارة، ورخص الأسلحة[+5 دقائق]`
-]};
-const meta={w:["التحذيرات الأمنية","SECURITY WARNINGS","01"],c:["المخالفات الجنائية","CRIMINAL OFFENSES","02"],v:["المخالفات المدنية","CIVIL OFFENSES","03"],a:["المخالفات الإدارية","ADMINISTRATIVE OFFENSES","04"]};
+`/me 3.1 مقاومة الاعتقال [+5 دقائق]`,
+`/me 3.2 عصيان ضابط الشرطة [+5 دقائق]`,
+`/me 3.3 المساعدة في مقاومة الاعتقال [+5 دقائق]`,
+`/me 3.4 انتهاك قواعد المرور: القيادة في المسار المعاكس، الاصطدام بالأعمدة، تجاوز الإشارات الحمراء [+5 دقائق]`,
+`/me 3.5 الاعتداء على مدني (ضرب) [+5 دقائق]`,
+`/me 3.6 رفض تقديم المستندات المطلوبة: بطاقة الهوية، ومستندات السيارة، ورخص الأسلحة [+5 دقائق]`
+]
+};
+/* ==========================================
+   CATEGORY DETAILS
+========================================== */
+const meta={
+ w:["التحذيرات الأمنية","SECURITY WARNINGS","01"],
+ c:["المخالفات الجنائية","CRIMINAL OFFENSES","02"],
+ v:["المخالفات المدنية","CIVIL OFFENSES","03"],
+ a:["المخالفات الإدارية","ADMINISTRATIVE OFFENSES","04"]
+};
 let active="all";
-document.querySelectorAll("#filters button").forEach(b=>b.addEventListener("click",()=>{active=b.dataset.filter;document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("active",x===b));render()}));
-function updateMacros(){const n=document.getElementById("playerName").value.trim()||"[اسمك غير محدد]";raw.w[5]=raw.w[5].replace(/\(.*?\)/,`(${n})`);raw.w[7]=raw.w[7].replace(/\(.*?\)/,`(${n})`);raw.w[8]=raw.w[8].replace(/\(.*?\)/,`(${n})`);raw.w[9]=raw.w[9].replace(/\(.*?\)/,`(${n})`);render()}
-function render(){const q=document.getElementById("search").value.trim().toLowerCase();let html="",shown=0;Object.keys(raw).forEach(k=>{if(active!=="all"&&active!==k)return;let rows=raw[k].map((t,i)=>({t,i})).filter(x=>!q||x.t.toLowerCase().includes(q));if(!rows.length)return;shown+=rows.length;html+=`<section class="section"><div class="sectionhead"><div class="sectionmark">${meta[k][2]}</div><div><h2 class="sectiontitle">${meta[k][0]}</h2><div class="sectionsubtitle">${meta[k][1]} • ${rows.length} ITEMS</div></div><div class="sectionrule"></div></div><div class="rows">`;rows.forEach(({t,i})=>{const id=k+i;html+=`<div class="row"><span class="rownum">${String(i+1).padStart(2,"0")}</span><input class="macro" id="${id}" readonly value="${escapeAttr(t)}"><button class="copy" onclick="copyLine('${id}')">COPY ⧉</button></div>`});html+="</div></section>"});document.getElementById("content").innerHTML=html||'<div class="empty">لا توجد نتائج مطابقة لبحثك</div>'}
-function escapeAttr(s){return s.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
-async function copyLine(id){const f=document.getElementById(id);try{if(navigator.clipboard&&isSecureContext)await navigator.clipboard.writeText(f.value);else{f.select();f.setSelectionRange(0,99999);if(!document.execCommand("copy"))throw Error("copy")};f.classList.add("copyflash");setTimeout(()=>f.classList.remove("copyflash"),700);let t=document.getElementById("toast");t.textContent="✓ تم نسخ الماكرو بنجاح";t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}catch(e){let t=document.getElementById("toast");t.textContent="تعذر النسخ — اضغط مطولاً على النص";t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000)}}
-setInterval(()=>{const now=new Date();document.getElementById('liveClock').textContent=now.toLocaleTimeString('en-US',{hour12:false});},1000);
+/* ==========================================
+   FILTER SYSTEM
+========================================== */
+document.querySelectorAll("#filters button").forEach(button=>{
+ button.addEventListener("click",()=>{
+  active=button.dataset.filter;
+  document.querySelectorAll("#filters button").forEach(btn=>{
+   btn.classList.toggle("active",btn===button);
+  });
+  render();
+ });
+});
+/* ==========================================
+   OFFICER NAME SYSTEM
+========================================== */
+function getOfficerName(){
+ return document.getElementById("playerName").value.trim()
+ || "[اسمك غير محدد]";
+}
+function getMacro(text){
+ return text.replaceAll("{OFFICER}",getOfficerName());
+}
+document.getElementById("playerName").addEventListener("input",render);
+/* ==========================================
+   SEARCH
+========================================== */
+document.getElementById("search").addEventListener("input",render);
+/* ==========================================
+   RENDER MACROS
+========================================== */
+function escapeAttr(text){
+ return text
+ .replace(/&/g,"&amp;")
+ .replace(/"/g,"&quot;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;");
+}
+function render(){
+ const query=document.getElementById("search")
+ .value.trim().toLowerCase();
+ let html="";
+ let shown=0;
+ Object.keys(raw).forEach(category=>{
+  if(active!=="all"&&active!==category)return;
+  const rows=raw[category]
+  .map((text,index)=>({
+   text:getMacro(text),
+   index
+  }))
+  .filter(item=>
+   !query||item.text.toLowerCase().includes(query)
+  );
+  if(!rows.length)return;
+  shown+=rows.length;
+  html+=`
+  <section class="section">
+   <div class="sectionhead">
+    <div class="sectionmark">
+     ${meta[category][2]}
+    </div>
+    <div>
+     <h2 class="sectiontitle">
+      ${meta[category][0]}
+     </h2>
+     <div class="sectionsubtitle">
+      ${meta[category][1]} • ${rows.length} ITEMS
+     </div>
+    </div>
+    <div class="sectionrule"></div>
+   </div>
+   <div class="rows">
+  `;
+  rows.forEach(({text,index})=>{
+   const id=category+index;
+   html+=`
+   <div class="row">
+    <span class="rownum">
+     ${String(index+1).padStart(2,"0")}
+    </span>
+    <input
+     class="macro"
+     id="${id}"
+     readonly
+     value="${escapeAttr(text)}"
+    >
+    <button
+     class="copy"
+     onclick="copyLine('${id}')"
+    >
+     نسخ ⧉
+    </button>
+   </div>
+   `;
+  });
+  html+=`
+   </div>
+  </section>
+  `;
+ });
+ document.getElementById("content").innerHTML=
+ html||'<div class="empty">لا توجد نتائج مطابقة لبحثك</div>';
+}
+/* ==========================================
+   COPY SYSTEM
+========================================== */
+async function copyLine(id){
+ const field=document.getElementById(id);
+ if(!field)return;
+ try{
+  if(navigator.clipboard&&window.isSecureContext){
+   await navigator.clipboard.writeText(field.value);
+  }else{
+   field.select();
+   field.setSelectionRange(0,99999);
+   if(!document.execCommand("copy")){
+    throw new Error("copy failed");
+   }
+  }
+  field.classList.add("copyflash");
+  setTimeout(()=>{
+   field.classList.remove("copyflash");
+  },800);
+  showToast("✓ تم نسخ الماكرو بنجاح");
+ }catch(error){
+  showToast("تعذر النسخ — اضغط مطولاً على النص");
+ }
+}
+/* ==========================================
+   TOAST NOTIFICATION
+========================================== */
+let toastTimeout;
+function showToast(message){
+ const toast=document.getElementById("toast");
+ toast.textContent=message;
+ toast.classList.add("show");
+ clearTimeout(toastTimeout);
+ toastTimeout=setTimeout(()=>{
+  toast.classList.remove("show");
+ },2000);
+}
+/* ==========================================
+   LIVE CLOCK
+========================================== */
+function updateClock(){
+ const now=new Date();
+ document.getElementById("liveClock").textContent=
+ new Intl.DateTimeFormat("ar-IQ",{
+  hour:"2-digit",
+  minute:"2-digit",
+  second:"2-digit",
+  hour12:false
+ }).format(now);
+ document.getElementById("liveDate").textContent=
+ new Intl.DateTimeFormat("ar-IQ",{
+  weekday:"long",
+  year:"numeric",
+  month:"long",
+  day:"numeric"
+ }).format(now);
+}
+updateClock();
+setInterval(updateClock,1000);
+/* ==========================================
+   PARTICLE ENGINE
+========================================== */
+(function(){
+ const holder=document.getElementById("particles");
+ for(let i=0;i<45;i++){
+  const particle=document.createElement("div");
+  particle.className="particle";
+  particle.style.left=Math.random()*100+"%";
+  particle.style.animationDuration=
+  (9+Math.random()*15)+"s";
+  particle.style.animationDelay=
+  (-Math.random()*20)+"s";
+  const size=1+Math.random()*3;
+  particle.style.width=size+"px";
+  particle.style.height=size+"px";
+  holder.appendChild(particle);
+ }
+ for(let i=0;i<30;i++){
+  const spark=document.createElement("div");
+  spark.className="spark";
+  spark.style.left=Math.random()*100+"%";
+  spark.style.top=Math.random()*100+"%";
+  const size=4+Math.random()*8;
+  spark.style.width=size+"px";
+  spark.style.height=size+"px";
+  spark.style.animationDuration=
+  (2+Math.random()*5)+"s";
+  spark.style.animationDelay=
+  (-Math.random()*7)+"s";
+  holder.appendChild(spark);
+ }
+})();
+/* ==========================================
+   INITIALIZATION
+========================================== */
+document.getElementById("totalMacros").innerHTML=
+ Object.values(raw).reduce((sum,arr)=>sum+arr.length,0)
+ +" <em>COMMAND LINES</em>";
 render();
 </script>
 </body>
