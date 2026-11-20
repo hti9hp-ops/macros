@@ -5,22 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لوحة تحكم البوت</title>
   <style>
-    body { font-family: Tahoma, Arial, sans-serif; background: #111318; color: #f3f4f6; margin: 0; padding: 20px; }
-    .box { max-width: 740px; margin: auto; background: #1b1f27; padding: 20px; border-radius: 12px; }
+    body { font-family: Tahoma, Arial, sans-serif; background: #0f172a; color: #f8fafc; padding: 20px; }
+    .box { max-width: 740px; margin: auto; background: #1e293b; padding: 24px; border-radius: 14px; }
     h2, h3 { margin-top: 0; color: #818cf8; }
-    label { display: block; margin: 12px 0 6px; font-size: 14px; color: #d1d5db; }
-    input, select, textarea { width: 100%; box-sizing: border-box; padding: 10px; border-radius: 8px; border: 1px solid #374151; background: #111318; color: #fff; }
+    label { display: block; margin: 12px 0 6px; font-weight: bold; }
+    input, select, textarea {
+      width: 100%; box-sizing: border-box; padding: 10px; border-radius: 8px;
+      border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 14px;
+    }
     textarea { min-height: 75px; }
-    .row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+    .row { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
     .row input[type="checkbox"] { width: auto; }
-    .roles-box { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; background: #111318; padding: 12px; border-radius: 8px; border: 1px solid #374151; max-height: 200px; overflow-y: auto; }
-    .role-item { display: flex; align-items: center; gap: 6px; font-size: 13px; background: #1b1f27; padding: 6px 8px; border-radius: 6px; }
+    .roles-box {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px; background: #0f172a; padding: 10px; border-radius: 8px; border: 1px solid #334155;
+    }
+    .role-item { display: flex; align-items: center; gap: 6px; font-size: 13px; }
     .role-item input { width: auto; margin: 0; }
-    button { margin-top: 18px; width: 100%; padding: 12px; border: 0; border-radius: 8px; background: #6366f1; color: #fff; font-size: 16px; cursor: pointer; }
+    button {
+      margin-top: 18px; width: 100%; padding: 12px; border: none; border-radius: 8px;
+      background: #6366f1; color: white; font-size: 16px; font-weight: bold; cursor: pointer;
+    }
     button:hover { background: #4f46e5; }
-    .hint { font-size: 12px; color: #9ca3af; }
+    .hint { font-size: 12px; color: #9ca3af; margin-top: 4px; }
     .msg { margin-top: 12px; font-weight: bold; }
-    hr { border: 0; border-top: 1px solid #2d3340; margin: 22px 0; }
   </style>
 </head>
 <body>
@@ -30,7 +38,7 @@
     <label>رابط Google Apps Script (Web App URL)</label>
     <input id="apiUrl" type="text" placeholder="https://script.google.com/macros/s/.../exec" />
 
-    <hr />
+    <hr style="border-color:#334155; margin:20px 0;">
     <h3>📩 إعدادات التكت / الشكاوي</h3>
 
     <label>اختر كاتكوري التكت</label>
@@ -47,8 +55,9 @@
     <textarea id="ticketMessage"></textarea>
     <div class="hint">المتغيرات المتاحة: {user}</div>
 
-    <hr />
+    <hr style="border-color:#334155; margin:20px 0;">
     <h3>👋 رسالة الدخول (الترحيب)</h3>
+
     <div class="row">
       <input id="welcomeEnabled" type="checkbox" />
       <label for="welcomeEnabled" style="margin:0;">تفعيل رسالة الترحيب</label>
@@ -63,8 +72,9 @@
     <textarea id="welcomeMessage"></textarea>
     <div class="hint">المتغيرات المتاحة: {user} ، {server} ، {count}</div>
 
-    <hr />
-    <h3>🚪 رسالة المغادرة (التوديع)</h3>
+    <hr style="border-color:#334155; margin:20px 0;">
+    <h3>🚪 رسالة الخروج (التوديع)</h3>
+
     <div class="row">
       <input id="goodbyeEnabled" type="checkbox" />
       <label for="goodbyeEnabled" style="margin:0;">تفعيل رسالة التوديع</label>
@@ -77,146 +87,168 @@
 
     <label>رسالة التوديع</label>
     <textarea id="goodbyeMessage"></textarea>
-    <div class="hint">المتغيرات المتاحة: {tag} ، {count}</div>
+    <div class="hint">المتغيرات المتاحة: {user} ، {tag} ، {server} ، {count}</div>
 
     <button onclick="saveConfig()">💾 حفظ الإعدادات</button>
-    <div id="status" class="msg"></div>
+    <div id="statusMsg" class="msg"></div>
   </div>
 
   <script>
-    const apiInput = document.getElementById('apiUrl');
-    let selectedRoles = [];
+    const DEFAULT_API_URL = "https://script.google.com/macros/s/AKfycbxJKcSFAoJNPY0SWMG-JFWQs5z4wYjJIBnxaCj8q6zpTkw-qgWJOce5oDVknvBntu2xNA/exec";
+    const apiInput = document.getElementById("apiUrl");
 
-    apiInput.value = localStorage.getItem('bot_api_url') || '';
-    if (apiInput.value) loadAll();
-
-    apiInput.addEventListener('change', () => {
-      localStorage.setItem('bot_api_url', apiInput.value.trim());
-      if (apiInput.value.trim()) loadAll();
-    });
-
-    function fillSelect(selectEl, items, defaultLabel, currentVal) {
-      selectEl.innerHTML = `<option value="">${defaultLabel}</option>`;
-      for (const item of items) {
-        const opt = document.createElement('option');
-        opt.value = item.id;
-        opt.textContent = `# ${item.name}`;
-        if (item.id === currentVal) opt.selected = true;
-        selectEl.appendChild(opt);
-      }
+    const savedUrl = localStorage.getItem("BOT_API_URL");
+    if (savedUrl && savedUrl.includes("/exec")) {
+      apiInput.value = savedUrl;
+    } else {
+      apiInput.value = DEFAULT_API_URL;
+      localStorage.setItem("BOT_API_URL", DEFAULT_API_URL);
     }
 
-    function renderRoles(roles, activeIds) {
-      const container = document.getElementById('rolesContainer');
+    function setMsg(text, color = "#38bdf8") {
+      const el = document.getElementById("statusMsg");
+      el.style.color = color;
+      el.textContent = text;
+    }
+
+    function populateSelect(selectEl, items, placeholder, selectedValue) {
+      selectEl.innerHTML = "";
+      const opt0 = document.createElement("option");
+      opt0.value = "";
+      opt0.textContent = placeholder;
+      selectEl.appendChild(opt0);
+
+      (items || []).forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item.id;
+        opt.textContent = item.name;
+        if (item.id === selectedValue) opt.selected = true;
+        selectEl.appendChild(opt);
+      });
+    }
+
+    function populateRoles(roles, selectedIds) {
+      const container = document.getElementById("rolesContainer");
+      container.innerHTML = "";
+      const selectedSet = new Set(selectedIds || []);
+
       if (!roles || roles.length === 0) {
         container.innerHTML = '<span class="hint">لا توجد رولات متاحة حالياً</span>';
         return;
       }
-      container.innerHTML = '';
-      for (const role of roles) {
-        const div = document.createElement('label');
-        div.className = 'role-item';
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
+
+      roles.forEach(role => {
+        const wrapper = document.createElement("label");
+        wrapper.className = "role-item";
+
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
         cb.value = role.id;
-        cb.checked = activeIds.includes(role.id);
-        cb.addEventListener('change', () => {
-          if (cb.checked) {
-            if (!selectedRoles.includes(role.id)) selectedRoles.push(role.id);
-          } else {
-            selectedRoles = selectedRoles.filter((id) => id !== role.id);
-          }
-        });
-        const span = document.createElement('span');
+        cb.checked = selectedSet.has(role.id);
+
+        const span = document.createElement("span");
         span.textContent = role.name;
-        div.appendChild(cb);
-        div.appendChild(span);
-        container.appendChild(div);
-      }
+
+        wrapper.appendChild(cb);
+        wrapper.appendChild(span);
+        container.appendChild(wrapper);
+      });
     }
 
-    async function loadAll() {
+    function getSelectedRoleIds() {
+      return Array.from(document.querySelectorAll('#rolesContainer input[type="checkbox"]:checked'))
+        .map(cb => cb.value);
+    }
+
+    async function loadConfig() {
       const url = apiInput.value.trim();
       if (!url) return;
-      const status = document.getElementById('status');
-      status.textContent = '⏳ جاري تحميل الإعدادات والشاتات...';
+      localStorage.setItem("BOT_API_URL", url);
+      setMsg("⏳ جاري تحميل الإعدادات وقوائم السيرفر...");
+
       try {
         const res = await fetch(url);
-        const raw = await res.json();
-        const cfg = raw.config || raw || {};
-        const meta = raw.meta || {};
+        const data = await res.json();
+        const cfg = data.config || data;
+        const meta = data.meta || { categories: [], channels: [], roles: [] };
 
-        selectedRoles = String(cfg.mentionRoleIds || '')
-          .split(',')
-          .map((s) => s.trim())
-          .filter(Boolean);
-
-        fillSelect(
-          document.getElementById('ticketCategoryId'),
-          meta.categories || [],
-          '-- بدون كاتكوري --',
-          cfg.ticketCategoryId || ''
-        );
-        fillSelect(
-          document.getElementById('welcomeChannelId'),
-          meta.channels || [],
-          '-- اختر شات الترحيب --',
-          cfg.welcomeChannelId || ''
-        );
-        fillSelect(
-          document.getElementById('goodbyeChannelId'),
-          meta.channels || [],
-          '-- اختر شات التوديع --',
-          cfg.goodbyeChannelId || ''
+        populateSelect(
+          document.getElementById("ticketCategoryId"),
+          meta.categories,
+          "-- بدون كاتكوري --",
+          cfg.ticketCategoryId || ""
         );
 
-        renderRoles(meta.roles || [], selectedRoles);
+        populateSelect(
+          document.getElementById("welcomeChannelId"),
+          meta.channels,
+          "-- اختر شات --",
+          cfg.welcomeChannelId || ""
+        );
 
-        document.getElementById('ticketMessage').value = cfg.ticketMessage || '';
-        document.getElementById('welcomeEnabled').checked = Boolean(cfg.welcomeEnabled);
-        document.getElementById('welcomeMessage').value = cfg.welcomeMessage || '';
-        document.getElementById('goodbyeEnabled').checked = Boolean(cfg.goodbyeEnabled);
-        document.getElementById('goodbyeMessage').value = cfg.goodbyeMessage || '';
+        populateSelect(
+          document.getElementById("goodbyeChannelId"),
+          meta.channels,
+          "-- اختر شات --",
+          cfg.goodbyeChannelId || ""
+        );
 
-        status.textContent = '✅ تم تحميل البيانات بنجاح';
-      } catch (e) {
-        status.textContent = '❌ تعذر جلب البيانات، تأكد من الرابط والنشر';
+        const roleIds = Array.isArray(cfg.mentionRoleIds)
+          ? cfg.mentionRoleIds
+          : String(cfg.mentionRoleIds || "")
+              .split(",")
+              .map(s => s.trim())
+              .filter(Boolean);
+
+        populateRoles(meta.roles, roleIds);
+
+        document.getElementById("ticketMessage").value = cfg.ticketMessage || "";
+        document.getElementById("welcomeEnabled").checked = Boolean(cfg.welcomeEnabled);
+        document.getElementById("welcomeMessage").value = cfg.welcomeMessage || "";
+        document.getElementById("goodbyeEnabled").checked = Boolean(cfg.goodbyeEnabled);
+        document.getElementById("goodbyeMessage").value = cfg.goodbyeMessage || "";
+
+        setMsg("✅ تم تحميل الإعدادات وقوائم السيرفر بنجاح", "#4ade80");
+      } catch (err) {
+        setMsg("❌ تعذر الجلب، تأكد من الرابط وصلاحيات النشر (Anyone)", "#f87171");
       }
     }
 
     async function saveConfig() {
       const url = apiInput.value.trim();
-      const status = document.getElementById('status');
-      if (!url) {
-        status.textContent = '⚠️ أدخل رابط Google Apps Script أولاً';
-        return;
-      }
-      localStorage.setItem('bot_api_url', url);
+      if (!url) return setMsg("❌ حط رابط Web App أولاً", "#f87171");
+      localStorage.setItem("BOT_API_URL", url);
 
       const payload = {
-        ticketCategoryId: document.getElementById('ticketCategoryId').value,
-        mentionRoleIds: selectedRoles.join(','),
-        ticketMessage: document.getElementById('ticketMessage').value.trim(),
-        welcomeEnabled: document.getElementById('welcomeEnabled').checked,
-        welcomeChannelId: document.getElementById('welcomeChannelId').value,
-        welcomeMessage: document.getElementById('welcomeMessage').value.trim(),
-        goodbyeEnabled: document.getElementById('goodbyeEnabled').checked,
-        goodbyeChannelId: document.getElementById('goodbyeChannelId').value,
-        goodbyeMessage: document.getElementById('goodbyeMessage').value.trim(),
+        ticketCategoryId: document.getElementById("ticketCategoryId").value,
+        mentionRoleIds: getSelectedRoleIds(),
+        ticketMessage: document.getElementById("ticketMessage").value,
+        welcomeEnabled: document.getElementById("welcomeEnabled").checked,
+        welcomeChannelId: document.getElementById("welcomeChannelId").value,
+        welcomeMessage: document.getElementById("welcomeMessage").value,
+        goodbyeEnabled: document.getElementById("goodbyeEnabled").checked,
+        goodbyeChannelId: document.getElementById("goodbyeChannelId").value,
+        goodbyeMessage: document.getElementById("goodbyeMessage").value
       };
 
-      status.textContent = '⏳ جاري الحفظ...';
+      setMsg("⏳ جاري حفظ الإعدادات...");
       try {
-        const res = await fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(payload),
+        await fetch(url, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
         });
-        const data = await res.json();
-        status.textContent = data.ok ? '✅ تم حفظ الإعدادات بنجاح!' : '❌ فشل الحفظ';
-      } catch (e) {
-        status.textContent = '❌ خطأ أثناء الإرسال';
+        setMsg("✅ تم إرسال وحفظ الإعدادات بنجاح", "#4ade80");
+      } catch (err) {
+        setMsg("❌ فشل الحفظ: " + err.message, "#f87171");
       }
     }
+
+    apiInput.addEventListener("change", loadConfig);
+    window.addEventListener("DOMContentLoaded", () => {
+      if (apiInput.value.trim()) loadConfig();
+    });
   </script>
 </body>
 </html>
