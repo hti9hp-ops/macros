@@ -1,531 +1,1220 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>لوحة تحكم البوت والشكاوى - OS Shop</title>
-  <style>
-    :root {
-      --bg: #0f1117;
-      --card: #181b24;
-      --card-2: #202430;
-      --border: #2c3142;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
-      --primary: #5865f2;
-      --primary-hover: #4752c4;
-      --success: #23a55a;
-      --danger: #da373c;
-      --secondary: #4e5058;
-    }
-    * { box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      padding: 20px 14px 80px;
-      line-height: 1.6;
-    }
-    .container { max-width: 1120px; margin: 0 auto; }
-    .header {
-      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-      gap: 12px; background: var(--card); border: 1px solid var(--border);
-      padding: 16px 20px; border-radius: 14px; margin-bottom: 18px;
-    }
-    .header h1 { margin: 0; font-size: 20px; }
-    .status-bar { font-size: 13px; color: var(--muted); }
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 18px; margin-bottom: 18px;
-    }
-    .card h2 { margin: 0 0 14px; font-size: 17px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-    .form-group { margin-bottom: 12px; }
-    label { display: block; font-size: 13px; color: #d1d5db; margin-bottom: 5px; font-weight: 600; }
-    input[type="text"], textarea, select {
-      width: 100%; background: var(--card-2); color: var(--text);
-      border: 1px solid var(--border); border-radius: 9px; padding: 10px 12px; font-size: 14px;
-    }
-    textarea { min-height: 76px; resize: vertical; }
-    .roles-box {
-      display: flex; flex-wrap: wrap; gap: 8px; background: var(--card-2);
-      border: 1px solid var(--border); border-radius: 9px; padding: 10px;
-      max-height: 150px; overflow-y: auto;
-    }
-    .role-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: #2b3040; padding: 5px 10px; border-radius: 7px; font-size: 12.5px; cursor: pointer;
-    }
-    .role-chip input { margin: 0; cursor: pointer; }
-    .type-card {
-      background: var(--card-2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 15px; margin-bottom: 16px;
-    }
-    .type-header {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 10px; margin-bottom: 12px; flex-wrap: wrap;
-    }
-    .field-row {
-      background: var(--card); border: 1px dashed var(--border);
-      border-radius: 10px; padding: 12px; margin-bottom: 10px;
-    }
-    .btn {
-      border: none; border-radius: 9px; padding: 9px 14px; font-size: 13.5px;
-      font-weight: 600; cursor: pointer; color: #fff; transition: 0.15s;
-    }
-    .btn-primary { background: var(--primary); }
-    .btn-primary:hover { background: var(--primary-hover); }
-    .btn-success { background: var(--success); }
-    .btn-danger { background: var(--danger); }
-    .btn-secondary { background: #374151; }
-    .btn-sm { padding: 6px 11px; font-size: 12.5px; }
-    .actions-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-    .toast {
-      position: fixed; bottom: 18px; left: 18px; right: 18px; max-width: 520px; margin: 0 auto;
-      background: #1f2937; border: 1px solid var(--border); color: #fff;
-      padding: 12px 16px; border-radius: 10px; font-size: 14px; display: none; z-index: 999;
-    }
-    .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAME HUB | Control Center</title>
 
-    .preview-embed {
-      background: #2b2d31;
-      border-right: 4px solid var(--primary);
-      border-radius: 8px;
-      padding: 16px;
-      max-width: 560px;
-    }
-    .preview-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-    .preview-desc { font-size: 13.5px; color: #dbdee1; white-space: pre-line; margin-bottom: 12px; }
-    .preview-banner {
-      width: 100%; max-height: 220px; object-fit: cover;
-      border-radius: 8px; margin-bottom: 12px; display: none;
-    }
-    .preview-section { border-top: 1px solid #3f4147; padding-top: 10px; margin-top: 10px; }
-    .preview-sec-title { font-weight: 700; font-size: 14px; }
-    .preview-sec-desc { font-size: 12.5px; color: #b5bac1; margin: 3px 0 8px; }
-    .preview-btn {
-      display: inline-block; padding: 7px 14px; border-radius: 5px;
-      font-size: 13px; font-weight: 600; color: #fff;
-    }
-    .p-Success { background: var(--success); }
-    .p-Danger { background: var(--danger); }
-    .p-Primary { background: var(--primary); }
-    .p-Secondary { background: var(--secondary); }
-  </style>
+<style>
+:root {
+  --bg:#080b13;
+  --card:#111a2b;
+  --card2:#172238;
+  --border:rgba(148,163,184,.14);
+  --text:#f4f6ff;
+  --muted:#8996ad;
+  --primary:#647cff;
+  --success:#16b982;
+  --danger:#ef5268;
+  --warn:#f0ad4e;
+}
+
+* {
+  box-sizing:border-box;
+  font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+}
+
+html { scroll-behavior:smooth; }
+
+body {
+  margin:0;
+  padding:35px 22px;
+  min-height:100vh;
+  color:var(--text);
+  line-height:1.8;
+  background:
+    radial-gradient(ellipse at 10% 0%,rgba(75,99,220,.16),transparent 35%),
+    radial-gradient(ellipse at 95% 25%,rgba(35,105,170,.10),transparent 30%),
+    linear-gradient(145deg,#080b13,#0b1020 55%,#080b13);
+  background-attachment:fixed;
+}
+
+.wrap {
+  width:100%;
+  max-width:1250px;
+  margin:auto;
+  display:grid;
+  gap:24px;
+}
+
+.card {
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,rgba(20,29,47,.97),rgba(13,19,32,.98));
+  border:1px solid var(--border);
+  border-radius:21px;
+  padding:27px;
+  box-shadow:0 18px 55px rgba(0,0,0,.25);
+  transition:border-color .25s;
+}
+
+.card::before {
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:115px;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#8798ff);
+}
+
+.card:hover {
+  border-color:rgba(99,124,255,.25);
+}
+
+.top-bar {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+
+h1 {
+  font-size:clamp(23px,3vw,32px);
+  font-weight:900;
+  letter-spacing:-.7px;
+  margin:0 0 7px;
+  background:linear-gradient(100deg,#fff,#a8b8ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+h2 {
+  font-size:19px;
+  font-weight:800;
+  margin:0 0 20px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+h2::before {
+  content:"";
+  width:4px;
+  height:23px;
+  border-radius:5px;
+  background:var(--primary);
+  box-shadow:0 0 14px rgba(100,124,255,.65);
+}
+
+h3 {
+  font-size:16px;
+  font-weight:800;
+  margin:0;
+}
+
+.muted {
+  color:var(--muted);
+  font-size:13px;
+}
+
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:11px;
+  margin-top:15px;
+}
+
+button {
+  width:auto;
+  min-height:43px;
+  padding:10px 19px;
+  border:1px solid transparent;
+  border-radius:11px;
+  color:white;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .22s ease;
+}
+
+button:hover {
+  transform:translateY(-2px);
+  filter:brightness(1.12);
+}
+
+button:active {
+  transform:scale(.97);
+}
+
+.btn-primary {
+  background:linear-gradient(135deg,#647cff,#4759d8);
+  border-color:#7588ff;
+  box-shadow:0 5px 18px rgba(88,101,242,.22);
+}
+
+.btn-success {
+  background:linear-gradient(135deg,#16b982,#078a67);
+  box-shadow:0 5px 18px rgba(22,185,130,.15);
+}
+
+.btn-danger {
+  background:linear-gradient(135deg,#ef5268,#bd304a);
+}
+
+.btn-secondary {
+  background:linear-gradient(135deg,#263550,#1b2840);
+  border-color:rgba(148,163,184,.2);
+  color:#dce5ff;
+}
+
+.field { margin-bottom:19px; }
+
+label {
+  display:block;
+  margin-bottom:8px;
+  color:#dce5f7;
+  font-size:13px;
+  font-weight:750;
+}
+
+input,select,textarea {
+  width:100%;
+  min-height:45px;
+  padding:12px 14px;
+  background:#0b1221;
+  color:var(--text);
+  border:1px solid #27344b;
+  border-radius:11px;
+  outline:none;
+  font-size:13px;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+
+input:hover,select:hover,textarea:hover {
+  border-color:#455b83;
+}
+
+input:focus,select:focus,textarea:focus {
+  border-color:var(--primary);
+  background:#101a30;
+  box-shadow:0 0 0 3px rgba(100,124,255,.13);
+}
+
+textarea {
+  resize:vertical;
+  min-height:85px;
+}
+
+input[type="checkbox"] {
+  width:16px;
+  min-height:auto;
+  height:16px;
+  padding:0;
+  accent-color:var(--primary);
+  cursor:pointer;
+  vertical-align:middle;
+}
+
+::placeholder { color:#64718a; }
+
+.grid-2 {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:17px;
+}
+
+/* STATISTICS */
+
+.stats-grid {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:13px;
+  margin-top:20px;
+}
+
+.stat-box {
+  position:relative;
+  overflow:hidden;
+  min-height:112px;
+  padding:19px 15px;
+  background:linear-gradient(145deg,#19253b,#101a2c);
+  border:1px solid rgba(133,155,205,.14);
+  border-radius:15px;
+  transition:all .25s ease;
+}
+
+.stat-box:hover {
+  transform:translateY(-4px);
+  border-color:rgba(100,124,255,.55);
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+.stat-box::after {
+  content:"";
+  position:absolute;
+  width:65px;
+  height:65px;
+  bottom:-35px;
+  left:-15px;
+  border-radius:50%;
+  background:rgba(100,124,255,.09);
+  filter:blur(2px);
+}
+
+.stat-num {
+  position:relative;
+  z-index:1;
+  margin-top:8px;
+  font-size:clamp(22px,2.5vw,30px);
+  font-weight:900;
+  color:#91a4ff;
+  letter-spacing:-.5px;
+}
+
+/* ROLES */
+
+.role-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  max-height:190px;
+  overflow-y:auto;
+  padding:14px;
+  background:#0b1220;
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+
+.role-chip {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  background:#172238;
+  border:1px solid #2a3a57;
+  border-radius:9px;
+  color:#dce5f7;
+  font-size:12px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.role-chip:hover {
+  background:#243555;
+  border-color:var(--primary);
+}
+
+.role-chip input {
+  width:auto;
+  min-height:auto;
+  height:auto;
+  margin:0;
+}
+
+/* TICKET TYPES */
+
+.type-card {
+  position:relative;
+  margin-top:20px;
+  padding:22px;
+  background:linear-gradient(145deg,#131e32,#0d1627);
+  border:1px solid #293954;
+  border-radius:16px;
+  transition:border-color .25s,box-shadow .25s;
+}
+
+.type-card:hover {
+  border-color:rgba(100,124,255,.45);
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.type-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+  padding-bottom:15px;
+  border-bottom:1px solid var(--border);
+}
+
+.type-head h3 { color:#aebdff; }
+
+/* QUESTIONS */
+
+.question-row {
+  margin-top:12px;
+  padding:17px;
+  background:#0b1322;
+  border:1px solid #26354d;
+  border-radius:13px;
+}
+
+.question-row label { margin-bottom:8px; }
+
+/* DISCORD PREVIEW */
+
+.preview-card {
+  padding:22px;
+  background:#1e1f22;
+  border:1px solid #36383e;
+  border-right:4px solid #647cff;
+  border-radius:14px;
+  box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
+
+.preview-card h3 {
+  font-size:18px;
+  color:#fff;
+  margin-bottom:8px;
+}
+
+.preview-banner {
+  width:100%;
+  max-height:250px;
+  object-fit:cover;
+  border-radius:11px;
+  margin-bottom:16px;
+  display:none;
+}
+
+#previewSections > div {
+  border-top:1px solid #383b43 !important;
+  padding-top:15px !important;
+  margin-top:15px !important;
+}
+
+#previewSections span {
+  box-shadow:0 3px 10px rgba(88,101,242,.2);
+}
+
+#previewNotes {
+  background:#111318 !important;
+  border:1px solid #30333b;
+  color:#d5d8df;
+  font-family:Tahoma,Arial,sans-serif;
+  font-size:13px;
+}
+
+/* TABLE */
+
+table {
+  width:100%;
+  margin-top:20px;
+  border-collapse:separate;
+  border-spacing:0;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:13px;
+  font-size:13px;
+}
+
+th,td {
+  padding:14px 12px;
+  text-align:right;
+  border:none;
+  border-bottom:1px solid var(--border);
+}
+
+th {
+  background:#1b2942;
+  color:#aebdff;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+td {
+  background:#101a2b;
+  color:#dce5f7;
+}
+
+tbody tr:last-child td { border-bottom:none; }
+
+tbody tr:hover td { background:#192640; }
+
+/* TOAST */
+
+.toast {
+  position:fixed;
+  bottom:25px;
+  left:25px;
+  z-index:9999;
+  max-width:calc(100vw - 40px);
+  padding:14px 22px;
+  background:linear-gradient(135deg,#1b2b47,#101a2e);
+  color:#fff;
+  border:1px solid #536caa;
+  border-radius:12px;
+  box-shadow:0 10px 35px rgba(0,0,0,.4);
+  font-size:13px;
+  font-weight:700;
+  display:none;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+  width:7px;
+  height:7px;
+}
+
+::-webkit-scrollbar-track { background:#0a1020; }
+
+::-webkit-scrollbar-thumb {
+  background:#34476c;
+  border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover { background:#647cff; }
+
+/* RESPONSIVE */
+
+@media(max-width:900px) {
+  .stats-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  .wrap { max-width:100%; }
+}
+
+@media(max-width:600px) {
+  body { padding:14px 10px; }
+
+  .wrap { gap:15px; }
+
+  .card {
+    padding:17px 14px;
+    border-radius:15px;
+  }
+
+  .top-bar { align-items:stretch; }
+
+  .top-bar .actions {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .top-bar .actions button {
+    width:100%;
+    padding:10px 7px;
+    font-size:11px;
+  }
+
+  .grid-2 {
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+
+  .stats-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+
+  .stat-box {
+    min-height:100px;
+    padding:13px 11px;
+  }
+
+  .stat-num { font-size:24px; }
+
+  .type-card { padding:15px 12px; }
+
+  .type-head { align-items:flex-start; }
+
+  .type-head button {
+    padding:8px 10px;
+    font-size:11px;
+  }
+
+  .actions button { max-width:100%; }
+
+  table {
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+  .preview-card { padding:15px; }
+
+  .toast {
+    bottom:12px;
+    left:12px;
+    right:12px;
+    max-width:none;
+    text-align:center;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    scroll-behavior:auto !important;
+    transition:none !important;
+  }
+}
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="header">
+<div class="wrap">
+
+  <div class="card">
+    <div class="top-bar">
       <div>
-        <h1>لوحة تحكم الشكاوى والتذاكر</h1>
-        <div class="status-bar" id="syncStatus">جاري تحميل البيانات...</div>
+        <h1>GAME HUB | Control Center</h1>
+        <div class="muted" id="metaSummary">الرولات: 0 | الرومات: 0 | الكاتكوريات: 0 | آخر مزامنة: -</div>
       </div>
-      <div class="actions-row">
-        <button class="btn btn-secondary btn-sm" onclick="loadData()">تحديث البيانات</button>
-        <button class="btn btn-success" onclick="saveAllConfig()">حفظ كل الإعدادات</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>إعدادات رسالة فتح الشكوى وسجل الشكاوى</h2>
-      <div class="grid-2">
-        <div class="form-group">
-          <label>روم إرسال لوحة أنواع الشكاوى</label>
-          <select id="panelChannelId" onchange="syncFormToState()"></select>
-        </div>
-        <div class="form-group">
-          <label>روم تسجيل الشكاوى (السجل والأرشيف)</label>
-          <select id="logChannelId" onchange="syncFormToState()"></select>
-        </div>
-      </div>
-      <div class="grid-2">
-        <div class="form-group">
-          <label>عنوان اللوحة</label>
-          <input type="text" id="panelTitle" oninput="syncFormToState()" placeholder="اكتب عنوان اللوحة..." />
-        </div>
-        <div class="form-group">
-          <label>رابط صورة البانر (اختياري)</label>
-          <input type="text" id="panelImageUrl" oninput="syncFormToState()" placeholder="https://..." />
-        </div>
-      </div>
-      <div class="form-group">
-        <label>شرح عام يظهر في اللوحة</label>
-        <textarea id="panelDescription" oninput="syncFormToState()" placeholder="اكتب الشرح العام الذي تريده..."></textarea>
+      <div class="actions">
+        <button class="btn-secondary" onclick="loadFromServer()">تحديث البيانات</button>
+        <button class="btn-success" onclick="saveAllConfig()">حفظ كل الإعدادات</button>
       </div>
     </div>
 
-    <div class="card">
-      <h2>معاينة شكل اللوحة في الديسكورد</h2>
-      <div class="preview-embed" id="panelPreview"></div>
-    </div>
-
-    <div class="card">
-      <div class="type-header">
-        <h2 style="border:none; margin:0; padding:0;">أنواع الشكاوى والحقول والصلاحيات</h2>
-        <button class="btn btn-primary btn-sm" onclick="addTicketType()">+ إضافة نوع شكوى جديد</button>
-      </div>
-      <div class="hint" style="margin-bottom:14px;">
-        الحد الأقصى للحقول في النافذة المنبثقة بديسكورد هو 5 حقول لكل نوع. يمكنك تعديل أو حذف أو إضافة أي نوع وحقل.
-      </div>
-      <div id="ticketTypesContainer"></div>
-    </div>
-
-    <div class="card">
-      <h2>رسائل الترحيب والتوديع</h2>
-      <div class="grid-2">
-        <div class="form-group">
-          <label><input type="checkbox" id="welcomeEnabled" onchange="syncFormToState()" /> تفعيل رسالة الترحيب</label>
-          <select id="welcomeChannelId" onchange="syncFormToState()" style="margin-top:6px;"></select>
-          <textarea id="welcomeMessage" oninput="syncFormToState()" style="margin-top:8px;"></textarea>
-        </div>
-        <div class="form-group">
-          <label><input type="checkbox" id="goodbyeEnabled" onchange="syncFormToState()" /> تفعيل رسالة التوديع</label>
-          <select id="goodbyeChannelId" onchange="syncFormToState()" style="margin-top:6px;"></select>
-          <textarea id="goodbyeMessage" oninput="syncFormToState()" style="margin-top:8px;"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="actions-row" style="justify-content:flex-end;">
-      <button class="btn btn-success" onclick="saveAllConfig()">حفظ كل الإعدادات</button>
+    <div class="field" style="margin-top:20px;">
+      <label for="scriptUrl">رابط Google Apps Script Web App</label>
+      <input id="scriptUrl" type="url" value="https://script.google.com/macros/s/AKfycbw_SB2nIGrRzgu-KoE_v4yMLJPYWrYBnxWdDF8eUhS5yIixFdUrpf-U8iufK3bIdp0EFQ/exec" placeholder="https://script.google.com/macros/s/.../exec" onchange="onScriptUrlChange()" />
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div class="card">
+    <h2>إحصائيات الشكاوى والإداريين</h2>
+    <div class="muted" id="statsUpdatedAt">بانتظار مزامنة الإحصائيات من البوت...</div>
 
-  <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxBbOc5hpNnY0ZuxPot0wy5wS10D4rcMQYNCkaGfGW7LfD_qyHu9wJ8V0lRedZI7P3G4Q/exec';
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="muted">إجمالي الشكاوى</div>
+        <div class="stat-num" id="statTotal">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="muted">المفتوحة</div>
+        <div class="stat-num" id="statOpen">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="muted">المغلقة</div>
+        <div class="stat-num" id="statClosed">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="muted">متوسط الاستلام</div>
+        <div class="stat-num" id="statAvgClaim">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="muted">متوسط المعالجة</div>
+        <div class="stat-num" id="statAvgTotal">-</div>
+      </div>
+    </div>
 
-    let state = {
-      config: {
-        panelChannelId: '',
-        panelImageUrl: '',
-        panelTitle: '',
-        panelDescription: '',
-        logChannelId: '',
-        ticketTypes: [],
-        welcomeEnabled: true,
-        welcomeChannelId: '',
-        welcomeMessage: '',
-        goodbyeEnabled: true,
-        goodbyeChannelId: '',
-        goodbyeMessage: ''
-      },
-      meta: { categories: [], channels: [], roles: [], updatedAt: '' }
-    };
+    <div id="staffStatsTableWrap"></div>
+  </div>
 
-    function showToast(msg, isError = false) {
-      const el = document.getElementById('toast');
-      el.textContent = msg;
-      el.style.borderColor = isError ? 'var(--danger)' : 'var(--success)';
-      el.style.display = 'block';
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => { el.style.display = 'none'; }, 3500);
-    }
+  <div class="card">
+    <h2>إعدادات رسالة فتح الشكوى وسجل الشكاوى والإحصائيات</h2>
 
-    function fillSelect(selectId, items, selectedValue, emptyLabel = '-- اختر --') {
-      const sel = document.getElementById(selectId);
-      sel.innerHTML = `<option value="">${emptyLabel}</option>`;
-      (items || []).forEach(item => {
-        const opt = document.createElement('option');
-        opt.value = item.id;
-        opt.textContent = item.name;
-        if (item.id === selectedValue) opt.selected = true;
-        sel.appendChild(opt);
-      });
-    }
+    <div class="grid-2">
+      <div class="field">
+        <label for="panelChannelId">روم إرسال لوحة أنواع الشكاوى</label>
+        <select id="panelChannelId" onchange="updatePreview()"></select>
+      </div>
 
-    function renderRoleChips(container, roles, selectedIds, onToggle) {
-      container.innerHTML = '';
-      if (!roles || !roles.length) {
-        container.innerHTML = '<span class="hint">لا توجد رولات مزامنة بعد</span>';
-        return;
+      <div class="field">
+        <label for="logChannelId">روم تسجيل الشكاوى (السجل والأرشيف)</label>
+        <select id="logChannelId"></select>
+      </div>
+
+      <div class="field">
+        <label for="statsChannelId">روم الإحصائيات التلقائية (كل 24 ساعة)</label>
+        <select id="statsChannelId"></select>
+      </div>
+
+      <div class="field">
+        <label for="panelTitle">عنوان اللوحة</label>
+        <input id="panelTitle" type="text" placeholder="إنشاء تذكرة" oninput="updatePreview()" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="panelImageUrl">رابط صورة البنر (اختياري)</label>
+      <input id="panelImageUrl" type="url" placeholder="https://..." oninput="updatePreview()" />
+    </div>
+
+    <div class="field">
+      <label for="panelDescription">شرح عام يظهر في اللوحة</label>
+      <textarea id="panelDescription" rows="3" placeholder="اكتب وصف اللوحة العام..." oninput="updatePreview()"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="panelNotes">ملاحظات / قواعد أسفل اللوحة (اختياري)</label>
+      <textarea id="panelNotes" rows="3" placeholder="1. لن يتم قبول الشكاوى المقدمة من طرف ثالث..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>رولات صلاحية إعادة فتح الشكوى (اختياري - الأدمن يملكها تلقائياً)</label>
+      <div class="role-list" id="reopenRolesBox"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>أنواع الشكاوى والأقسام</h2>
+    <div class="muted">كل قسم يظهر بعنوانه وشرحه وزر الفتح الخاص به.</div>
+    <div id="ticketTypesContainer"></div>
+    <div class="actions">
+      <button class="btn-primary" onclick="addTicketType()">+ إضافة نوع شكوى جديد</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>رسائل الترحيب والمغادرة</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label><input id="welcomeEnabled" type="checkbox" style="width:auto;" /> تفعيل رسالة الترحيب</label>
+        <label for="welcomeChannelId">روم الترحيب</label>
+        <select id="welcomeChannelId"></select>
+        <label for="welcomeMessage" style="margin-top:8px;">نص الترحيب ({user}, {tag}, {server}, {count})</label>
+        <textarea id="welcomeMessage" rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label><input id="goodbyeEnabled" type="checkbox" style="width:auto;" /> تفعيل رسالة المغادرة</label>
+        <label for="goodbyeChannelId">روم المغادرة</label>
+        <select id="goodbyeChannelId"></select>
+        <label for="goodbyeMessage" style="margin-top:8px;">نص المغادرة ({tag}, {server}, {count})</label>
+        <textarea id="goodbyeMessage" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>معاينة شكل اللوحة في الديسكورد</h2>
+    <div class="preview-card">
+      <img id="previewBanner" class="preview-banner" alt="Banner Preview" />
+      <h3 id="previewTitle">إنشاء تذكرة</h3>
+      <div id="previewDesc" class="muted" style="white-space:pre-line;"></div>
+      <div id="previewSections" style="margin-top:12px;"></div>
+      <pre id="previewNotes" style="display:none;background:#111214;padding:10px;border-radius:8px;margin-top:12px;white-space:pre-wrap;"></pre>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'os_ticket_dashboard_script_url_v2';
+const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_SB2nIGrRzgu-KoE_v4yMLJPYWrYBnxWdDF8eUhS5yIixFdUrpf-U8iufK3bIdp0EFQ/exec';
+
+let guildMeta = {
+  categories: [],
+  channels: [],
+  roles: [],
+  statsSummary: null
+};
+
+let stateConfig = {
+  panelChannelId: '',
+  logChannelId: '',
+  statsChannelId: '',
+  reopenRoleIds: [],
+  panelTitle: 'إنشاء تذكرة',
+  panelImageUrl: '',
+  panelDescription: '',
+  panelNotes: '',
+  ticketTypes: [],
+  welcomeEnabled: false,
+  welcomeChannelId: '',
+  welcomeMessage: 'أهلاً بك {user} في {server}!',
+  goodbyeEnabled: false,
+  goodbyeChannelId: '',
+  goodbyeMessage: 'وداعاً {tag}، عدد الأعضاء الآن: {count}'
+};
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => {
+    t.style.display = 'none';
+  }, 3000);
+}
+
+function getScriptUrl() {
+  return document.getElementById('scriptUrl').value.trim();
+}
+
+function onScriptUrlChange() {
+  const url = getScriptUrl();
+  if (url) localStorage.setItem(STORAGE_KEY, url);
+}
+
+function populateChannelSelect(selectId, selectedValue) {
+  const sel = document.getElementById(selectId);
+  sel.innerHTML = '<option value="">-- اختر الروم --</option>';
+
+  for (const ch of (guildMeta.channels || [])) {
+    const opt = document.createElement('option');
+    opt.value = ch.id;
+    opt.textContent = ch.name;
+    if (String(ch.id) === String(selectedValue)) opt.selected = true;
+    sel.appendChild(opt);
+  }
+}
+
+function renderRoleChips(containerId, selectedIds) {
+  const box = document.getElementById(containerId);
+  box.innerHTML = '';
+  const set = new Set((selectedIds || []).map(String));
+
+  for (const role of (guildMeta.roles || [])) {
+    const label = document.createElement('label');
+    label.className = 'role-chip';
+
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.value = role.id;
+    cb.checked = set.has(String(role.id));
+    cb.onchange = () => syncFormToState();
+
+    const span = document.createElement('span');
+    span.textContent = role.name;
+
+    label.appendChild(cb);
+    label.appendChild(span);
+    box.appendChild(label);
+  }
+}
+
+function getCheckedRoleIds(containerId) {
+  return [...document.querySelectorAll(`#${containerId} input[type="checkbox"]:checked`)].map(i => i.value);
+}
+
+function renderStatsSummary() {
+  const s = guildMeta.statsSummary;
+  if (!s) return;
+
+  document.getElementById('statTotal').textContent = s.totalTickets ?? 0;
+  document.getElementById('statOpen').textContent = s.openTickets ?? 0;
+  document.getElementById('statClosed').textContent = s.closedTickets ?? 0;
+  document.getElementById('statAvgClaim').textContent = s.avgClaimDuration || '-';
+  document.getElementById('statAvgTotal').textContent = s.avgTotalDuration || '-';
+
+  document.getElementById('statsUpdatedAt').textContent = s.updatedAt
+    ? 'آخر تحديث من البوت: ' + new Date(s.updatedAt).toLocaleString('ar-IQ')
+    : '';
+
+  const staffList = s.staffList || [];
+
+  if (!staffList.length) {
+    document.getElementById('staffStatsTableWrap').innerHTML =
+      '<div class="muted" style="margin-top:10px;">لا توجد بيانات إداريين بعد.</div>';
+    return;
+  }
+
+  const rowsHtml = staffList.map(st => `
+    <tr>
+      <td>${escapeHtml(st.tag || st.id)}</td>
+      <td>${st.claimedCount ?? 0}</td>
+      <td>${st.closedCount ?? 0}</td>
+      <td>${st.avgRating ? `${st.avgRating} / 5 (${st.ratingsCount})` : '-'}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('staffStatsTableWrap').innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>الإداري</th>
+          <th>الشكاوى المستلمة</th>
+          <th>الشكاوى المغلقة</th>
+          <th>متوسط التقييم</th>
+        </tr>
+      </thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>
+  `;
+}
+
+function escapeHtml(v = '') {
+  return String(v)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function addTicketType() {
+  syncFormToState();
+
+  const idx = stateConfig.ticketTypes.length + 1;
+
+  stateConfig.ticketTypes.push({
+    id: 'type_' + Date.now() + '_' + idx,
+    sectionTitle: 'قسم جديد ' + idx,
+    sectionDescription: 'وصف هذا النوع من الشكاوى',
+    buttonLabel: 'فتح شكوى',
+    buttonStyle: 'Primary',
+    categoryId: '',
+    staffRoleIds: [],
+    allowedRoleIds: [],
+    evidenceNote: '',
+    fields: [
+      {
+        label: 'تفاصيل الشكوى',
+        placeholder: 'اكتب التفاصيل هنا',
+        style: 'Paragraph',
+        required: true
       }
-      roles.forEach(role => {
-        const label = document.createElement('label');
-        label.className = 'role-chip';
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.checked = Array.isArray(selectedIds) && selectedIds.includes(role.id);
-        cb.addEventListener('change', () => onToggle(role.id, cb.checked));
-        label.appendChild(cb);
-        label.appendChild(document.createTextNode(role.name));
-        container.appendChild(label);
-      });
-    }
+    ]
+  });
 
-    function renderPreview() {
-      const c = state.config;
-      const box = document.getElementById('panelPreview');
-      const imgHtml = (c.panelImageUrl && /^https?:\/\//i.test(c.panelImageUrl.trim()))
-        ? `<img class="preview-banner" style="display:block;" src="${c.panelImageUrl.trim()}" alt="banner" onerror="this.style.display='none'" />`
-        : '';
+  renderTicketTypes();
+  updatePreview();
+}
 
-      const sectionsHtml = (c.ticketTypes || []).map(t => `
-        <div class="preview-section">
-          <div class="preview-sec-title">${t.sectionTitle || 'عنوان النوع'}</div>
-          <div class="preview-sec-desc">${t.sectionDescription || ''}</div>
-          <span class="preview-btn p-${t.buttonStyle || 'Primary'}">${t.buttonLabel || 'فتح شكوى'}</span>
-        </div>
-      `).join('');
+function removeTicketType(index) {
+  syncFormToState();
+  stateConfig.ticketTypes.splice(index, 1);
+  renderTicketTypes();
+  updatePreview();
+}
 
-      box.innerHTML = `
-        ${imgHtml}
-        <div class="preview-title">${c.panelTitle || 'عنوان اللوحة'}</div>
-        <div class="preview-desc">${c.panelDescription || ''}</div>
-        ${sectionsHtml || '<div class="hint">أضف نوع شكوى لمعاينة الأزرار.</div>'}
+function addQuestion(typeIndex) {
+  syncFormToState();
+
+  const t = stateConfig.ticketTypes[typeIndex];
+  if (!t.fields) t.fields = [];
+
+  if (t.fields.length >= 5) {
+    showToast('الحد الأقصى 5 أسئلة في كل نموذج');
+    return;
+  }
+
+  t.fields.push({
+    label: 'سؤال إضافي',
+    placeholder: 'اكتب الإجابة',
+    style: 'Short',
+    required: true
+  });
+
+  renderTicketTypes();
+}
+
+function removeQuestion(typeIndex, qIndex) {
+  syncFormToState();
+  stateConfig.ticketTypes[typeIndex].fields.splice(qIndex, 1);
+  renderTicketTypes();
+}
+
+function renderTicketTypes() {
+  const container = document.getElementById('ticketTypesContainer');
+  container.innerHTML = '';
+
+  (stateConfig.ticketTypes || []).forEach((t, idx) => {
+    const card = document.createElement('div');
+    card.className = 'type-card';
+
+    const catOptions = ['<option value="">-- بدون كاتكوري --</option>'].concat(
+      (guildMeta.categories || []).map(c =>
+        `<option value="${c.id}" ${String(c.id) === String(t.categoryId) ? 'selected' : ''}>${escapeHtml(c.name)}</option>`
+      )
+    ).join('');
+
+    const staffChips = (guildMeta.roles || []).map(r => {
+      const checked = (t.staffRoleIds || []).includes(String(r.id)) ? 'checked' : '';
+
+      return `
+        <label class="role-chip">
+          <input type="checkbox" data-role-type="staff" data-type-idx="${idx}" value="${r.id}" ${checked} onchange="syncFormToState()" />
+          <span>${escapeHtml(r.name)}</span>
+        </label>
       `;
-    }
+    }).join('');
 
-    function syncFormToState() {
-      state.config.panelChannelId = document.getElementById('panelChannelId').value;
-      state.config.logChannelId = document.getElementById('logChannelId').value;
-      state.config.panelTitle = document.getElementById('panelTitle').value;
-      state.config.panelImageUrl = document.getElementById('panelImageUrl').value;
-      state.config.panelDescription = document.getElementById('panelDescription').value;
-
-      state.config.welcomeEnabled = document.getElementById('welcomeEnabled').checked;
-      state.config.welcomeChannelId = document.getElementById('welcomeChannelId').value;
-      state.config.welcomeMessage = document.getElementById('welcomeMessage').value;
-
-      state.config.goodbyeEnabled = document.getElementById('goodbyeEnabled').checked;
-      state.config.goodbyeChannelId = document.getElementById('goodbyeChannelId').value;
-      state.config.goodbyeMessage = document.getElementById('goodbyeMessage').value;
-
-      renderPreview();
-    }
-
-    function addTicketType() {
-      if (!Array.isArray(state.config.ticketTypes)) state.config.ticketTypes = [];
-      state.config.ticketTypes.push({
-        id: 'type_' + Date.now(),
-        sectionTitle: '',
-        sectionDescription: '',
-        buttonLabel: '',
-        buttonStyle: 'Primary',
-        categoryId: '',
-        allowedRoleIds: [],
-        staffRoleIds: [],
-        evidenceNote: '',
-        fields: []
-      });
-      renderTicketTypes();
-      renderPreview();
-    }
-
-    function removeTicketType(idx) {
-      state.config.ticketTypes.splice(idx, 1);
-      renderTicketTypes();
-      renderPreview();
-    }
-
-    function addField(typeIdx) {
-      const t = state.config.ticketTypes[typeIdx];
-      if (!t.fields) t.fields = [];
-      if (t.fields.length >= 5) {
-        showToast('الحد الأقصى هو 5 حقول لكل نوع شكوى في ديسكورد', true);
-        return;
-      }
-      t.fields.push({ label: '', placeholder: '', style: 'Short', required: true });
-      renderTicketTypes();
-    }
-
-    function removeField(typeIdx, fieldIdx) {
-      state.config.ticketTypes[typeIdx].fields.splice(fieldIdx, 1);
-      renderTicketTypes();
-    }
-
-    function renderTicketTypes() {
-      const container = document.getElementById('ticketTypesContainer');
-      container.innerHTML = '';
-      const list = state.config.ticketTypes || [];
-
-      list.forEach((t, tIdx) => {
-        const card = document.createElement('div');
-        card.className = 'type-card';
-
-        card.innerHTML = `
-          <div class="type-header">
-            <strong>نوع الشكوى #${tIdx + 1}${t.sectionTitle ? ': ' + t.sectionTitle : ''}</strong>
-            <button class="btn btn-danger btn-sm" onclick="removeTicketType(${tIdx})">حذف النوع</button>
+    const questionsHtml = (t.fields || []).map((q, qIdx) => `
+      <div class="question-row">
+        <div class="grid-2">
+          <div>
+            <label>عنوان السؤال</label>
+            <input type="text" data-q-field="label" data-type-idx="${idx}" data-q-idx="${qIdx}" value="${escapeHtml(q.label)}" oninput="syncFormToState()" />
           </div>
-          <div class="grid-2">
-            <div class="form-group">
-              <label>عنوان القسم / نوع الشكوى</label>
-              <input type="text" value="${t.sectionTitle || ''}" oninput="state.config.ticketTypes[${tIdx}].sectionTitle = this.value; renderPreview();" />
-            </div>
-            <div class="form-group">
-              <label>الكاتكوري الذي يُفتح فيه روم الشكوى</label>
-              <select id="cat_select_${tIdx}" onchange="state.config.ticketTypes[${tIdx}].categoryId = this.value"></select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>شرح نوع الشكوى</label>
-            <input type="text" value="${t.sectionDescription || ''}" oninput="state.config.ticketTypes[${tIdx}].sectionDescription = this.value; renderPreview();" />
-          </div>
-          <div class="grid-2">
-            <div class="form-group">
-              <label>نص الزر</label>
-              <input type="text" value="${t.buttonLabel || ''}" oninput="state.config.ticketTypes[${tIdx}].buttonLabel = this.value; renderPreview();" />
-            </div>
-            <div class="form-group">
-              <label>لون الزر</label>
-              <select onchange="state.config.ticketTypes[${tIdx}].buttonStyle = this.value; renderPreview();">
-                <option value="Success" ${t.buttonStyle === 'Success' ? 'selected' : ''}>أخضر (Success)</option>
-                <option value="Danger" ${t.buttonStyle === 'Danger' ? 'selected' : ''}>أحمر (Danger)</option>
-                <option value="Primary" ${t.buttonStyle === 'Primary' ? 'selected' : ''}>أزرق (Primary)</option>
-                <option value="Secondary" ${t.buttonStyle === 'Secondary' ? 'selected' : ''}>رمادي (Secondary)</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>الرولات المسموح لها رؤية وتقديم هذا النوع (إذا تركته فارغ يظهر للجميع)</label>
-            <div class="roles-box" id="allowed_roles_${tIdx}"></div>
-          </div>
-          <div class="form-group">
-            <label>الرولات الإدارية التي تظهر عندها الشكوى وتستطيع استلامها وإغلاقها</label>
-            <div class="roles-box" id="staff_roles_${tIdx}"></div>
-          </div>
-          <div class="form-group">
-            <label>ملاحظة إضافية داخل إيمبد الشكوى المفتوحة (اختياري)</label>
-            <textarea oninput="state.config.ticketTypes[${tIdx}].evidenceNote = this.value">${t.evidenceNote || ''}</textarea>
-          </div>
-          <div class="form-group">
-            <div class="type-header">
-              <label style="margin:0;">الحقول والأسئلة التي تظهر للمستخدم عند الضغط على الزر</label>
-              <button class="btn btn-primary btn-sm" onclick="addField(${tIdx})">+ إضافة حقل</button>
-            </div>
-            <div id="fields_container_${tIdx}"></div>
-          </div>
-        `;
 
-        container.appendChild(card);
+          <div>
+            <label>نص التوضيح (Placeholder)</label>
+            <input type="text" data-q-field="placeholder" data-type-idx="${idx}" data-q-idx="${qIdx}" value="${escapeHtml(q.placeholder)}" oninput="syncFormToState()" />
+          </div>
 
-        const catSel = document.getElementById(`cat_select_${tIdx}`);
-        catSel.innerHTML = '<option value="">-- اختر كاتكوري --</option>';
-        (state.meta.categories || []).forEach(c => {
-          const opt = document.createElement('option');
-          opt.value = c.id;
-          opt.textContent = c.name;
-          if (c.id === t.categoryId) opt.selected = true;
-          catSel.appendChild(opt);
-        });
+          <div>
+            <label>نوع الحقل</label>
+            <select data-q-field="style" data-type-idx="${idx}" data-q-idx="${qIdx}" onchange="syncFormToState()">
+              <option value="Short" ${q.style !== 'Paragraph' ? 'selected' : ''}>سطر قصير</option>
+              <option value="Paragraph" ${q.style === 'Paragraph' ? 'selected' : ''}>فقرة طويلة</option>
+            </select>
+          </div>
 
-        renderRoleChips(
-          document.getElementById(`allowed_roles_${tIdx}`),
-          state.meta.roles,
-          t.allowedRoleIds || [],
-          (roleId, checked) => {
-            t.allowedRoleIds = t.allowedRoleIds || [];
-            if (checked && !t.allowedRoleIds.includes(roleId)) t.allowedRoleIds.push(roleId);
-            if (!checked) t.allowedRoleIds = t.allowedRoleIds.filter(id => id !== roleId);
-          }
-        );
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px;">
+            <label style="margin:0;">
+              <input type="checkbox" data-q-field="required" data-type-idx="${idx}" data-q-idx="${qIdx}" ${q.required !== false ? 'checked' : ''} onchange="syncFormToState()" style="width:auto;" />
+              مطلوب
+            </label>
 
-        renderRoleChips(
-          document.getElementById(`staff_roles_${tIdx}`),
-          state.meta.roles,
-          t.staffRoleIds || [],
-          (roleId, checked) => {
-            t.staffRoleIds = t.staffRoleIds || [];
-            if (checked && !t.staffRoleIds.includes(roleId)) t.staffRoleIds.push(roleId);
-            if (!checked) t.staffRoleIds = t.staffRoleIds.filter(id => id !== roleId);
-          }
-        );
+            <button class="btn-danger" type="button" onclick="removeQuestion(${idx}, ${qIdx})">حذف السؤال</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
 
-        const fieldsBox = document.getElementById(`fields_container_${tIdx}`);
-        (t.fields || []).forEach((f, fIdx) => {
-          const fDiv = document.createElement('div');
-          fDiv.className = 'field-row';
-          fDiv.innerHTML = `
-            <div class="type-header" style="margin-bottom:8px;">
-              <span>حقل #${fIdx + 1}</span>
-              <button class="btn btn-danger btn-sm" onclick="removeField(${tIdx}, ${fIdx})">حذف الحقل</button>
-            </div>
-            <div class="grid-2">
-              <div class="form-group">
-                <label>النص الذي يُكتب فوق الحقل (العنوان/السؤال)</label>
-                <input type="text" value="${f.label || ''}" oninput="state.config.ticketTypes[${tIdx}].fields[${fIdx}].label = this.value" />
-              </div>
-              <div class="form-group">
-                <label>النص التوضيحي داخل الحقل (Placeholder)</label>
-                <input type="text" value="${f.placeholder || ''}" oninput="state.config.ticketTypes[${tIdx}].fields[${fIdx}].placeholder = this.value" />
-              </div>
-            </div>
-            <div class="grid-2">
-              <div class="form-group">
-                <label>نوع الإدخال</label>
-                <select onchange="state.config.ticketTypes[${tIdx}].fields[${fIdx}].style = this.value">
-                  <option value="Short" ${f.style !== 'Paragraph' ? 'selected' : ''}>سطر قصير (Short)</option>
-                  <option value="Paragraph" ${f.style === 'Paragraph' ? 'selected' : ''}>نص طويل / فقرة (Paragraph)</option>
-                </select>
-              </div>
-              <div class="form-group" style="display:flex; align-items:flex-end;">
-                <label><input type="checkbox" ${f.required !== false ? 'checked' : ''} onchange="state.config.ticketTypes[${tIdx}].fields[${fIdx}].required = this.checked" /> حقل إجباري</label>
-              </div>
-            </div>
-          `;
-          fieldsBox.appendChild(fDiv);
-        });
-      });
+    card.innerHTML = `
+      <div class="type-head">
+        <h3>القسم #${idx + 1}: ${escapeHtml(t.sectionTitle || '')}</h3>
+        <button class="btn-danger" type="button" onclick="removeTicketType(${idx})">حذف القسم</button>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>عنوان القسم</label>
+          <input type="text" data-t-field="sectionTitle" data-type-idx="${idx}" value="${escapeHtml(t.sectionTitle)}" oninput="syncFormToState(); updatePreview();" />
+        </div>
+
+        <div class="field">
+          <label>نص الزر</label>
+          <input type="text" data-t-field="buttonLabel" data-type-idx="${idx}" value="${escapeHtml(t.buttonLabel)}" oninput="syncFormToState(); updatePreview();" />
+        </div>
+
+        <div class="field">
+          <label>لون الزر</label>
+          <select data-t-field="buttonStyle" data-type-idx="${idx}" onchange="syncFormToState(); updatePreview();">
+            <option value="Primary" ${t.buttonStyle === 'Primary' ? 'selected' : ''}>أزرق (Primary)</option>
+            <option value="Success" ${t.buttonStyle === 'Success' ? 'selected' : ''}>أخضر (Success)</option>
+            <option value="Danger" ${t.buttonStyle === 'Danger' ? 'selected' : ''}>أحمر (Danger)</option>
+            <option value="Secondary" ${t.buttonStyle === 'Secondary' ? 'selected' : ''}>رمادي (Secondary)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>كاتكوري فتح التذاكر</label>
+          <select data-t-field="categoryId" data-type-idx="${idx}" onchange="syncFormToState()">${catOptions}</select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>شرح القسم</label>
+        <textarea rows="2" data-t-field="sectionDescription" data-type-idx="${idx}" oninput="syncFormToState(); updatePreview();">${escapeHtml(t.sectionDescription)}</textarea>
+      </div>
+
+      <div class="field">
+        <label>رولات الإدارة المسؤولة عن هذا القسم</label>
+        <div class="role-list">${staffChips || '<span class="muted">لا توجد رولات متزامنة</span>'}</div>
+      </div>
+
+      <div class="field">
+        <label>أسئلة النموذج (حد أقصى 5)</label>
+        ${questionsHtml}
+        <div class="actions">
+          <button class="btn-secondary" type="button" onclick="addQuestion(${idx})">+ إضافة سؤال</button>
+        </div>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function syncFormToState() {
+  stateConfig.panelChannelId = document.getElementById('panelChannelId').value;
+  stateConfig.logChannelId = document.getElementById('logChannelId').value;
+  stateConfig.statsChannelId = document.getElementById('statsChannelId').value;
+  stateConfig.panelTitle = document.getElementById('panelTitle').value;
+  stateConfig.panelImageUrl = document.getElementById('panelImageUrl').value;
+  stateConfig.panelDescription = document.getElementById('panelDescription').value;
+  stateConfig.panelNotes = document.getElementById('panelNotes').value;
+  stateConfig.reopenRoleIds = getCheckedRoleIds('reopenRolesBox');
+
+  stateConfig.welcomeEnabled = document.getElementById('welcomeEnabled').checked;
+  stateConfig.welcomeChannelId = document.getElementById('welcomeChannelId').value;
+  stateConfig.welcomeMessage = document.getElementById('welcomeMessage').value;
+
+  stateConfig.goodbyeEnabled = document.getElementById('goodbyeEnabled').checked;
+  stateConfig.goodbyeChannelId = document.getElementById('goodbyeChannelId').value;
+  stateConfig.goodbyeMessage = document.getElementById('goodbyeMessage').value;
+
+  document.querySelectorAll('[data-t-field]').forEach(el => {
+    const idx = Number(el.getAttribute('data-type-idx'));
+    const field = el.getAttribute('data-t-field');
+
+    if (stateConfig.ticketTypes[idx]) {
+      stateConfig.ticketTypes[idx][field] = el.value;
+    }
+  });
+
+  (stateConfig.ticketTypes || []).forEach((t, idx) => {
+    const selectedStaff = [
+      ...document.querySelectorAll(`[data-role-type="staff"][data-type-idx="${idx}"]:checked`)
+    ].map(i => i.value);
+
+    t.staffRoleIds = selectedStaff;
+  });
+
+  document.querySelectorAll('[data-q-field]').forEach(el => {
+    const tIdx = Number(el.getAttribute('data-type-idx'));
+    const qIdx = Number(el.getAttribute('data-q-idx'));
+    const field = el.getAttribute('data-q-field');
+
+    if (stateConfig.ticketTypes[tIdx]?.fields?.[qIdx]) {
+      stateConfig.ticketTypes[tIdx].fields[qIdx][field] =
+        el.type === 'checkbox' ? el.checked : el.value;
+    }
+  });
+}
+
+function applyStateToForm() {
+  populateChannelSelect('panelChannelId', stateConfig.panelChannelId);
+  populateChannelSelect('logChannelId', stateConfig.logChannelId);
+  populateChannelSelect('statsChannelId', stateConfig.statsChannelId);
+  populateChannelSelect('welcomeChannelId', stateConfig.welcomeChannelId);
+  populateChannelSelect('goodbyeChannelId', stateConfig.goodbyeChannelId);
+
+  document.getElementById('panelTitle').value = stateConfig.panelTitle || '';
+  document.getElementById('panelImageUrl').value = stateConfig.panelImageUrl || '';
+  document.getElementById('panelDescription').value = stateConfig.panelDescription || '';
+  document.getElementById('panelNotes').value = stateConfig.panelNotes || '';
+
+  renderRoleChips('reopenRolesBox', stateConfig.reopenRoleIds || []);
+
+  document.getElementById('welcomeEnabled').checked = Boolean(stateConfig.welcomeEnabled);
+  document.getElementById('welcomeMessage').value = stateConfig.welcomeMessage || '';
+
+  document.getElementById('goodbyeEnabled').checked = Boolean(stateConfig.goodbyeEnabled);
+  document.getElementById('goodbyeMessage').value = stateConfig.goodbyeMessage || '';
+
+  renderTicketTypes();
+  renderStatsSummary();
+  updatePreview();
+}
+
+function updatePreview() {
+  const title = document.getElementById('panelTitle').value || 'إنشاء تذكرة';
+  const desc = document.getElementById('panelDescription').value || '';
+  const imgUrl = document.getElementById('panelImageUrl').value.trim();
+  const notes = document.getElementById('panelNotes').value.trim();
+
+  document.getElementById('previewTitle').textContent = title;
+  document.getElementById('previewDesc').textContent = desc;
+
+  const banner = document.getElementById('previewBanner');
+
+  if (/^https?:\/\//i.test(imgUrl)) {
+    banner.src = imgUrl;
+    banner.style.display = 'block';
+  } else {
+    banner.style.display = 'none';
+  }
+
+  const secBox = document.getElementById('previewSections');
+
+  secBox.innerHTML = (stateConfig.ticketTypes || []).map(t => `
+    <div style="border-top:1px solid #313338;padding-top:10px;margin-top:10px;">
+      <div style="font-weight:bold;font-size:15px;">${escapeHtml(t.sectionTitle || '')}</div>
+      <div class="muted" style="margin:4px 0 8px 0;">${escapeHtml(t.sectionDescription || '')}</div>
+      <span style="display:inline-block;background:#5865f2;color:#fff;padding:6px 12px;border-radius:6px;font-size:13px;">${escapeHtml(t.buttonLabel || 'فتح شكوى')}</span>
+    </div>
+  `).join('');
+
+  const notesEl = document.getElementById('previewNotes');
+
+  if (notes) {
+    notesEl.textContent = notes;
+    notesEl.style.display = 'block';
+  } else {
+    notesEl.style.display = 'none';
+  }
+}
+
+async function loadFromServer() {
+  const url = getScriptUrl();
+
+  if (!url) {
+    showToast('أدخل رابط Google Apps Script أولاً');
+    return;
+  }
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (!data.ok) {
+      showToast('تعذر تحميل البيانات من السيرفر');
+      return;
     }
 
-    function applyConfigToForm() {
-      const c = state.config;
-      fillSelect('panelChannelId', state.meta.channels, c.panelChannelId, '-- اختر روم اللوحة --');
-      fillSelect('logChannelId', state.meta.channels, c.logChannelId, '-- اختر روم السجل --');
-      fillSelect('welcomeChannelId', state.meta.channels, c.welcomeChannelId, '-- اختر روم الترحيب --');
-      fillSelect('goodbyeChannelId', state.meta.channels, c.goodbyeChannelId, '-- اختر روم التوديع --');
+    stateConfig = Object.assign({}, stateConfig, data.config || {});
+    guildMeta = Object.assign({}, guildMeta, data.meta || {});
 
-      document.getElementById('panelTitle').value = c.panelTitle || '';
-      document.getElementById('panelImageUrl').value = c.panelImageUrl || '';
-      document.getElementById('panelDescription').value = c.panelDescription || '';
+    const rCount = (guildMeta.roles || []).length;
+    const cCount = (guildMeta.channels || []).length;
+    const catCount = (guildMeta.categories || []).length;
+    const syncTime = data.metaUpdatedAt
+      ? new Date(data.metaUpdatedAt).toLocaleString('ar-IQ')
+      : '-';
 
-      document.getElementById('welcomeEnabled').checked = c.welcomeEnabled !== false;
-      document.getElementById('welcomeMessage').value = c.welcomeMessage || '';
-      document.getElementById('goodbyeEnabled').checked = c.goodbyeEnabled !== false;
-      document.getElementById('goodbyeMessage').value = c.goodbyeMessage || '';
+    document.getElementById('metaSummary').textContent =
+      `الرولات: ${rCount} | الرومات: ${cCount} | الكاتكوريات: ${catCount} | آخر مزامنة: ${syncTime}`;
 
-      renderTicketTypes();
-      renderPreview();
+    applyStateToForm();
+    showToast('تم تحديث البيانات بنجاح');
+
+  } catch (err) {
+    console.error(err);
+    showToast('حدث خطأ أثناء الاتصال بـ Apps Script');
+  }
+}
+
+async function saveAllConfig() {
+  const url = getScriptUrl();
+
+  if (!url) {
+    showToast('أدخل رابط Google Apps Script أولاً');
+    return;
+  }
+
+  syncFormToState();
+
+  try {
+    const res = await fetch(url, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({
+        type:'save_config',
+        config:stateConfig
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+      stateConfig = Object.assign({}, stateConfig, data.config || stateConfig);
+      showToast('تم حفظ جميع الإعدادات بنجاح');
+    } else {
+      showToast('فشل حفظ الإعدادات');
     }
 
-    async function loadData() {
-      document.getElementById('syncStatus').textContent = 'جاري جلب البيانات...';
-      try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-        if (data.ok) {
-          state.config = Object.assign({}, state.config, data.config || {});
-          state.meta = Object.assign({}, state.meta, data.meta || {});
-          applyConfigToForm();
-          const upd = state.meta.updatedAt ? new Date(state.meta.updatedAt).toLocaleString('ar-IQ') : 'غير متزامن بعد';
-          document.getElementById('syncStatus').textContent =
-            `الرولات: ${state.meta.roles.length} | الرومات: ${state.meta.channels.length} | الكاتكوريات: ${state.meta.categories.length} | آخر مزامنة: ${upd}`;
-        } else {
-          showToast('فشل جلب البيانات', true);
-        }
-      } catch (e) {
-        showToast('خطأ في الاتصال بالخادم', true);
-      }
-    }
+  } catch (err) {
+    console.error(err);
+    showToast('خطأ أثناء حفظ الإعدادات');
+  }
+}
 
-    async function saveAllConfig() {
-      syncFormToState();
-      try {
-        await fetch(API_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'save_config', config: state.config })
-        });
-        showToast('تم حفظ الإعدادات بنجاح!');
-      } catch (e) {
-        showToast('حدث خطأ أثناء الحفظ', true);
-      }
-    }
+window.addEventListener('DOMContentLoaded', () => {
+  const savedUrl = localStorage.getItem(STORAGE_KEY) || DEFAULT_SCRIPT_URL;
 
-    loadData();
-  </script>
+  localStorage.setItem(STORAGE_KEY, savedUrl);
+  document.getElementById('scriptUrl').value = savedUrl;
+
+  loadFromServer();
+});
+</script>
 </body>
 </html>
