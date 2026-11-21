@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GAME HUB | Control Center</title>
+<title>GAME HUB | Control Center V2+</title>
 
 <style>
 :root {
@@ -31,7 +30,7 @@ html { scroll-behavior:smooth; }
 
 body {
   margin:0;
-  padding:35px 22px;
+  padding:30px 20px;
   min-height:100vh;
   color:var(--text);
   line-height:1.8;
@@ -44,10 +43,10 @@ body {
 
 .wrap {
   width:100%;
-  max-width:1250px;
+  max-width:1280px;
   margin:auto;
   display:grid;
-  gap:24px;
+  gap:22px;
 }
 
 .card {
@@ -56,7 +55,7 @@ body {
   background:linear-gradient(145deg,rgba(25,23,18,.98),rgba(13,13,12,.99));
   border:1px solid var(--border);
   border-radius:19px;
-  padding:27px;
+  padding:25px;
   box-shadow:0 18px 55px rgba(0,0,0,.42);
   transition:border-color .25s,transform .25s;
 }
@@ -81,8 +80,34 @@ body {
   justify-content:space-between;
   align-items:center;
   gap:18px;
-  padding-bottom:20px;
+  padding-bottom:18px;
   border-bottom:1px solid var(--border);
+}
+
+.nav-pills {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+
+.nav-pill {
+  padding:7px 13px;
+  min-height:36px;
+  border-radius:999px;
+  background:#191610;
+  border:1px solid rgba(201,166,92,.24);
+  color:#e8d5a7;
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+  transition:.2s;
+}
+
+.nav-pill:hover {
+  background:#2a2418;
+  border-color:var(--primary);
+  color:var(--gold-light);
 }
 
 h1 {
@@ -98,8 +123,8 @@ h1 {
 h2 {
   font-size:19px;
   font-weight:800;
-  margin:0 0 20px;
-  padding-bottom:14px;
+  margin:0 0 18px;
+  padding-bottom:12px;
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
@@ -132,13 +157,13 @@ h3 {
   display:flex;
   flex-wrap:wrap;
   gap:11px;
-  margin-top:15px;
+  margin-top:14px;
 }
 
 button {
   width:auto;
-  min-height:43px;
-  padding:10px 19px;
+  min-height:42px;
+  padding:10px 18px;
   border:1px solid transparent;
   border-radius:10px;
   color:#fff;
@@ -148,13 +173,18 @@ button {
   transition:all .22s ease;
 }
 
-button:hover {
+button:hover:not(:disabled) {
   transform:translateY(-2px);
   filter:brightness(1.12);
 }
 
-button:active {
+button:active:not(:disabled) {
   transform:scale(.97);
+}
+
+button:disabled {
+  opacity:.55;
+  cursor:not-allowed;
 }
 
 .btn-primary {
@@ -181,11 +211,11 @@ button:active {
   color:#e8d5a7;
 }
 
-.field { margin-bottom:19px; }
+.field { margin-bottom:17px; }
 
 label {
   display:block;
-  margin-bottom:8px;
+  margin-bottom:7px;
   color:#e1d5ba;
   font-size:13px;
   font-weight:750;
@@ -193,8 +223,8 @@ label {
 
 input,select,textarea {
   width:100%;
-  min-height:45px;
-  padding:12px 14px;
+  min-height:44px;
+  padding:11px 14px;
   background:#0c0c0a;
   color:var(--text);
   border:1px solid #393326;
@@ -216,7 +246,7 @@ input:focus,select:focus,textarea:focus {
 
 textarea {
   resize:vertical;
-  min-height:85px;
+  min-height:82px;
 }
 
 input[type="checkbox"] {
@@ -234,23 +264,27 @@ input[type="checkbox"] {
 .grid-2 {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:17px;
+  gap:16px;
 }
 
-/* STATISTICS */
+.grid-3 {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
 
 .stats-grid {
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
   gap:13px;
-  margin-top:20px;
+  margin-top:16px;
 }
 
 .stat-box {
   position:relative;
   overflow:hidden;
-  min-height:112px;
-  padding:19px 15px;
+  min-height:108px;
+  padding:18px 14px;
   background:linear-gradient(145deg,#211e16,#13120f);
   border:1px solid rgba(201,166,92,.2);
   border-radius:13px;
@@ -258,42 +292,24 @@ input[type="checkbox"] {
 }
 
 .stat-box:hover {
-  transform:translateY(-4px);
+  transform:translateY(-3px);
   border-color:rgba(201,166,92,.65);
-  box-shadow:0 10px 25px rgba(0,0,0,.3);
-}
-
-.stat-box::after {
-  content:"";
-  position:absolute;
-  width:65px;
-  height:65px;
-  bottom:-35px;
-  left:-15px;
-  border-radius:50%;
-  background:rgba(201,166,92,.11);
-  filter:blur(2px);
 }
 
 .stat-num {
-  position:relative;
-  z-index:1;
   margin-top:8px;
-  font-size:clamp(22px,2.5vw,30px);
+  font-size:clamp(22px,2.5vw,29px);
   font-weight:900;
   color:var(--gold-light);
-  letter-spacing:-.5px;
 }
-
-/* ROLES */
 
 .role-list {
   display:flex;
   flex-wrap:wrap;
   gap:9px;
-  max-height:190px;
+  max-height:185px;
   overflow-y:auto;
-  padding:14px;
+  padding:13px;
   background:#0b0b09;
   border:1px solid var(--border);
   border-radius:11px;
@@ -303,7 +319,7 @@ input[type="checkbox"] {
   display:inline-flex;
   align-items:center;
   gap:8px;
-  padding:8px 12px;
+  padding:7px 11px;
   background:#211e16;
   border:1px solid #48402e;
   border-radius:8px;
@@ -325,21 +341,13 @@ input[type="checkbox"] {
   margin:0;
 }
 
-/* TICKET TYPES */
-
 .type-card {
   position:relative;
-  margin-top:20px;
-  padding:22px;
+  margin-top:18px;
+  padding:20px;
   background:linear-gradient(145deg,#1c1a14,#11110e);
   border:1px solid #48402e;
   border-radius:14px;
-  transition:border-color .25s,box-shadow .25s;
-}
-
-.type-card:hover {
-  border-color:rgba(201,166,92,.55);
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 .type-head {
@@ -347,76 +355,47 @@ input[type="checkbox"] {
   justify-content:space-between;
   align-items:center;
   gap:12px;
-  margin-bottom:20px;
-  padding-bottom:15px;
+  margin-bottom:18px;
+  padding-bottom:14px;
   border-bottom:1px solid var(--border);
 }
 
-.type-head h3 { color:var(--gold-light); }
-
-/* QUESTIONS */
+.owner-box {
+  margin:16px 0;
+  padding:15px;
+  background:#0d0c09;
+  border:1px solid rgba(201,166,92,.28);
+  border-radius:12px;
+}
 
 .question-row {
   margin-top:12px;
-  padding:17px;
+  padding:16px;
   background:#0c0c0a;
   border:1px solid #393326;
   border-radius:11px;
 }
 
-.question-row label { margin-bottom:8px; }
-
-/* DISCORD PREVIEW */
-
 .preview-card {
-  padding:22px;
+  padding:20px;
   background:#171613;
   border:1px solid #51452e;
   border-right:4px solid var(--primary);
   border-radius:12px;
-  box-shadow:0 12px 30px rgba(0,0,0,.3);
-}
-
-.preview-card h3 {
-  font-size:18px;
-  color:#f5e6c4;
-  margin-bottom:8px;
 }
 
 .preview-banner {
   width:100%;
-  max-height:250px;
+  max-height:240px;
   object-fit:cover;
   border-radius:9px;
-  margin-bottom:16px;
+  margin-bottom:14px;
   display:none;
 }
 
-#previewSections > div {
-  border-top:1px solid #49402f !important;
-  padding-top:15px !important;
-  margin-top:15px !important;
-}
-
-#previewSections span {
-  background:linear-gradient(135deg,#d6b66e,#94743a) !important;
-  color:#17130b !important;
-  box-shadow:0 3px 10px rgba(201,166,92,.16);
-}
-
-#previewNotes {
-  background:#0e0d0a !important;
-  border:1px solid #403725;
-  color:#ded3bc;
-  font-family:Tahoma,Arial,sans-serif;
-  font-size:13px;
-}
-
-/* TABLE */
-
 table {
   width:100%;
-  margin-top:20px;
+  margin-top:14px;
   border-collapse:separate;
   border-spacing:0;
   overflow:hidden;
@@ -426,7 +405,7 @@ table {
 }
 
 th,td {
-  padding:14px 12px;
+  padding:12px;
   text-align:right;
   border:none;
   border-bottom:1px solid var(--border);
@@ -445,18 +424,26 @@ td {
 }
 
 tbody tr:last-child td { border-bottom:none; }
-
 tbody tr:hover td { background:#211e16; }
 
-/* TOAST */
+.badge {
+  display:inline-block;
+  padding:3px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  background:#292317;
+  color:var(--gold-light);
+  border:1px solid rgba(201,166,92,.35);
+}
 
 .toast {
   position:fixed;
-  bottom:25px;
-  left:25px;
+  bottom:24px;
+  left:24px;
   z-index:9999;
   max-width:calc(100vw - 40px);
-  padding:14px 22px;
+  padding:14px 20px;
   background:linear-gradient(135deg,#292419,#15130e);
   color:#f5e6c4;
   border:1px solid #a88a4c;
@@ -467,105 +454,17 @@ tbody tr:hover td { background:#211e16; }
   display:none;
 }
 
-/* SCROLLBAR */
-
-::-webkit-scrollbar {
-  width:7px;
-  height:7px;
+@media(max-width:950px) {
+  .stats-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .grid-3 { grid-template-columns:1fr; }
 }
 
-::-webkit-scrollbar-track { background:#0a0907; }
-
-::-webkit-scrollbar-thumb {
-  background:#6f5a32;
-  border-radius:10px;
-}
-
-::-webkit-scrollbar-thumb:hover { background:#c9a65c; }
-
-/* RESPONSIVE */
-
-@media(max-width:900px) {
-  .stats-grid {
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
-
-  .wrap { max-width:100%; }
-}
-
-@media(max-width:600px) {
+@media(max-width:650px) {
   body { padding:14px 10px; }
-
-  .wrap { gap:15px; }
-
-  .card {
-    padding:17px 14px;
-    border-radius:14px;
-  }
-
-  .top-bar { align-items:stretch; }
-
-  .top-bar .actions {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-  }
-
-  .top-bar .actions button {
-    width:100%;
-    padding:10px 7px;
-    font-size:11px;
-  }
-
-  .grid-2 {
-    grid-template-columns:1fr;
-    gap:8px;
-  }
-
-  .stats-grid {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:9px;
-  }
-
-  .stat-box {
-    min-height:100px;
-    padding:13px 11px;
-  }
-
-  .stat-num { font-size:24px; }
-
-  .type-card { padding:15px 12px; }
-
-  .type-head { align-items:flex-start; }
-
-  .type-head button {
-    padding:8px 10px;
-    font-size:11px;
-  }
-
-  .actions button { max-width:100%; }
-
-  table {
-    display:block;
-    overflow-x:auto;
-    white-space:nowrap;
-  }
-
-  .preview-card { padding:15px; }
-
-  .toast {
-    bottom:12px;
-    left:12px;
-    right:12px;
-    max-width:none;
-    text-align:center;
-  }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    scroll-behavior:auto !important;
-    transition:none !important;
-  }
+  .card { padding:16px 13px; border-radius:14px; }
+  .grid-2 { grid-template-columns:1fr; }
+  .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  table { display:block; overflow-x:auto; white-space:nowrap; }
 }
 </style>
 </head>
@@ -573,27 +472,33 @@ tbody tr:hover td { background:#211e16; }
 <body>
 <div class="wrap">
 
-  <div class="card">
+  <!-- 1) الرئيسية -->
+  <div class="card" id="sec-home">
     <div class="top-bar">
       <div>
         <h1>GAME HUB | Control Center</h1>
         <div class="muted" id="metaSummary">الرولات: 0 | الرومات: 0 | الكاتكوريات: 0 | آخر مزامنة: -</div>
       </div>
       <div class="actions">
-        <button class="btn-secondary" onclick="loadFromServer()">تحديث البيانات</button>
-        <button class="btn-success" onclick="saveAllConfig()">حفظ كل الإعدادات</button>
+        <button class="btn-secondary" id="btnRefresh" onclick="loadFromServer()">تحديث البيانات</button>
+        <button class="btn-success" id="btnSave" onclick="saveAllConfig()">حفظ كل الإعدادات</button>
       </div>
     </div>
 
-    <div class="field" style="margin-top:20px;">
-      <label for="scriptUrl">رابط Google Apps Script Web App</label>
-      <input id="scriptUrl" type="url" value="https://script.google.com/macros/s/AKfycbw_SB2nIGrRzgu-KoE_v4yMLJPYWrYBnxWdDF8eUhS5yIixFdUrpf-U8iufK3bIdp0EFQ/exec" placeholder="https://script.google.com/macros/s/.../exec" onchange="onScriptUrlChange()" />
+    <div class="nav-pills">
+      <a class="nav-pill" href="#sec-home">الرئيسية</a>
+      <a class="nav-pill" href="#sec-tickets">التذاكر</a>
+      <a class="nav-pill" href="#sec-admin">الإدارة</a>
+      <a class="nav-pill" href="#sec-types">أنواع الشكاوى</a>
+      <a class="nav-pill" href="#sec-permissions">الصلاحيات</a>
+      <a class="nav-pill" href="#sec-archive">الأرشيف</a>
+      <a class="nav-pill" href="#sec-ratings">التقييمات</a>
+      <a class="nav-pill" href="#sec-alerts">التنبيهات</a>
+      <a class="nav-pill" href="#sec-logs">السجلات</a>
+      <a class="nav-pill" href="#sec-settings">الإعدادات</a>
     </div>
-  </div>
 
-  <div class="card">
-    <h2>إحصائيات الشكاوى والإداريين</h2>
-    <div class="muted" id="statsUpdatedAt">بانتظار مزامنة الإحصائيات من البوت...</div>
+    <div class="muted" id="statsUpdatedAt" style="margin-top:14px;">بانتظار مزامنة الإحصائيات من البوت...</div>
 
     <div class="stats-grid">
       <div class="stat-box">
@@ -617,86 +522,187 @@ tbody tr:hover td { background:#211e16; }
         <div class="stat-num" id="statAvgTotal">-</div>
       </div>
     </div>
+  </div>
 
+  <!-- 2) التذاكر -->
+  <div class="card" id="sec-tickets">
+    <h2>التذاكر — البحث والتصفية</h2>
+    <div class="grid-3">
+      <div class="field">
+        <label for="ticketSearchInput">بحث برقم الشكوى أو المستخدم أو السبب</label>
+        <input id="ticketSearchInput" type="text" placeholder="مثال: 124 أو اسم المستخدم..." oninput="renderTicketsTable()" />
+      </div>
+      <div class="field">
+        <label for="ticketStatusFilter">تصفية حسب الحالة</label>
+        <select id="ticketStatusFilter" onchange="renderTicketsTable()">
+          <option value="all">الكل</option>
+          <option value="open">مفتوحة</option>
+          <option value="closed">مغلقة</option>
+          <option value="escalated">محولة إلى أونر</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ticketPriorityFilter">تصفية حسب الأولوية</label>
+        <select id="ticketPriorityFilter" onchange="renderTicketsTable()">
+          <option value="all">كل الأولويات</option>
+          <option value="عاجلة جداً">عاجلة جداً</option>
+          <option value="عاجلة">عاجلة</option>
+          <option value="عادية">عادية</option>
+          <option value="منخفضة">منخفضة</option>
+        </select>
+      </div>
+    </div>
+    <div id="ticketsTableWrap"><div class="muted">لا توجد تذاكر متزامنة لعرضها حالياً.</div></div>
+  </div>
+
+  <!-- 3) الإدارة -->
+  <div class="card" id="sec-admin">
+    <h2>الإدارة — أداء كل إداري</h2>
+    <div class="muted">ترتيب الإداريين، متوسط التقييم، الشكاوى المستلمة والمغلقة، ومتوسط الاستجابة.</div>
     <div id="staffStatsTableWrap"></div>
   </div>
 
-  <div class="card">
-    <h2>إعدادات رسالة فتح الشكوى وسجل الشكاوى والإحصائيات</h2>
+  <!-- 4) أنواع الشكاوى -->
+  <div class="card" id="sec-types">
+    <h2>أنواع الشكاوى والأقسام</h2>
+    <div class="muted">كل قسم يظهر بعنوانه وشرحه وزر الفتح الخاص به، ويمكنك تشغيل/إطفاء زر التحويل إلى أونر وتحديد الرول والكاتكوري لكل نوع.</div>
+    <div id="ticketTypesContainer"></div>
+    <div class="actions">
+      <button class="btn-primary" type="button" onclick="addTicketType()">+ إضافة نوع شكوى جديد</button>
+    </div>
+  </div>
+
+  <!-- 5) الصلاحيات -->
+  <div class="card" id="sec-permissions">
+    <h2>الصلاحيات — رتب الاستلام والإغلاق وإعادة الفتح والتحويل لأونر</h2>
+
+    <div class="grid-2">
+      <div class="field">
+        <label for="globalOwnerRoleId">رول الأونر الافتراضي عند التحويل</label>
+        <select id="globalOwnerRoleId" onchange="syncFormToState()"></select>
+      </div>
+      <div class="field">
+        <label for="globalOwnerCategoryId">كاتكوري التحويل إلى أونر الافتراضي</label>
+        <select id="globalOwnerCategoryId" onchange="syncFormToState()"></select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>رولات صلاحية إعادة فتح الشكوى (الأدمن يملكها تلقائياً)</label>
+      <div class="role-list" id="reopenRolesBox"></div>
+    </div>
+  </div>
+
+  <!-- 6) الأرشيف -->
+  <div class="card" id="sec-archive">
+    <h2>الأرشيف — البحث واستعراض السجلات</h2>
+    <div class="field">
+      <label for="archiveSearchInput">بحث في الأرشيف المؤرشف</label>
+      <input id="archiveSearchInput" type="text" placeholder="ابحث برقم الشكوى أو النوع أو صاحب الشكوى..." oninput="renderArchiveTable()" />
+    </div>
+    <div id="archiveTableWrap"><div class="muted">سيتم عرض السجلات المؤرشفة فور توفرها من المزامنة.</div></div>
+  </div>
+
+  <!-- 7) التقييمات -->
+  <div class="card" id="sec-ratings">
+    <h2>التقييمات — مراجعة تقييمات أصحاب الشكاوى</h2>
+    <div id="ratingsTableWrap"><div class="muted">لا توجد تقييمات مسجلة حتى الآن.</div></div>
+  </div>
+
+  <!-- 8) التنبيهات -->
+  <div class="card" id="sec-alerts">
+    <h2>التنبيهات — إعداد التنبيهات والتذكيرات</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label><input id="alertOnOpen" type="checkbox" onchange="syncFormToState()" /> إشعار عند فتح شكوى جديدة</label>
+        <label><input id="alertOnUnclaimed" type="checkbox" onchange="syncFormToState()" /> إشعار عند عدم استلام الشكوى خلال مدة محددة</label>
+        <label><input id="alertOnNewReply" type="checkbox" onchange="syncFormToState()" /> إشعار عند إضافة رد جديد</label>
+      </div>
+      <div class="field">
+        <label><input id="alertOnReopen" type="checkbox" onchange="syncFormToState()" /> إشعار عند إعادة فتح شكوى</label>
+        <label><input id="alertOnLowRating" type="checkbox" onchange="syncFormToState()" /> تنبيه عند انخفاض تقييم إداري</label>
+        <label for="unclaimedMinutes">مدة عدم الاستلام قبل التنبيه (بالدقائق)</label>
+        <input id="unclaimedMinutes" type="number" min="1" max="1440" value="30" onchange="syncFormToState()" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 9) السجلات -->
+  <div class="card" id="sec-logs">
+    <h2>السجلات — جميع العمليات الإدارية</h2>
+    <div id="auditLogsWrap"><div class="muted">لا توجد سجلات إدارية متزامنة حالياً.</div></div>
+  </div>
+
+  <!-- 10) الإعدادات -->
+  <div class="card" id="sec-settings">
+    <h2>الإعدادات — إعدادات البوت والاتصال والرسائل</h2>
+
+    <div class="field">
+      <label for="scriptUrl">رابط Google Apps Script Web App</label>
+      <input id="scriptUrl" type="url" value="https://script.google.com/macros/s/AKfycbwdjcX1Kty8opa0CgZzYcSRqdJIO8fr4-wHbeCyMuEzzjK1Z5OYpryIeMyOsYr7acZTFw/exec" placeholder="https://script.google.com/macros/s/.../exec" onchange="onScriptUrlChange()" />
+    </div>
 
     <div class="grid-2">
       <div class="field">
         <label for="panelChannelId">روم إرسال لوحة أنواع الشكاوى</label>
-        <select id="panelChannelId" onchange="updatePreview()"></select>
+        <select id="panelChannelId" onchange="syncFormToState(); updatePreview();"></select>
       </div>
 
       <div class="field">
         <label for="logChannelId">روم تسجيل الشكاوى (السجل والأرشيف)</label>
-        <select id="logChannelId"></select>
+        <select id="logChannelId" onchange="syncFormToState()"></select>
       </div>
 
       <div class="field">
         <label for="statsChannelId">روم الإحصائيات التلقائية (كل 24 ساعة)</label>
-        <select id="statsChannelId"></select>
+        <select id="statsChannelId" onchange="syncFormToState()"></select>
       </div>
 
       <div class="field">
         <label for="panelTitle">عنوان اللوحة</label>
-        <input id="panelTitle" type="text" placeholder="إنشاء تذكرة" oninput="updatePreview()" />
+        <input id="panelTitle" type="text" placeholder="إنشاء تذكرة" oninput="syncFormToState(); updatePreview();" />
       </div>
     </div>
 
     <div class="field">
       <label for="panelImageUrl">رابط صورة البنر (اختياري)</label>
-      <input id="panelImageUrl" type="url" placeholder="https://..." oninput="updatePreview()" />
+      <input id="panelImageUrl" type="url" placeholder="https://..." oninput="syncFormToState(); updatePreview();" />
     </div>
 
     <div class="field">
       <label for="panelDescription">شرح عام يظهر في اللوحة</label>
-      <textarea id="panelDescription" rows="3" placeholder="اكتب وصف اللوحة العام..." oninput="updatePreview()"></textarea>
+      <textarea id="panelDescription" rows="3" placeholder="اكتب وصف اللوحة العام..." oninput="syncFormToState(); updatePreview();"></textarea>
     </div>
 
     <div class="field">
       <label for="panelNotes">ملاحظات / قواعد أسفل اللوحة (اختياري)</label>
-      <textarea id="panelNotes" rows="3" placeholder="1. لن يتم قبول الشكاوى المقدمة من طرف ثالث..."></textarea>
+      <textarea id="panelNotes" rows="3" placeholder="1. لن يتم قبول الشكاوى المقدمة من طرف ثالث..." oninput="syncFormToState(); updatePreview();"></textarea>
     </div>
 
     <div class="field">
-      <label>رولات صلاحية إعادة فتح الشكوى (اختياري - الأدمن يملكها تلقائياً)</label>
-      <div class="role-list" id="reopenRolesBox"></div>
+      <label><input id="allowMultipleTicketsPerUser" type="checkbox" onchange="syncFormToState()" /> السماح بفتح أكثر من شكوى مفتوحة في نفس الوقت لنفس المستخدم</label>
     </div>
-  </div>
 
-  <div class="card">
-    <h2>أنواع الشكاوى والأقسام</h2>
-    <div class="muted">كل قسم يظهر بعنوانه وشرحه وزر الفتح الخاص به.</div>
-    <div id="ticketTypesContainer"></div>
-    <div class="actions">
-      <button class="btn-primary" onclick="addTicketType()">+ إضافة نوع شكوى جديد</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>رسائل الترحيب والمغادرة</h2>
     <div class="grid-2">
       <div class="field">
-        <label><input id="welcomeEnabled" type="checkbox" style="width:auto;" /> تفعيل رسالة الترحيب</label>
+        <label><input id="welcomeEnabled" type="checkbox" onchange="syncFormToState()" /> تفعيل رسالة الترحيب</label>
         <label for="welcomeChannelId">روم الترحيب</label>
-        <select id="welcomeChannelId"></select>
+        <select id="welcomeChannelId" onchange="syncFormToState()"></select>
         <label for="welcomeMessage" style="margin-top:8px;">نص الترحيب ({user}, {tag}, {server}, {count})</label>
-        <textarea id="welcomeMessage" rows="2"></textarea>
+        <textarea id="welcomeMessage" rows="2" oninput="syncFormToState()"></textarea>
       </div>
 
       <div class="field">
-        <label><input id="goodbyeEnabled" type="checkbox" style="width:auto;" /> تفعيل رسالة المغادرة</label>
+        <label><input id="goodbyeEnabled" type="checkbox" onchange="syncFormToState()" /> تفعيل رسالة المغادرة</label>
         <label for="goodbyeChannelId">روم المغادرة</label>
-        <select id="goodbyeChannelId"></select>
+        <select id="goodbyeChannelId" onchange="syncFormToState()"></select>
         <label for="goodbyeMessage" style="margin-top:8px;">نص المغادرة ({tag}, {server}, {count})</label>
-        <textarea id="goodbyeMessage" rows="2"></textarea>
+        <textarea id="goodbyeMessage" rows="2" oninput="syncFormToState()"></textarea>
       </div>
     </div>
   </div>
 
+  <!-- معاينة اللوحة -->
   <div class="card">
     <h2>معاينة شكل اللوحة في الديسكورد</h2>
     <div class="preview-card">
@@ -714,19 +720,24 @@ tbody tr:hover td { background:#211e16; }
 
 <script>
 const STORAGE_KEY = 'os_ticket_dashboard_script_url_v2';
-const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_SB2nIGrRzgu-KoE_v4yMLJPYWrYBnxWdDF8eUhS5yIixFdUrpf-U8iufK3bIdp0EFQ/exec';
+const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwdjcX1Kty8opa0CgZzYcSRqdJIO8fr4-wHbeCyMuEzzjK1Z5OYpryIeMyOsYr7acZTFw/exec';
 
 let guildMeta = {
   categories: [],
   channels: [],
   roles: [],
-  statsSummary: null
+  statsSummary: null,
+  tickets: [],
+  auditLogs: []
 };
 
 let stateConfig = {
   panelChannelId: '',
   logChannelId: '',
   statsChannelId: '',
+  ownerEscalationRoleId: '',
+  ownerEscalationCategoryId: '',
+  allowMultipleTicketsPerUser: false,
   reopenRoleIds: [],
   panelTitle: 'إنشاء تذكرة',
   panelImageUrl: '',
@@ -738,7 +749,15 @@ let stateConfig = {
   welcomeMessage: 'أهلاً بك {user} في {server}!',
   goodbyeEnabled: false,
   goodbyeChannelId: '',
-  goodbyeMessage: 'وداعاً {tag}، عدد الأعضاء الآن: {count}'
+  goodbyeMessage: 'وداعاً {tag}، عدد الأعضاء الآن: {count}',
+  alerts: {
+    onOpen: true,
+    onUnclaimed: true,
+    onNewReply: false,
+    onReopen: true,
+    onLowRating: true,
+    unclaimedMinutes: 30
+  }
 };
 
 function showToast(msg) {
@@ -760,6 +779,24 @@ function onScriptUrlChange() {
   if (url) localStorage.setItem(STORAGE_KEY, url);
 }
 
+function escapeHtml(v = '') {
+  return String(v)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = 9000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function populateChannelSelect(selectId, selectedValue) {
   const sel = document.getElementById(selectId);
   sel.innerHTML = '<option value="">-- اختر الروم --</option>';
@@ -769,6 +806,32 @@ function populateChannelSelect(selectId, selectedValue) {
     opt.value = ch.id;
     opt.textContent = ch.name;
     if (String(ch.id) === String(selectedValue)) opt.selected = true;
+    sel.appendChild(opt);
+  }
+}
+
+function populateRoleSelect(selectId, selectedValue, placeholder = '-- اختر الرول --') {
+  const sel = document.getElementById(selectId);
+  sel.innerHTML = `<option value="">${placeholder}</option>`;
+
+  for (const r of (guildMeta.roles || [])) {
+    const opt = document.createElement('option');
+    opt.value = r.id;
+    opt.textContent = r.name;
+    if (String(r.id) === String(selectedValue)) opt.selected = true;
+    sel.appendChild(opt);
+  }
+}
+
+function populateCategorySelect(selectId, selectedValue, placeholder = '-- اختر الكاتكوري --') {
+  const sel = document.getElementById(selectId);
+  sel.innerHTML = `<option value="">${placeholder}</option>`;
+
+  for (const c of (guildMeta.categories || [])) {
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = c.name;
+    if (String(c.id) === String(selectedValue)) opt.selected = true;
     sel.appendChild(opt);
   }
 }
@@ -823,9 +886,9 @@ function renderStatsSummary() {
     return;
   }
 
-  const rowsHtml = staffList.map(st => `
+  const rowsHtml = staffList.map((st, idx) => `
     <tr>
-      <td>${escapeHtml(st.tag || st.id)}</td>
+      <td><span class="badge">#${idx + 1}</span> ${escapeHtml(st.tag || st.id)}</td>
       <td>${st.claimedCount ?? 0}</td>
       <td>${st.closedCount ?? 0}</td>
       <td>${st.avgRating ? `${st.avgRating} / 5 (${st.ratingsCount})` : '-'}</td>
@@ -836,7 +899,7 @@ function renderStatsSummary() {
     <table>
       <thead>
         <tr>
-          <th>الإداري</th>
+          <th>الترتيب والإداري</th>
           <th>الشكاوى المستلمة</th>
           <th>الشكاوى المغلقة</th>
           <th>متوسط التقييم</th>
@@ -847,12 +910,163 @@ function renderStatsSummary() {
   `;
 }
 
-function escapeHtml(v = '') {
-  return String(v)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+function renderTicketsTable() {
+  const wrap = document.getElementById('ticketsTableWrap');
+  const q = (document.getElementById('ticketSearchInput')?.value || '').trim().toLowerCase();
+  const statusFilter = document.getElementById('ticketStatusFilter')?.value || 'all';
+  const priorityFilter = document.getElementById('ticketPriorityFilter')?.value || 'all';
+  const list = Array.isArray(guildMeta.tickets) ? guildMeta.tickets : [];
+
+  const filtered = list.filter(t => {
+    if (statusFilter === 'open' && t.status !== 'open') return false;
+    if (statusFilter === 'closed' && t.status !== 'closed') return false;
+    if (statusFilter === 'escalated' && !t.escalated_to_owner) return false;
+    if (priorityFilter !== 'all' && (t.priority || 'عادية') !== priorityFilter) return false;
+    if (q) {
+      const hay = `${t.ticket_number || ''} ${t.user_tag || ''} ${t.type_name || ''} ${t.close_reason || ''}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (!filtered.length) {
+    wrap.innerHTML = '<div class="muted">لا توجد تذاكر مطابقة للبحث أو التصفية.</div>';
+    return;
+  }
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>الرقم</th>
+          <th>صاحب الشكوى</th>
+          <th>النوع</th>
+          <th>الأولوية</th>
+          <th>الحالة</th>
+          <th>تحويل أونر</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filtered.slice(0, 50).map(t => `
+          <tr>
+            <td>#${escapeHtml(String(t.ticket_number || ''))}</td>
+            <td>${escapeHtml(t.user_tag || t.user_id || '-')}</td>
+            <td>${escapeHtml(t.type_name || '-')}</td>
+            <td><span class="badge">${escapeHtml(t.priority || 'عادية')}</span></td>
+            <td>${t.status === 'open' ? '🟢 مفتوحة' : '🔴 مغلقة'}</td>
+            <td>${t.escalated_to_owner ? '👑 نعم' : 'لا'}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderArchiveTable() {
+  const wrap = document.getElementById('archiveTableWrap');
+  const q = (document.getElementById('archiveSearchInput')?.value || '').trim().toLowerCase();
+  const archived = (Array.isArray(guildMeta.tickets) ? guildMeta.tickets : []).filter(t => {
+    const isArchived = t.status === 'closed' || (t.archive_count || 0) > 0;
+    if (!isArchived) return false;
+    if (!q) return true;
+    return `${t.ticket_number || ''} ${t.user_tag || ''} ${t.type_name || ''}`.toLowerCase().includes(q);
+  });
+
+  if (!archived.length) {
+    wrap.innerHTML = '<div class="muted">لا توجد سجلات مؤرشفة مطابقة.</div>';
+    return;
+  }
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>الرقم</th>
+          <th>صاحب الشكوى</th>
+          <th>النوع</th>
+          <th>عدد الأرشفة</th>
+          <th>سبب الإغلاق</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${archived.slice(0, 50).map(t => `
+          <tr>
+            <td>#${escapeHtml(String(t.ticket_number || ''))}</td>
+            <td>${escapeHtml(t.user_tag || '-')}</td>
+            <td>${escapeHtml(t.type_name || '-')}</td>
+            <td>${escapeHtml(String(t.archive_count ?? 1))}</td>
+            <td>${escapeHtml(t.close_reason || '-')}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderRatingsTable() {
+  const wrap = document.getElementById('ratingsTableWrap');
+  const rated = (Array.isArray(guildMeta.tickets) ? guildMeta.tickets : []).filter(t => typeof t.rating === 'number');
+
+  if (!rated.length) {
+    wrap.innerHTML = '<div class="muted">لا توجد تقييمات مسجلة حتى الآن.</div>';
+    return;
+  }
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>الشكوى</th>
+          <th>المقيم</th>
+          <th>التقييم</th>
+          <th>الملاحظة</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rated.slice(0, 50).map(t => `
+          <tr>
+            <td>#${escapeHtml(String(t.ticket_number || ''))}</td>
+            <td>${escapeHtml(t.user_tag || '-')}</td>
+            <td>⭐ ${escapeHtml(String(t.rating))} / 5</td>
+            <td>${escapeHtml(t.rating_comment || 'بدون ملاحظة')}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderAuditLogs() {
+  const wrap = document.getElementById('auditLogsWrap');
+  const logs = Array.isArray(guildMeta.auditLogs) ? guildMeta.auditLogs : [];
+
+  if (!logs.length) {
+    wrap.innerHTML = '<div class="muted">لا توجد سجلات إدارية متزامنة حالياً.</div>';
+    return;
+  }
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>الإجراء</th>
+          <th>الإداري</th>
+          <th>التفاصيل</th>
+          <th>الوقت</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${logs.slice(0, 50).map(l => `
+          <tr>
+            <td><span class="badge">${escapeHtml(l.action || '')}</span></td>
+            <td>${escapeHtml(l.staff_tag || l.staff_id || '-')}</td>
+            <td>${escapeHtml(l.details || '-')}</td>
+            <td>${l.created_at ? escapeHtml(new Date(l.created_at).toLocaleString('ar-IQ')) : '-'}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
 }
 
 function addTicketType() {
@@ -866,10 +1080,14 @@ function addTicketType() {
     sectionDescription: 'وصف هذا النوع من الشكاوى',
     buttonLabel: 'فتح شكوى',
     buttonStyle: 'Primary',
+    defaultPriority: 'عادية',
     categoryId: '',
     staffRoleIds: [],
     allowedRoleIds: [],
     evidenceNote: '',
+    escalateToOwnerEnabled: false,
+    ownerRoleId: '',
+    ownerCategoryId: '',
     fields: [
       {
         label: 'تفاصيل الشكوى',
@@ -929,6 +1147,18 @@ function renderTicketTypes() {
     const catOptions = ['<option value="">-- بدون كاتكوري --</option>'].concat(
       (guildMeta.categories || []).map(c =>
         `<option value="${c.id}" ${String(c.id) === String(t.categoryId) ? 'selected' : ''}>${escapeHtml(c.name)}</option>`
+      )
+    ).join('');
+
+    const ownerRoleOptions = ['<option value="">-- استخدام الرول الافتراضي --</option>'].concat(
+      (guildMeta.roles || []).map(r =>
+        `<option value="${r.id}" ${String(r.id) === String(t.ownerRoleId || '') ? 'selected' : ''}>${escapeHtml(r.name)}</option>`
+      )
+    ).join('');
+
+    const ownerCatOptions = ['<option value="">-- استخدام الكاتكوري الافتراضي --</option>'].concat(
+      (guildMeta.categories || []).map(c =>
+        `<option value="${c.id}" ${String(c.id) === String(t.ownerCategoryId || '') ? 'selected' : ''}>${escapeHtml(c.name)}</option>`
       )
     ).join('');
 
@@ -1007,6 +1237,33 @@ function renderTicketTypes() {
           <label>كاتكوري فتح التذاكر</label>
           <select data-t-field="categoryId" data-type-idx="${idx}" onchange="syncFormToState()">${catOptions}</select>
         </div>
+
+        <div class="field">
+          <label>الأولوية الافتراضية للنوع</label>
+          <select data-t-field="defaultPriority" data-type-idx="${idx}" onchange="syncFormToState()">
+            <option value="عاجلة جداً" ${t.defaultPriority === 'عاجلة جداً' ? 'selected' : ''}>عاجلة جداً</option>
+            <option value="عاجلة" ${t.defaultPriority === 'عاجلة' ? 'selected' : ''}>عاجلة</option>
+            <option value="عادية" ${(!t.defaultPriority || t.defaultPriority === 'عادية') ? 'selected' : ''}>عادية</option>
+            <option value="منخفضة" ${t.defaultPriority === 'منخفضة' ? 'selected' : ''}>منخفضة</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="owner-box">
+        <label style="margin-bottom:10px;">
+          <input type="checkbox" data-t-field="escalateToOwnerEnabled" data-type-idx="${idx}" ${t.escalateToOwnerEnabled ? 'checked' : ''} onchange="syncFormToState()" />
+          تفعيل زر <strong>تحويل إلى أونر</strong> داخل هذا النوع من الشكاوى
+        </label>
+        <div class="grid-2" style="margin-bottom:0;">
+          <div style="margin-bottom:0;">
+            <label>رول الأونر لهذا النوع (اختياري)</label>
+            <select data-t-field="ownerRoleId" data-type-idx="${idx}" onchange="syncFormToState()">${ownerRoleOptions}</select>
+          </div>
+          <div style="margin-bottom:0;">
+            <label>كاتكوري التحويل لهذا النوع (اختياري)</label>
+            <select data-t-field="ownerCategoryId" data-type-idx="${idx}" onchange="syncFormToState()">${ownerCatOptions}</select>
+          </div>
+        </div>
       </div>
 
       <div class="field">
@@ -1036,6 +1293,10 @@ function syncFormToState() {
   stateConfig.panelChannelId = document.getElementById('panelChannelId').value;
   stateConfig.logChannelId = document.getElementById('logChannelId').value;
   stateConfig.statsChannelId = document.getElementById('statsChannelId').value;
+  stateConfig.ownerEscalationRoleId = document.getElementById('globalOwnerRoleId').value;
+  stateConfig.ownerEscalationCategoryId = document.getElementById('globalOwnerCategoryId').value;
+  stateConfig.allowMultipleTicketsPerUser = document.getElementById('allowMultipleTicketsPerUser').checked;
+
   stateConfig.panelTitle = document.getElementById('panelTitle').value;
   stateConfig.panelImageUrl = document.getElementById('panelImageUrl').value;
   stateConfig.panelDescription = document.getElementById('panelDescription').value;
@@ -1050,12 +1311,21 @@ function syncFormToState() {
   stateConfig.goodbyeChannelId = document.getElementById('goodbyeChannelId').value;
   stateConfig.goodbyeMessage = document.getElementById('goodbyeMessage').value;
 
+  stateConfig.alerts = {
+    onOpen: document.getElementById('alertOnOpen').checked,
+    onUnclaimed: document.getElementById('alertOnUnclaimed').checked,
+    onNewReply: document.getElementById('alertOnNewReply').checked,
+    onReopen: document.getElementById('alertOnReopen').checked,
+    onLowRating: document.getElementById('alertOnLowRating').checked,
+    unclaimedMinutes: Math.max(1, Number(document.getElementById('unclaimedMinutes').value) || 30)
+  };
+
   document.querySelectorAll('[data-t-field]').forEach(el => {
     const idx = Number(el.getAttribute('data-type-idx'));
     const field = el.getAttribute('data-t-field');
 
     if (stateConfig.ticketTypes[idx]) {
-      stateConfig.ticketTypes[idx][field] = el.value;
+      stateConfig.ticketTypes[idx][field] = el.type === 'checkbox' ? el.checked : el.value;
     }
   });
 
@@ -1086,6 +1356,10 @@ function applyStateToForm() {
   populateChannelSelect('welcomeChannelId', stateConfig.welcomeChannelId);
   populateChannelSelect('goodbyeChannelId', stateConfig.goodbyeChannelId);
 
+  populateRoleSelect('globalOwnerRoleId', stateConfig.ownerEscalationRoleId);
+  populateCategorySelect('globalOwnerCategoryId', stateConfig.ownerEscalationCategoryId);
+
+  document.getElementById('allowMultipleTicketsPerUser').checked = Boolean(stateConfig.allowMultipleTicketsPerUser);
   document.getElementById('panelTitle').value = stateConfig.panelTitle || '';
   document.getElementById('panelImageUrl').value = stateConfig.panelImageUrl || '';
   document.getElementById('panelDescription').value = stateConfig.panelDescription || '';
@@ -1099,8 +1373,20 @@ function applyStateToForm() {
   document.getElementById('goodbyeEnabled').checked = Boolean(stateConfig.goodbyeEnabled);
   document.getElementById('goodbyeMessage').value = stateConfig.goodbyeMessage || '';
 
+  const alerts = stateConfig.alerts || {};
+  document.getElementById('alertOnOpen').checked = alerts.onOpen !== false;
+  document.getElementById('alertOnUnclaimed').checked = alerts.onUnclaimed !== false;
+  document.getElementById('alertOnNewReply').checked = Boolean(alerts.onNewReply);
+  document.getElementById('alertOnReopen').checked = alerts.onReopen !== false;
+  document.getElementById('alertOnLowRating').checked = alerts.onLowRating !== false;
+  document.getElementById('unclaimedMinutes').value = alerts.unclaimedMinutes ?? 30;
+
   renderTicketTypes();
   renderStatsSummary();
+  renderTicketsTable();
+  renderArchiveTable();
+  renderRatingsTable();
+  renderAuditLogs();
   updatePreview();
 }
 
@@ -1126,7 +1412,10 @@ function updatePreview() {
 
   secBox.innerHTML = (stateConfig.ticketTypes || []).map(t => `
     <div style="border-top:1px solid #313338;padding-top:10px;margin-top:10px;">
-      <div style="font-weight:bold;font-size:15px;">${escapeHtml(t.sectionTitle || '')}</div>
+      <div style="font-weight:bold;font-size:15px;">
+        ${escapeHtml(t.sectionTitle || '')}
+        ${t.escalateToOwnerEnabled ? '<span class="badge" style="margin-right:6px;">تحويل لأونر: مفعّل</span>' : ''}
+      </div>
       <div class="muted" style="margin:4px 0 8px 0;">${escapeHtml(t.sectionDescription || '')}</div>
       <span style="display:inline-block;background:#5865f2;color:#fff;padding:6px 12px;border-radius:6px;font-size:13px;">${escapeHtml(t.buttonLabel || 'فتح شكوى')}</span>
     </div>
@@ -1142,7 +1431,10 @@ function updatePreview() {
   }
 }
 
+let isBusy = false;
+
 async function loadFromServer() {
+  if (isBusy) return;
   const url = getScriptUrl();
 
   if (!url) {
@@ -1150,16 +1442,27 @@ async function loadFromServer() {
     return;
   }
 
+  isBusy = true;
+  const btnRefresh = document.getElementById('btnRefresh');
+  if (btnRefresh) btnRefresh.disabled = true;
+
   try {
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url, { method: 'GET' }, 9000);
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
     const data = await res.json();
 
-    if (!data.ok) {
+    if (!data || !data.ok) {
       showToast('تعذر تحميل البيانات من السيرفر');
       return;
     }
 
     stateConfig = Object.assign({}, stateConfig, data.config || {});
+    if (data.config?.alerts) {
+      stateConfig.alerts = Object.assign({}, stateConfig.alerts, data.config.alerts);
+    }
     guildMeta = Object.assign({}, guildMeta, data.meta || {});
 
     const rCount = (guildMeta.roles || []).length;
@@ -1177,11 +1480,15 @@ async function loadFromServer() {
 
   } catch (err) {
     console.error(err);
-    showToast('حدث خطأ أثناء الاتصال بـ Apps Script');
+    showToast('حدث خطأ أو انتهت مهلة الاتصال بـ Apps Script');
+  } finally {
+    isBusy = false;
+    if (btnRefresh) btnRefresh.disabled = false;
   }
 }
 
 async function saveAllConfig() {
+  if (isBusy) return;
   const url = getScriptUrl();
 
   if (!url) {
@@ -1190,20 +1497,27 @@ async function saveAllConfig() {
   }
 
   syncFormToState();
+  isBusy = true;
+  const btnSave = document.getElementById('btnSave');
+  if (btnSave) btnSave.disabled = true;
 
   try {
-    const res = await fetch(url, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify({
-        type:'save_config',
-        config:stateConfig
+    const res = await fetchWithTimeout(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        type: 'save_config',
+        config: stateConfig
       })
-    });
+    }, 10000);
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
 
     const data = await res.json();
 
-    if (data.ok) {
+    if (data && data.ok) {
       stateConfig = Object.assign({}, stateConfig, data.config || stateConfig);
       showToast('تم حفظ جميع الإعدادات بنجاح');
     } else {
@@ -1213,6 +1527,9 @@ async function saveAllConfig() {
   } catch (err) {
     console.error(err);
     showToast('خطأ أثناء حفظ الإعدادات');
+  } finally {
+    isBusy = false;
+    if (btnSave) btnSave.disabled = false;
   }
 }
 
